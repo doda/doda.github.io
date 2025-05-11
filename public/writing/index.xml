@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Home on Dominik Dabrowski</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content in Home on Dominik Dabrowski</description>
+    <title>Writings on Dominik Dabrowski</title>
+    <link>http://localhost:1313/writing/</link>
+    <description>Recent content in Writings on Dominik Dabrowski</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/writing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Log-Structured Merge Tree</title>
       <link>http://localhost:1313/writing/lsm/</link>
