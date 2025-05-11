@@ -31,7 +31,7 @@ Inspised by Nabeel Qureshi's [Principles](https://nabeelqu.substack.com/p/princi
 - Pursue wealth first. Once you have found that alone unfulfilling, you are ready to climb the [Second Mountain](https://www.amazon.com/Second-Mountain-David-Brooks/dp/0812993268).
 - Love your pain: It's usually only through pain and struggle that you build up the motivation and leverage to change.
 - Love your love: Don't be afraid to tell others how you feel about them or that you appreciate them. The ones that matter won't mind, the ones that mind won't matter.
-- Honesty is an amazing policy, even if you might not get what you want in the short term.
+- Honesty is the best policy, even if you might not get what you want in the short term.
 - Your willpower is a finite resource, use tricks to protect it (default wardrobe, routine, physical reminders, group workouts, precommitment)
 - Invest in community and friendship, this means being around people with shared values regularly.
 - And in the end … remember, all of these, they're just thoughts.
