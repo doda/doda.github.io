@@ -3,7 +3,6 @@ title: "Principles"
 date: "2023-11-12" # Assuming today's date, please update if needed
 summary: "A collection of personal principles."
 description: "A collection of personal principles."
-toc: true
 readTime: true
 autonumber: true
 math: false # Assuming no math content, please update if needed
@@ -12,6 +11,8 @@ showTags: false
 hideBackToTop: false
 fediverse: "@username@instance.url" # Please update with your Fediverse handle
 ---
+
+Inspised by Nabeel Qureshi's [Principles](https://nabeelqu.substack.com/p/principles) here is my own set.
 
 - Live a life of service. Aim to be useful to those around you.
 - Everybody is always trying their best. And even if they act selfishly, lazily, or deceptively, this is what they can give in that moment. [You might as well resent a fig tree for secreting fig juice.](https://www.goodreads.com/quotes/11696038-that-sort-of-person-is-bound-to-do-that-you)
