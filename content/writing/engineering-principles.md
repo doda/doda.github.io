@@ -58,7 +58,7 @@ hideBackToTop: false
 
 ---
 
-## Working with infra
+## Working with Infra
 
 - **If it's not in CI it might as well not exist**
   Devs love to shipit 🐿️. If you want to enforce a constraint on your codebase, the only way to do that is if it is enforced by CI.
