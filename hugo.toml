@@ -1,6 +1,6 @@
 baseURL = 'https://doda.co/'
 languageCode = 'en-us'
-title = 'My website'
+title = 'Dominik Dabrowski'
 theme = 'typo'
 
 # Google analytics code
@@ -15,19 +15,20 @@ description = "A Tech Blog"
 
 # Appearance settings
 theme = 'auto'
-colorPalette = 'default'
+colorPalette = 'custom'
 hideHeader = false
+profilePicture = '/images/profile.jpg'
 
 # Intro on main page, content is markdown
 homeIntroTitle = 'Hi!'
 homeIntroContent = """
-I work on Systems at [Substack](https://substack.com). You can see some of what I've worked on on my [resume](). I am super excited about all things infrastructure engineering, machine learning and running things at scale.
+I work on Systems at [Substack](https://substack.com). You can see some of the projects I've worked on in my [resume](). I am super excited about all things infrastructure engineering, machine learning and running things at scale.
 
 
-My journey has taken me to living in 10+ cities and visiting 50+ countries, from early startup work in London and Berlin to settling in San Francisco.
+I've been fortunate to live in 5 different countries and visit over 50, from early startup work in London and Berlin to settling in San Francisco.
 
 
-In my free time I enjoy being, meditation, jhanas, CrossFit, painting and circling. I care deeply that what I do positively affects those around me. 
+In my free time I enjoy meditation, jhanas, CrossFit, painting and circling. I care deeply that what I do positively affects those around me. 
 
 
 I'm usually at the Thursday sits at the [Berkeley Alembic](https://www.berkeleyalembic.org/).  If our paths cross in meaningful ways, don't hesitate to reach out!
@@ -36,8 +37,8 @@ I'm usually at the Thursday sits at the [Berkeley Alembic](https://www.berkeleya
 """
 
 # Collection to display on home
-homeCollectionTitle = 'Posts'
-homeCollection = 'posts'
+homeCollectionTitle = 'Writing'
+homeCollection = 'writing'
 
 # Lists parameters
 paginationSize = 100
@@ -53,15 +54,15 @@ home = "Home"
 # Social icons
 [[params.social]]
 name = "linkedin"
-url = "https://www.linkedin.com/in/user/"
-
-[[params.social]]
-name = "medium"
-url = "https://medium.com/@user"
+url = "https://www.linkedin.com/in/dominik-dario/"
 
 [[params.social]]
 name = "github"
-url = "https://github.com/user"
+url = "https://github.com/doda"
+
+[[params.social]]
+name = "instagram"
+url = "https://instagram.com/dominik_dario"
 
 # Main menu pages
 [[params.menu]]
@@ -69,12 +70,8 @@ name = "home"
 url = "/"
 
 [[params.menu]]
-name = "posts"
-url = "/posts"
-
-[[params.menu]]
-name = "about"
-url = "/about"
+name = "writing"
+url = "/writing"
 
 # Syntax highlight on code blocks
 [markup]

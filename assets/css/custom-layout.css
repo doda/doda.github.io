@@ -1,0 +1,58 @@
+/* Custom styling for the homepage layout */
+
+/* Override content width */
+.content,
+.header,
+.main,
+footer {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 90% !important;
+}
+
+.intro-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2.5rem; /* Increase gap between text and image */
+  margin-bottom: 3rem;
+  width: 800px;
+}
+
+@media (max-width: 768px) {
+  .intro-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.intro {
+  flex: 1;
+}
+
+.profile-picture {
+  flex-shrink: 0;
+  margin-top: 6.5rem; /* Align with the first paragraph after the heading */
+  width: 200px; /* Increase width */
+  height: 260px; /* Increase height */
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+  margin-right: 1.5rem; /* Add some right margin */
+  margin-left: 2.5rem; /* Add some right margin */
+}
+
+.profile-picture:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 25% 20%; /* Move down by increasing the vertical percentage */
+  transition: all 0.4s ease;
+  filter: brightness(1.05) sepia(0.3);
+}
