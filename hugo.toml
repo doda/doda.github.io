@@ -22,10 +22,10 @@ profilePicture = '/images/profile.jpg'
 # Intro on main page, content is markdown
 homeIntroTitle = 'Hi!'
 homeIntroContent = """
-I work on Systems at [Substack](https://substack.com). You can see some of the projects I've worked on in my [resume](). I am super excited about all things infrastructure engineering, machine learning and running things at scale.
+I work on Systems at [Substack](https://substack.com). You can see some of the projects I've worked on in my [resume](). I am super excited about all things infra, AI and running things at scale.
 
 
-I've been fortunate to live in 5 different countries and visit over 50, from early startup work in London and Berlin to settling in San Francisco.
+I dropped out of school and moved to London to start working in startups at age 20, and then made my way to US via Berlin and Barcelona, where I've since settled in SF.
 
 
 In my free time I enjoy meditation, jhanas, CrossFit and making abstract art. I care deeply that what I do positively affects those around me. 

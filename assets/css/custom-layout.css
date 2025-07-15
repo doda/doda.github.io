@@ -54,5 +54,5 @@ footer {
   object-fit: cover;
   object-position: 25% 20%; /* Move down by increasing the vertical percentage */
   transition: all 0.4s ease;
-  filter: brightness(1.05) sepia(0.3);
+  filter: brightness(1.05) sepia(0.1);
 }
