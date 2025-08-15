@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zync Sharded Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+        }
+        
+        .client {
+            fill: #4A90E2;
+            stroke: #2E5C8A;
+            stroke-width: 2;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        .frontend {
+            fill: #50C878;
+            stroke: #2E7A4B;
+            stroke-width: 2;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.25));
+        }
+        
+        .pubsub-shard1 {
+            fill: #FF6B6B;
+            stroke: #CC4444;
+            stroke-width: 2;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.25));
+        }
+        
+        .pubsub-shard2 {
+            fill: #FF9F40;
+            stroke: #CC7A33;
+            stroke-width: 2;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.25));
+        }
+        
+        .pubsub-shard3 {
+            fill: #FFD93D;
+            stroke: #CCB033;
+            stroke-width: 2;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.25));
+        }
+        
+        .connection {
+            stroke: #666;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 3;
+            opacity: 0.8;
+        }
+        
+        .shard-connection {
+            stroke-width: 2.5;
+            fill: none;
+            opacity: 0.9;
+        }
+        
+        .arrow {
+            fill: #666;
+        }
+        
+        .label {
+            font-size: 14px;
+            fill: #333;
+            font-weight: 500;
+        }
+        
+        .component-label {
+            font-size: 16px;
+            fill: white;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+        
+        .websocket-label {
+            font-size: 12px;
+            fill: #666;
+            font-style: italic;
+        }
+        
+        .shard-label {
+            font-size: 11px;
+            fill: #555;
+            text-anchor: middle;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .data-flow {
+            stroke: #4A90E2;
+            stroke-width: 3;
+            fill: none;
+            opacity: 0;
+            animation: pulse 2s infinite;
+        }
+        
+        .improvements {
+            margin-top: 30px;
+            padding: 20px;
+            background: #D4EDDA;
+            border-left: 4px solid #28A745;
+            border-radius: 8px;
+        }
+        
+        .improvements h3 {
+            color: #155724;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .improvements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .improvements li {
+            color: #155724;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .improvements li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sharded Pub/Sub Architecture</h1>
+        <p class="subtitle">Key space divided into shards with distributed load</p>
+        
+        <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+            <!-- Define arrow markers -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" class="arrow" />
+                </marker>
+                <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#CC4444" />
+                </marker>
+                <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#CC7A33" />
+                </marker>
+                <marker id="arrowhead-yellow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#CCB033" />
+                </marker>
+            </defs>
+            
+            <!-- Clients -->
+            <g id="clients">
+                <rect x="50" y="50" width="120" height="60" rx="10" class="client"/>
+                <text x="110" y="85" class="component-label">Client 1</text>
+                
+                <rect x="50" y="140" width="120" height="60" rx="10" class="client"/>
+                <text x="110" y="175" class="component-label">Client 2</text>
+                
+                <rect x="50" y="230" width="120" height="60" rx="10" class="client"/>
+                <text x="110" y="265" class="component-label">Client 3</text>
+                
+                <rect x="50" y="320" width="120" height="60" rx="10" class="client"/>
+                <text x="110" y="355" class="component-label">Client N</text>
+            </g>
+            
+            <!-- Frontend Instances -->
+            <g id="frontends">
+                <rect x="280" y="90" width="140" height="60" rx="10" class="frontend"/>
+                <text x="350" y="125" class="component-label">Frontend 1</text>
+                
+                <rect x="280" y="180" width="140" height="60" rx="10" class="frontend"/>
+                <text x="350" y="215" class="component-label">Frontend 2</text>
+                
+                <rect x="280" y="270" width="140" height="60" rx="10" class="frontend"/>
+                <text x="350" y="305" class="component-label">Frontend N</text>
+            </g>
+            
+            <!-- Pub/Sub Shards -->
+            <g id="shards">
+                <rect x="560" y="70" width="160" height="70" rx="10" class="pubsub-shard1"/>
+                <text x="640" y="100" class="component-label">Pub/Sub Shard 1</text>
+                <text x="640" y="120" class="component-label" style="font-size: 12px; font-weight: normal;">Keys: A-H</text>
+                
+                <rect x="560" y="170" width="160" height="70" rx="10" class="pubsub-shard2"/>
+                <text x="640" y="200" class="component-label">Pub/Sub Shard 2</text>
+                <text x="640" y="220" class="component-label" style="font-size: 12px; font-weight: normal;">Keys: I-P</text>
+                
+                <rect x="560" y="270" width="160" height="70" rx="10" class="pubsub-shard3"/>
+                <text x="640" y="300" class="component-label">Pub/Sub Shard 3</text>
+                <text x="640" y="320" class="component-label" style="font-size: 12px; font-weight: normal;">Keys: Q-Z</text>
+                
+                <text x="640" y="370" class="shard-label">... More Shards</text>
+            </g>
+            
+            <!-- Connections from clients to frontends -->
+            <line x1="170" y1="80" x2="280" y2="120" class="connection" marker-end="url(#arrowhead)"/>
+            <line x1="170" y1="170" x2="280" y2="210" class="connection" marker-end="url(#arrowhead)"/>
+            <line x1="170" y1="260" x2="280" y2="210" class="connection" marker-end="url(#arrowhead)"/>
+            <line x1="170" y1="350" x2="280" y2="300" class="connection" marker-end="url(#arrowhead)"/>
+            
+            <!-- WebSocket label -->
+            <text x="215" y="160" class="websocket-label" text-anchor="middle">WebSocket</text>
+            
+            <!-- Connections from frontends to appropriate shards -->
+            <!-- Frontend 1 connections -->
+            <line x1="420" y1="120" x2="560" y2="105" class="shard-connection" stroke="#CC4444" marker-end="url(#arrowhead-red)"/>
+            <line x1="420" y1="130" x2="560" y2="205" class="shard-connection" stroke="#CC7A33" marker-end="url(#arrowhead-orange)"/>
+            
+            <!-- Frontend 2 connections -->
+            <line x1="420" y1="200" x2="560" y2="115" class="shard-connection" stroke="#CC4444" marker-end="url(#arrowhead-red)"/>
+            <line x1="420" y1="210" x2="560" y2="205" class="shard-connection" stroke="#CC7A33" marker-end="url(#arrowhead-orange)"/>
+            <line x1="420" y1="220" x2="560" y2="295" class="shard-connection" stroke="#CCB033" marker-end="url(#arrowhead-yellow)"/>
+            
+            <!-- Frontend N connections -->
+            <line x1="420" y1="295" x2="560" y2="225" class="shard-connection" stroke="#CC7A33" marker-end="url(#arrowhead-orange)"/>
+            <line x1="420" y1="305" x2="560" y2="305" class="shard-connection" stroke="#CCB033" marker-end="url(#arrowhead-yellow)"/>
+            
+            <!-- Connection labels -->
+            <text x="480" y="90" class="shard-label">Topic-based</text>
+            <text x="480" y="105" class="shard-label">routing</text>
+            
+            <!-- Flow labels -->
+            <text x="110" y="430" class="label">1. Clients connect to any Frontend</text>
+            <text x="350" y="430" class="label">2. Frontends connect to shards based on topic keys</text>
+            <text x="350" y="450" class="label">3. Load distributed across multiple Pub/Sub instances</text>
+        </svg>
+        
+    </div>
+</body>
+</html>

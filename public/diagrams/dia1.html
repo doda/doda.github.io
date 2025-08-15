@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zync Simple Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+        }
+        
+        .client {
+            fill: #4A90E2;
+            stroke: #2E5C8A;
+            stroke-width: 2;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        .frontend {
+            fill: #50C878;
+            stroke: #2E7A4B;
+            stroke-width: 2;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.25));
+        }
+        
+        .pubsub {
+            fill: #FF6B6B;
+            stroke: #CC4444;
+            stroke-width: 2;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.25));
+        }
+        
+        .connection {
+            stroke: #666;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 3;
+            opacity: 0.8;
+        }
+        
+        .arrow {
+            fill: #666;
+        }
+        
+        .label {
+            font-size: 14px;
+            fill: #333;
+            font-weight: 500;
+        }
+        
+        .component-label {
+            font-size: 16px;
+            fill: white;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+        
+        .websocket-label {
+            font-size: 12px;
+            fill: #666;
+            font-style: italic;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .data-flow {
+            stroke: #4A90E2;
+            stroke-width: 3;
+            fill: none;
+            opacity: 0;
+            animation: pulse 2s infinite;
+        }
+        
+        .issues {
+            margin-top: 30px;
+            padding: 20px;
+            background: #FFF3CD;
+            border-left: 4px solid #FFC107;
+            border-radius: 8px;
+        }
+        
+        .issues h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .issues ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .issues li {
+            color: #856404;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .issues li:before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Pub/Sub Architecture</h1>
+        <p class="subtitle">Multiple Frontend instances all connecting to a single Pub/Sub system</p>
+        
+        <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+            <!-- Define arrow markers -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" class="arrow" />
+                </marker>
+                <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#4A90E2" />
+                </marker>
+            </defs>
+            
+            <!-- Clients -->
+            <g id="clients">
+                <rect x="50" y="50" width="120" height="60" rx="10" class="client"/>
+                <text x="110" y="85" class="component-label">Client 1</text>
+                
+                <rect x="50" y="140" width="120" height="60" rx="10" class="client"/>
+                <text x="110" y="175" class="component-label">Client 2</text>
+                
+                <rect x="50" y="230" width="120" height="60" rx="10" class="client"/>
+                <text x="110" y="265" class="component-label">Client 3</text>
+                
+                <rect x="50" y="320" width="120" height="60" rx="10" class="client"/>
+                <text x="110" y="355" class="component-label">Client N</text>
+            </g>
+            
+            <!-- Multiple Frontend Instances -->
+            <g id="frontends">
+                <rect x="300" y="90" width="140" height="60" rx="10" class="frontend"/>
+                <text x="370" y="125" class="component-label">Frontend 1</text>
+                
+                <rect x="300" y="180" width="140" height="60" rx="10" class="frontend"/>
+                <text x="370" y="215" class="component-label">Frontend 2</text>
+                
+                <rect x="300" y="270" width="140" height="60" rx="10" class="frontend"/>
+                <text x="370" y="305" class="component-label">Frontend N</text>
+            </g>
+            
+            <!-- Pub/Sub System -->
+            <rect x="560" y="180" width="180" height="80" rx="10" class="pubsub"/>
+            <text x="650" y="215" class="component-label">Pub/Sub System</text>
+            <text x="650" y="235" class="component-label" style="font-size: 12px; font-weight: normal;">(Single Instance)</text>
+            
+            <!-- Connections from clients to frontends -->
+            <line x1="170" y1="80" x2="300" y2="120" class="connection" marker-end="url(#arrowhead)"/>
+            <line x1="170" y1="170" x2="300" y2="210" class="connection" marker-end="url(#arrowhead)"/>
+            <line x1="170" y1="260" x2="300" y2="210" class="connection" marker-end="url(#arrowhead)"/>
+            <line x1="170" y1="350" x2="300" y2="300" class="connection" marker-end="url(#arrowhead)"/>
+            
+            <!-- WebSocket label -->
+            <text x="225" y="150" class="websocket-label" transform="rotate(-15 225 150)">WebSocket</text>
+            
+            <!-- Connections from frontends to pub/sub -->
+            <line x1="440" y1="120" x2="560" y2="200" class="connection" marker-end="url(#arrowhead)"/>
+            <line x1="440" y1="210" x2="560" y2="220" class="connection" marker-end="url(#arrowhead)"/>
+            <line x1="440" y1="300" x2="560" y2="240" class="connection" marker-end="url(#arrowhead)"/>
+            <text x="480" y="170" class="websocket-label" text-anchor="middle">Subscribe/Publish</text>
+            
+            <!-- Animated data flow indicators -->
+            <line x1="170" y1="80" x2="300" y2="120" class="data-flow" marker-end="url(#arrowhead-blue)"/>
+            <line x1="440" y1="210" x2="560" y2="220" class="data-flow" marker-end="url(#arrowhead-blue)" style="animation-delay: 0.5s;"/>
+            
+            <!-- Flow labels -->
+            <text x="110" y="420" class="label">1. Clients connect to any Frontend</text>
+            <text x="400" y="420" class="label">2. All Frontends subscribe to single Pub/Sub</text>
+            <text x="400" y="440" class="label">3. Updates pushed through Frontends to clients</text>
+        </svg>
+        
+    </div>
+</body>
+</html>

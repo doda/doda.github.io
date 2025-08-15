@@ -6,14 +6,14 @@
     <description>Recent content in Home on Dominik Dabrowski</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Engineering Principles</title>
-      <link>http://localhost:1313/writing/engineering-principles-draft/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/writing/engineering-principles-draft/</guid>
-      <description>A collection of engineering principles.</description>
+      <title>Building Real-Time Infrastructure at Substack</title>
+      <link>http://localhost:1313/writing/zync/</link>
+      <pubDate>Wed, 14 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/writing/zync/</guid>
+      <description>How we built a scalable real-time Pub/Sub system that handles a billion messages per week.</description>
     </item>
     <item>
       <title>Engineering Principles</title>
@@ -27,13 +27,6 @@
       <link>http://localhost:1313/writing/principles/</link>
       <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/writing/principles/</guid>
-      <description>A collection of personal principles.</description>
-    </item>
-    <item>
-      <title>Principles Draft</title>
-      <link>http://localhost:1313/writing/principles-draft/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/writing/principles-draft/</guid>
       <description>A collection of personal principles.</description>
     </item>
   </channel>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<link rel="icon" type="image/ico" href="http:/localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http:/localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http:/localhost:1313/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="http:/localhost:1313/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http:/localhost:1313/apple-touch-icon.png">
+
+<meta name="description" content="Learn how Substack built Zync, a real-time infrastructure system using Node.js and Redis that scales to handle a billion messages per week."/>
+
+
+
+<title>
+    
+    Building Real-Time Infrastructure at Substack | Dominik Dabrowski
+    
+</title>
+
+<link rel="canonical" href="http://localhost:1313/writing/zync/"/>
+
+<meta property="og:url" content="http://localhost:1313/writing/zync/">
+  <meta property="og:site_name" content="Dominik Dabrowski">
+  <meta property="og:title" content="Building Real-Time Infrastructure at Substack">
+  <meta property="og:description" content="Learn how Substack built Zync, a real-time infrastructure system using Node.js and Redis that scales to handle a billion messages per week.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="writing">
+    <meta property="article:published_time" content="2024-08-14T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-14T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.faf09e6d1b40ae8fe173cc21597afc86077b4abcdc3d1a81769177869b5a9d6f.css" media="all">
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="http://localhost:1313/">Dominik Dabrowski</a>
+    </h1>
+
+    <div class="header-menu">
+        
+
+        
+        
+
+        <p
+            class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/writing" >
+                /writing
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs"><a href="/">Home</a><span class="breadcrumbs-separator">/</span><a href="/writing/">Writings</a><span class="breadcrumbs-separator">/</span>
+        <a href="/writing/zync/">Building Real-Time Infrastructure at Substack</a></div>
+
+
+<div  class="autonumber" >
+  <article>
+    <header class="single-intro-container">
+        
+        <h1 class="single-title">Building Real-Time Infrastructure at Substack</h1>
+        <p class="single-summary">How we built a scalable real-time Pub/Sub system that handles a billion messages per week.</p>
+    
+        <p class="single-readtime">
+          <time datetime="2024-08-14T00:00:00&#43;00:00">August 14, 2024</time>
+          &nbsp; · &nbsp;5 min read
+        </p>
+    </header>
+    
+    <div class="single-content">
+      <h3 class="heading" id="introduction-the-need-for-real-time">
+  <strong>Introduction: The Need for Real-Time</strong>
+  <a class="anchor" href="#introduction-the-need-for-real-time">#</a>
+</h3>
+<p>At Substack, we wanted to enable chat and other real-time use cases to make the platform more dynamic and interactive. To do this, I thought it would be very useful to have a small service that works as a Pub/Sub system for clients. The idea was simple: when clients are interested in a topic (e.g., the comment or like counter on a given displayed post), they can subscribe to that topic (such as &ldquo;number of likes&rdquo; for comment ID 123). Through that subscription, they will get real-time updates when people are liking that post.</p>
+<p>This idea originally came about during one of our bi-yearly hackathons, and one thing that was very important for me in the design of this architecture was a shared-nothing, scalable design.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+<figure class="">
+
+    <div class="img-container" >
+        <img loading="lazy" alt="Real-time infrastructure overview" src="/substack-realtime-intro.png" >
+    </div>
+
+    
+</figure>
+</p>
+<h3 class="heading" id="build-vs-buy">
+  <strong>Build vs. Buy</strong>
+  <a class="anchor" href="#build-vs-buy">#</a>
+</h3>
+<p>Before deciding to hand-roll our own implementation, we briefly looked at other implementations. They seemed to be designed for much smaller scales than we were looking for, and they required implementing front-end libraries that we didn&rsquo;t feel we needed in 2020. Most browsers that we cared about had <a href="https://caniuse.com/?search=websocket">robust WebSocket implementations</a>, and we wanted to use the native libraries wherever possible, both on the back-end and then on the front-end.</p>
+<p>For our backend, the technology of choice here was Node because that was our main programming language at Substack. For the Pub/Sub system, we used Redis Pub/Sub because we love Redis at Substack. It&rsquo;s one of the most robust pieces of technology I&rsquo;ve ever used.</p>
+<h3 class="heading" id="i-naive-implementation">
+  I: Naive implementation
+  <a class="anchor" href="#i-naive-implementation">#</a>
+</h3>
+<p>It&rsquo;s very easy to design a naive implementation of this whereby you have a front-end that allows clients to connect via web socket and then you have a Pub/Sub system. Your front-end subscribes to that given topic in the Pub/Sub system and then pushes out those updates.</p>
+<iframe src="/diagrams/dia1.html" width="100%" height="600" frameborder="0" style="border-radius: 8px; margin: 20px 0;"></iframe>
+<p><strong>Problems with this Architecture:</strong></p>
+<ul>
+<li><strong>Single point of failure</strong> - The entire Pub/Sub system can go down, taking all real-time functionality with it</li>
+<li><strong>Hot key problem</strong> - When millions subscribe to the same topic, throughput is limited to that one box handling all Pub/Sub operations</li>
+<li><strong>All Frontend instances bottleneck</strong> - Every frontend must connect to the same Pub/Sub instance, creating a scaling ceiling</li>
+<li><strong>No horizontal scaling</strong> - Adding more frontends doesn&rsquo;t help when the Pub/Sub system becomes the bottleneck</li>
+</ul>
+<h3 class="heading" id="ii-we-shard">
+  II: We shard
+  <a class="anchor" href="#ii-we-shard">#</a>
+</h3>
+<p>So the next step you could come up with is a sharded Pub/Sub system. In that case, the key space is divided into shards, and each front-end box is connected to the appropriate shard to push and receive updates from.</p>
+<p>This is already much better than our first idea. An additional optimization we can put in here is to differentiate between server and client subscriptions.</p>
+<ul>
+<li>A <strong>client subscription</strong> is as the name implies - the client is interested in a topic and wants to receive updates from it.</li>
+<li>A <strong>server subscription</strong> is the server subscribing to our Pub/Sub system for those given updates.</li>
+</ul>
+<p>When a client subscribes to a topic that the servers are not yet subscribed to, the server subscribes to the Pub/Sub backend. For all subsequent clients connecting to that same frontend and subscribing to that same topic, the server simply handles the fan-out internally.</p>
+<p>This way, we can handle the most difficult case where, for example, a million clients are subscribed to the same topic. If we have a maximum of 10,000 clients per frontend, we only have a hundred frontends subscribing to our Pub/Sub system. This is very feasible, because if we didn&rsquo;t have this optimization, our Pub/Sub system would have to deliver a separate message for each of the million clients.</p>
+<iframe src="/diagrams/dia2.html" width="100%" height="600" frameborder="0" style="border-radius: 8px; margin: 20px 0;"></iframe>
+<p><strong>Improvements over Simple Architecture:</strong></p>
+<ul>
+<li>No single point of failure - shards can fail independently</li>
+<li>Horizontal scaling - add more shards as needed</li>
+<li>Load distribution across multiple Pub/Sub instances</li>
+<li>Each frontend only connects to relevant shards based on client subscriptions</li>
+<li>Key space partitioning enables better resource utilization</li>
+</ul>
+<p>One of the potential pitfalls of this design is that if one of the frontends dies, the clients connected to it will lose their real-time subscriptions. Thankfully, we&rsquo;re able to get away with storing the client subscriptions only on the frontend in memory due to a variety of reasons:</p>
+<ol>
+<li><strong>The service was just incredibly stable.</strong> It was a very simple Node.js, WebSocket, and Redis implementation where there were basically no bugs found in the years of runtime, despite massive usage.</li>
+<li><strong>We over-provisioned the service</strong> to handle sudden failures or traffic spikes.</li>
+<li>When the client got a disconnect from the server, <strong>it would automatically reconnect and re-subscribe</strong> to its topics.</li>
+<li><strong>Sessions were relatively short-lived.</strong> When we scaled up the number of frontend instances during a traffic surge, clients naturally reconnected and spread themselves out across the new capacity.</li>
+</ol>
+<h3 class="heading" id="we-scale">
+  We scale
+  <a class="anchor" href="#we-scale">#</a>
+</h3>
+<p>Zync turned out to be one of the most robust pieces of infrastructure I&rsquo;ve ever written. There were only two notable commits in that repository:</p>
+<ol>
+<li>The initialization commit.</li>
+<li>A couple of months after rollout, one of our app developers asked for the ability to extend the API to allow subscribing and publishing messages to multiple topics at the same time. And so that API was expanded to take in either a string or a list of strings.</li>
+</ol>
+<p>One of the biggest stress tests of the system happened during election night when, in a one-hour span, traffic went from <strong>30 messages per second to 13,000 messages per second.</strong> And the system handled it without any problems.</p>
+<p>By the end of my tenure at Substack, Zync had grown to handle a <strong>billion messages per week</strong> and became a very important piece of infrastructure for us that was used throughout all of our clients, be they web or mobile.</p>
+
+    </div>
+  </article>
+
+  
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flexnowrap">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/writing/engineering-principles/">
+                        Engineering Principles
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  
+  
+
+
+
+
+
+    
+
+
+
+
+  <footer>
+    
+
+    
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    <p>Powered by
+        <a href="https://gohugo.io/">Hugo</a>
+        and
+        <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+    </p>
+    
+    
+    
+
+
+  </footer>
+
+  
+</body>
+
+<script src="/js/theme-switch.js"></script>
+<script defer src="/js/copy-code.js"></script>
+</html>
