@@ -6,21 +6,21 @@
     <description>Recent content in Writings on Dominik Dabrowski</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Aug 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 15 Aug 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/writing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What I learned at Substack</title>
+      <link>http://localhost:1313/writing/learned/</link>
+      <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/writing/learned/</guid>
+      <description>&lt;p&gt;In software engineering, we often focus on the technical side of our work—designing scalable systems, writing clean code, and mastering our tools. But the most impactful lessons are often learned in the spaces between the pull requests. They&amp;rsquo;re about people, trust, and self-awareness. Here are a few hard-learned lessons from my time building and scaling infrastructure.&lt;/p&gt;&#xA;&lt;h3 class=&#34;heading&#34; id=&#34;lesson-1-a-technical-win-can-be-a-team-loss&#34;&gt;&#xA;  Lesson 1: A Technical Win Can Be a Team Loss&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#lesson-1-a-technical-win-can-be-a-team-loss&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;p&gt;When I joined Substack, the company was running on about 40 Heroku dynos. A migration to AWS had been discussed, but three months into my tenure, no real movement had occurred.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Building Real-Time Infrastructure at Substack</title>
       <link>http://localhost:1313/writing/zync/</link>
       <pubDate>Wed, 14 Aug 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/writing/zync/</guid>
       <description>How we built a scalable real-time Pub/Sub system that handles a billion messages per week.</description>
-    </item>
-    <item>
-      <title>Engineering Principles</title>
-      <link>http://localhost:1313/writing/engineering-principles/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/writing/engineering-principles/</guid>
-      <description>A collection of engineering principles.</description>
     </item>
     <item>
       <title>Principles</title>

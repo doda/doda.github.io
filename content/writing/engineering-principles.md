@@ -5,6 +5,7 @@ summary: "A collection of engineering principles."
 description: "A collection of engineering principles."
 readTime: true
 autonumber: true
+draft: true
 math: false # Assuming no math content, please update if needed
 tags: ["engineering", "software"] # Suggested tags, please update if needed
 showTags: false

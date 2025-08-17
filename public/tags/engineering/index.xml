@@ -6,14 +6,6 @@
     <description>Recent content in Engineering on Dominik Dabrowski</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/engineering/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Engineering Principles</title>
-      <link>http://localhost:1313/writing/engineering-principles/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/writing/engineering-principles/</guid>
-      <description>A collection of engineering principles.</description>
-    </item>
   </channel>
 </rss>

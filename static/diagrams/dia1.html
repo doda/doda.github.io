@@ -12,36 +12,37 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: 'Literata', Georgia, Cambria, 'Noto Serif', serif;
+            background: #fff3dd;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 10px;
+            margin: 0;
         }
         
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: #fff3dd;
+            border: 1px solid #93432c;
+            border-radius: 10px;
+            padding: 15px;
             max-width: 1000px;
             width: 100%;
         }
         
         h1 {
             text-align: center;
-            color: #333;
+            color: #6b3a24;
             margin-bottom: 10px;
-            font-size: 28px;
+            font-size: 24px;
+            font-weight: normal;
         }
         
         .subtitle {
             text-align: center;
-            color: #666;
-            margin-bottom: 30px;
+            color: #93432c;
+            margin-bottom: 15px;
             font-size: 14px;
         }
         
@@ -72,7 +73,7 @@
         }
         
         .connection {
-            stroke: #666;
+            stroke: #93432c;
             stroke-width: 2;
             fill: none;
             stroke-dasharray: 5, 3;
@@ -80,13 +81,13 @@
         }
         
         .arrow {
-            fill: #666;
+            fill: #93432c;
         }
         
         .label {
             font-size: 14px;
-            fill: #333;
-            font-weight: 500;
+            fill: #6b3a24;
+            font-weight: normal;
         }
         
         .component-label {
@@ -98,7 +99,7 @@
         
         .websocket-label {
             font-size: 12px;
-            fill: #666;
+            fill: #93432c;
             font-style: italic;
         }
         
@@ -153,7 +154,7 @@
         <h1>Simple Pub/Sub Architecture</h1>
         <p class="subtitle">Multiple Frontend instances all connecting to a single Pub/Sub system</p>
         
-        <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
             <!-- Define arrow markers -->
             <defs>
                 <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
@@ -216,9 +217,6 @@
             <line x1="440" y1="210" x2="560" y2="220" class="data-flow" marker-end="url(#arrowhead-blue)" style="animation-delay: 0.5s;"/>
             
             <!-- Flow labels -->
-            <text x="110" y="420" class="label">1. Clients connect to any Frontend</text>
-            <text x="400" y="420" class="label">2. All Frontends subscribe to single Pub/Sub</text>
-            <text x="400" y="440" class="label">3. Updates pushed through Frontends to clients</text>
         </svg>
         
     </div>

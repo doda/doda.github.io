@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<link rel="icon" type="image/ico" href="http:/localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http:/localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http:/localhost:1313/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="http:/localhost:1313/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http:/localhost:1313/apple-touch-icon.png">
+
+<meta name="description" content="Six crucial lessons from building and scaling infrastructure that go beyond technical skills: team dynamics, communication, trust, and the human side of engineering."/>
+
+
+
+<title>
+    
+    What I learned at Substack | Dominik Dabrowski
+    
+</title>
+
+<link rel="canonical" href="http://localhost:1313/writing/learned/"/>
+
+<meta property="og:url" content="http://localhost:1313/writing/learned/">
+  <meta property="og:site_name" content="Dominik Dabrowski">
+  <meta property="og:title" content="What I learned at Substack">
+  <meta property="og:description" content="Six crucial lessons from building and scaling infrastructure that go beyond technical skills: team dynamics, communication, trust, and the human side of engineering.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="writing">
+    <meta property="article:published_time" content="2024-08-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-15T00:00:00+00:00">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.faf09e6d1b40ae8fe173cc21597afc86077b4abcdc3d1a81769177869b5a9d6f.css" media="all">
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="http://localhost:1313/">Dominik Dabrowski</a>
+    </h1>
+
+    <div class="header-menu">
+        
+
+        
+        
+
+        <p
+            class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/writing" >
+                /writing
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs"><a href="/">Home</a><span class="breadcrumbs-separator">/</span><a href="/writing/">Writings</a><span class="breadcrumbs-separator">/</span>
+        <a href="/writing/learned/">What I learned at Substack</a></div>
+
+
+<div  class="autonumber" >
+  <article>
+    <header class="single-intro-container">
+        
+        <h1 class="single-title">What I learned at Substack</h1>
+    
+        <p class="single-readtime">
+          <time datetime="2024-08-15T00:00:00&#43;00:00">August 15, 2024</time>
+          &nbsp; · &nbsp;6 min read
+        </p>
+    </header>
+    
+    <div class="single-content">
+      <p>In software engineering, we often focus on the technical side of our work—designing scalable systems, writing clean code, and mastering our tools. But the most impactful lessons are often learned in the spaces between the pull requests. They&rsquo;re about people, trust, and self-awareness. Here are a few hard-learned lessons from my time building and scaling infrastructure.</p>
+<h3 class="heading" id="lesson-1-a-technical-win-can-be-a-team-loss">
+  Lesson 1: A Technical Win Can Be a Team Loss
+  <a class="anchor" href="#lesson-1-a-technical-win-can-be-a-team-loss">#</a>
+</h3>
+<p>When I joined Substack, the company was running on about 40 Heroku dynos. A migration to AWS had been discussed, but three months into my tenure, no real movement had occurred.</p>
+<p>Excited by the challenge, I dove in headfirst. Rather than focusing on bringing the team along with me, I started building a prototype of what our web compute could look like on AWS. I wrote a small design doc, got the green light, and then began toiling away at a completely new compute architecture—VPCs, security groups, networking, CI/CD, optimized Docker images, and autoscaling on Fargate.</p>
+<p>I look back on those months with a mix of nostalgia and remorse. I was living, breathing, and thinking non-stop about AWS. On evenings and weekends, my mind was consumed with the migration. The result was a technical success, but my extreme work ethic came at a cost. It soured my relationship with two of the more senior engineers on the team.</p>
+<p>In Stephen Covey&rsquo;s terms, I wasn&rsquo;t thinking &ldquo;win-win.&rdquo; I wasn&rsquo;t even thinking &ldquo;win-lose.&rdquo; I was mostly just thinking &ldquo;win.&rdquo; My focus was on the technical achievement and, if I&rsquo;m being honest, on having my name attached to the cloud migration.</p>
+<p>I managed to rebuild those relationships after the project was done. But if I could do it again, I would communicate my intentions more openly from the start. I would have done more to involve my colleagues, champion their contributions, and ensure the victory belonged to the entire team.</p>
+<h3 class="heading" id="lesson-2-code-reviews-are-context-dependent">
+  Lesson 2: Code Reviews Are Context-Dependent
+  <a class="anchor" href="#lesson-2-code-reviews-are-context-dependent">#</a>
+</h3>
+<p>I used to believe that code reviews were one of the most sacred and important activities for an engineer. They are a tool for ensuring quality, sharing knowledge, and establishing standards. I&rsquo;ve since learned that&rsquo;s not always the case.</p>
+<p>At Substack, the average experience on my team was over 10 years. In that environment, we all wrote solid code. We trusted each other. We didn&rsquo;t need to nitpick every line; we knew when to reach out for ideas or a critique, and that collaboration often happened organically in Slack. When you have a high-trust team where individuals have clear ownership over parts of the codebase, you can get away with very light-touch, asynchronous reviews. This leads to the next point.</p>
+<h3 class="heading" id="lesson-3-talent-density-is-a-force-multiplier">
+  Lesson 3: Talent Density Is a Force Multiplier
+  <a class="anchor" href="#lesson-3-talent-density-is-a-force-multiplier">#</a>
+</h3>
+<p>If you can assemble a group of smart, kind, driven, and technically excellent engineers, the dynamic of work changes completely. You can spend your time doing what you love most: building and shipping.</p>
+<p>Being surrounded by excellent peers makes you excited to come to work and show progress. It cultivates a no-nonsense environment—no bullshit meetings, no defending the codebase from ill-conceived ideas. The collective focus is on moving forward and building great things. It&rsquo;s honestly a pleasure.</p>
+<p>This is another reason why hiring is so important. You want the divas that are a little bit difficult but great at what they do, and you want the people who may be a technically a bit weaker but who excel on soft skills.</p>
+<h3 class="heading" id="lesson-4-trust-your-instincts">
+  Lesson 4: Trust Your Instincts
+  <a class="anchor" href="#lesson-4-trust-your-instincts">#</a>
+</h3>
+<p>This might sound self-congratulatory, but a crucial lesson I learned was to trust my gut feelings about technical and team decisions. Almost every time I had a bad feeling, it was eventually proven right.</p>
+<p>There were hiring decisions where I was the dissenting voice, we hired the person anyway, and they turned out not to be a fit. There were technical approaches chosen that I was against, but I allowed the team to convince me, only to watch the predicted problems arise later. The lesson wasn&rsquo;t to become an uncooperative naysayer, but to learn to articulate my instincts more forcefully and to trust my own hard-won experience.</p>
+<h3 class="heading" id="lesson-5-communicate-for-your-audience">
+  Lesson 5: Communicate for Your Audience
+  <a class="anchor" href="#lesson-5-communicate-for-your-audience">#</a>
+</h3>
+<p>Having moved to the United States from Germany six years ago, I had to re-learn how to communicate effectively. The cultural norms are starkly different.</p>
+<p>In Germany, it&rsquo;s common to disagree vehemently. Complaining about things is a form of small talk. The linguistic scale is different, too. If something is good, it&rsquo;s &ldquo;okay.&rdquo; If it&rsquo;s bad, it&rsquo;s &ldquo;terrible.&rdquo;</p>
+<p>In the States, if something is good, it&rsquo;s an &ldquo;amazing idea.&rdquo; If something is bad, it&rsquo;s &ldquo;something we might want to consider down the line.&rdquo; Learning to navigate these nuances and make my opinion felt in the appropriate manner was critical. The best technical idea is worthless if you can&rsquo;t communicate it in a way your audience can hear.</p>
+<h3 class="heading" id="lesson-6-be-concise">
+  Lesson 6: Be Concise
+  <a class="anchor" href="#lesson-6-be-concise">#</a>
+</h3>
+<p>The best engineers I&rsquo;ve worked with have a very high signal-to-noise ratio. They convey the minimum amount of information necessary to get their point across, whether in a design doc, a Slack message, or an interview. It&rsquo;s a skill that reflects clarity of thought and respect for others&rsquo; time.</p>
+<h3 class="heading" id="lesson-7-aws-vendors--">
+  Lesson 7: AWS++ Vendors--
+  <a class="anchor" href="#lesson-7-aws-vendors--">#</a>
+</h3>
+<p>We consistently ran into strange issues with various vendors, and became so vendorophobic that by then end we almost always defaulted to implementing system designs to be AWS-native. Exciting queueing solution (eg. NATS) not available as an AWS managed service. It immediately becomes a lot less enticing.</p>
+<p>Substack being social-network-adjacent in both its mission and definitely load profile meant that we were very read-heavy (&gt;90%). At peak, our cluster was handling 340,000 hits per second, which made vendor reliability issues particularly painful.</p>
+<p>One such moment occurred during an especially annoying outage: We were using Redis Labs (The Original Redis Company and where the creator of redis, antirez, now works again!) to host all our caches.</p>
+<p>One of our developers decided to increase the size of one of our caches from 12GB to 30GB. Unfortunately this also causes the Redis Labs to automatically shard your database. We had affordances in our client code that were equipped to deal with clustered Redis, but that code had suffered some bitrot since we last used it and was not something we wanted to deploy in the middle of an outage. We specifically had some multi-key commands that were triggering <code>CROSSSLOT</code> errors.</p>
+<p>During the outage Zoom I remarked how stupid it was that we couldn&rsquo;t have a single Redis instance with more than 25GB memory. Fast-forward 6 months and another mini cloud migration later, we managed to migrate our entire caching cluster from Redis Labs to AWS ElastiCache. That also allowed us a few other nice benefits. Such as</p>
+<ol>
+<li>Valkey 8.0 (including a new asynchronous I/O threading model with 3x higher throughput)</li>
+<li>Automatic failover</li>
+<li>IaC tie-in with the rest of our infra, including mature Terraform providers</li>
+<li>Not having to use Redis Labs&rsquo; awful dashboard anymore</li>
+<li>AWS &ldquo;production-hardened&rdquo; config where they remove a lot of the potential footguns for you</li>
+</ol>
+
+    </div>
+  </article>
+
+  
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flexnowrap">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/writing/zync/">
+                        Building Real-Time Infrastructure at Substack
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  
+  
+
+
+
+
+
+    
+
+
+
+
+  <footer>
+    
+
+    
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    <p>Powered by
+        <a href="https://gohugo.io/">Hugo</a>
+        and
+        <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+    </p>
+    
+    
+    
+
+
+  </footer>
+
+  
+</body>
+
+<script src="/js/theme-switch.js"></script>
+<script defer src="/js/copy-code.js"></script>
+</html>

@@ -191,14 +191,14 @@
   <strong>Build vs. Buy</strong>
   <a class="anchor" href="#build-vs-buy">#</a>
 </h3>
-<p>Before deciding to hand-roll our own implementation, we briefly looked at other implementations. They seemed to be designed for much smaller scales than we were looking for, and they required implementing front-end libraries that we didn&rsquo;t feel we needed in 2020. Most browsers that we cared about had <a href="https://caniuse.com/?search=websocket">robust WebSocket implementations</a>, and we wanted to use the native libraries wherever possible, both on the back-end and then on the front-end.</p>
-<p>For our backend, the technology of choice here was Node because that was our main programming language at Substack. For the Pub/Sub system, we used Redis Pub/Sub because we love Redis at Substack. It&rsquo;s one of the most robust pieces of technology I&rsquo;ve ever used.</p>
-<h3 class="heading" id="i-naive-implementation">
-  I: Naive implementation
-  <a class="anchor" href="#i-naive-implementation">#</a>
+<p>Before deciding to hand-roll our own implementation, we briefly looked at other implementations. They seemed to be designed for much smaller scales than we were looking for, and they required implementing frontend libraries that we didn&rsquo;t feel we needed in 2020. Most browsers that we cared about had <a href="https://caniuse.com/?search=websocket">robust WebSocket implementations</a>, and we wanted to use native libraries wherever possible, both on the back-end and then on the frontend.</p>
+<p>For our backend, the technology of choice here was TypeScript/Node.js because that was our main programming language at Substack. For the Pub/Sub system, we used Redis Pub/Sub because Redis is plain the best :) It&rsquo;s one of the most robust pieces of technology I&rsquo;ve ever used.</p>
+<h3 class="heading" id="naive-implementation">
+  Naive implementation
+  <a class="anchor" href="#naive-implementation">#</a>
 </h3>
-<p>It&rsquo;s very easy to design a naive implementation of this whereby you have a front-end that allows clients to connect via web socket and then you have a Pub/Sub system. Your front-end subscribes to that given topic in the Pub/Sub system and then pushes out those updates.</p>
-<iframe src="/diagrams/dia1.html" width="100%" height="600" frameborder="0" style="border-radius: 8px; margin: 20px 0;"></iframe>
+<p>It&rsquo;s very easy to design a naive implementation of this whereby you have a frontend that allows clients to connect via web socket. Your frontend subscribes to that given topic in the Pub/Sub system and then pushes out those updates.</p>
+<iframe src="/diagrams/dia1.html" width="100%" height="450" frameborder="0" style="border-radius: 8px; margin: 15px 0;"></iframe>
 <p><strong>Problems with this Architecture:</strong></p>
 <ul>
 <li><strong>Single point of failure</strong> - The entire Pub/Sub system can go down, taking all real-time functionality with it</li>
@@ -206,19 +206,13 @@
 <li><strong>All Frontend instances bottleneck</strong> - Every frontend must connect to the same Pub/Sub instance, creating a scaling ceiling</li>
 <li><strong>No horizontal scaling</strong> - Adding more frontends doesn&rsquo;t help when the Pub/Sub system becomes the bottleneck</li>
 </ul>
-<h3 class="heading" id="ii-we-shard">
-  II: We shard
-  <a class="anchor" href="#ii-we-shard">#</a>
+<h3 class="heading" id="we-shard">
+  We shard
+  <a class="anchor" href="#we-shard">#</a>
 </h3>
-<p>So the next step you could come up with is a sharded Pub/Sub system. In that case, the key space is divided into shards, and each front-end box is connected to the appropriate shard to push and receive updates from.</p>
-<p>This is already much better than our first idea. An additional optimization we can put in here is to differentiate between server and client subscriptions.</p>
-<ul>
-<li>A <strong>client subscription</strong> is as the name implies - the client is interested in a topic and wants to receive updates from it.</li>
-<li>A <strong>server subscription</strong> is the server subscribing to our Pub/Sub system for those given updates.</li>
-</ul>
-<p>When a client subscribes to a topic that the servers are not yet subscribed to, the server subscribes to the Pub/Sub backend. For all subsequent clients connecting to that same frontend and subscribing to that same topic, the server simply handles the fan-out internally.</p>
-<p>This way, we can handle the most difficult case where, for example, a million clients are subscribed to the same topic. If we have a maximum of 10,000 clients per frontend, we only have a hundred frontends subscribing to our Pub/Sub system. This is very feasible, because if we didn&rsquo;t have this optimization, our Pub/Sub system would have to deliver a separate message for each of the million clients.</p>
-<iframe src="/diagrams/dia2.html" width="100%" height="600" frameborder="0" style="border-radius: 8px; margin: 20px 0;"></iframe>
+<p>So the next step you could come up with is a sharded Pub/Sub system. In that case, the key space is divided into shards, and each frontend box is connected to the appropriate shard to push and receive updates from.</p>
+<p>This is already much better than our first idea.</p>
+<iframe src="/diagrams/dia2.html" width="100%" height="450" frameborder="0" style="border-radius: 8px; margin: 15px 0;"></iframe>
 <p><strong>Improvements over Simple Architecture:</strong></p>
 <ul>
 <li>No single point of failure - shards can fail independently</li>
@@ -227,6 +221,13 @@
 <li>Each frontend only connects to relevant shards based on client subscriptions</li>
 <li>Key space partitioning enables better resource utilization</li>
 </ul>
+<p>An additional optimization we put in here is to differentiate between server and client subscriptions.</p>
+<ul>
+<li>A <strong>client subscription</strong> is as the name implies - the client is interested in a topic and wants to receive updates from it.</li>
+<li>A <strong>server subscription</strong> is the server subscribing to our Pub/Sub system for those given updates.</li>
+</ul>
+<p>When a client subscribes to a topic that the servers are not yet subscribed to, the server subscribes to the Pub/Sub backend. For all subsequent clients connecting to that same frontend and subscribing to that same topic, the server simply handles the fan-out internally.</p>
+<p>This way, we can handle the most difficult case where, for example, a million clients are subscribed to the same topic. If we have a maximum of 10,000 clients per frontend, we only have a hundred frontends subscribing to our Pub/Sub system. This is very feasible, because if we didn&rsquo;t have this optimization, our Pub/Sub system would have to deliver a separate message for each of the million clients.</p>
 <p>One of the potential pitfalls of this design is that if one of the frontends dies, the clients connected to it will lose their real-time subscriptions. Thankfully, we&rsquo;re able to get away with storing the client subscriptions only on the frontend in memory due to a variety of reasons:</p>
 <ol>
 <li><strong>The service was just incredibly stable.</strong> It was a very simple Node.js, WebSocket, and Redis implementation where there were basically no bugs found in the years of runtime, despite massive usage.</li>
@@ -243,7 +244,7 @@
 <li>The initialization commit.</li>
 <li>A couple of months after rollout, one of our app developers asked for the ability to extend the API to allow subscribing and publishing messages to multiple topics at the same time. And so that API was expanded to take in either a string or a list of strings.</li>
 </ol>
-<p>One of the biggest stress tests of the system happened during election night when, in a one-hour span, traffic went from <strong>30 messages per second to 13,000 messages per second.</strong> And the system handled it without any problems.</p>
+<p>One of the biggest stress tests of the system happened during election night when, in a one-hour span, traffic went from <strong>13 messages per second to 13,000 messages per second.</strong> And the system handled it without any problems.</p>
 <p>By the end of my tenure at Substack, Zync had grown to handle a <strong>billion messages per week</strong> and became a very important piece of infrastructure for us that was used throughout all of our clients, be they web or mobile.</p>
 
     </div>
@@ -266,8 +267,8 @@
             <div class="single-pagination-container-prev">
                 <div class="single-pagination-text">←</div>
                 <div class="single-pagination-text">
-                    <a href="/writing/engineering-principles/">
-                        Engineering Principles
+                    <a href="/writing/principles/">
+                        Principles
                     </a>
                 </div>
             </div>
@@ -275,6 +276,15 @@
         </div>
 
         <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/writing/learned/">
+                        What I learned at Substack
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
             
         </div>
 
