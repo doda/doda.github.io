@@ -6,9 +6,6 @@
 
 {{- if $chartData -}}
 <div class="chart-container" id="chart-{{ $chartId }}">
-  <div class="chart-header">
-    <h4>{{ $chartData.title }}</h4>
-  </div>
   
   {{- if $chartData.dataPoints -}}
   <div class="chart-visualization" id="chart-viz-{{ $chartId }}"></div>
@@ -16,7 +13,7 @@
     (function() {
       const data = [
         {{- range $chartData.dataPoints -}}
-        {year: {{ .year }}, value: {{ .value }}},
+        {year: {{ .year }}, value: {{ if eq $chartId "oil-spills" }}{{ div .value 1000 }}{{ else }}{{ .value }}{{ end }}},
         {{- end -}}
       ];
       
@@ -35,16 +32,17 @@
                        startPoint.year !== currentPoint.year;
       
       // Chart dimensions
-      const margin = {top: 20, right: 20, bottom: 30, left: 50};
+      const margin = {top: 20, right: 20, bottom: 40, left: 50};
       const width = 500 - margin.left - margin.right;
-      const height = 150 - margin.top - margin.bottom;
+      const height = 120;
+      const svgHeight = 250; // Fixed SVG height to match container
       
       // Create SVG
       const container = document.getElementById("chart-viz-{{ $chartId }}");
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svg.setAttribute("width", "100%");
-      svg.setAttribute("height", "150");
-      svg.setAttribute("viewBox", `0 0 500 150`);
+      svg.setAttribute("height", svgHeight);
+      svg.setAttribute("viewBox", `0 0 500 ${svgHeight}`);
       svg.style.fontFamily = "Helvetica, Arial, sans-serif";
       svg.style.fontSize = "10px";
       
@@ -83,6 +81,51 @@
       line.setAttribute("fill", "none");
       svg.appendChild(line);
       
+      // Add x-axis at y=0 position
+      const xAxisY = yScale(0);
+      
+      // Create x-axis ticks - show start, middle, and end years
+      const xTicks = [
+        xExtent[0], 
+        Math.round((xExtent[0] + xExtent[1]) / 2), 
+        xExtent[1]
+      ];
+      
+      xTicks.forEach(year => {
+        const x = xScale(year);
+        
+        // Add tick mark
+        const tick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        tick.setAttribute("x1", x);
+        tick.setAttribute("y1", xAxisY);
+        tick.setAttribute("x2", x);
+        tick.setAttribute("y2", xAxisY + 3);
+        tick.setAttribute("stroke", "#666666");
+        tick.setAttribute("stroke-width", "1");
+        svg.appendChild(tick);
+        
+        // Add year label
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", x);
+        label.setAttribute("y", xAxisY + 15);
+        label.setAttribute("text-anchor", "middle");
+        label.setAttribute("font-size", "10");
+        label.setAttribute("font-family", "Helvetica, Arial, sans-serif");
+        label.setAttribute("fill", "#666666");
+        label.textContent = year;
+        svg.appendChild(label);
+      });
+      
+      // Add x-axis line
+      const xAxisLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      xAxisLine.setAttribute("x1", margin.left);
+      xAxisLine.setAttribute("y1", xAxisY);
+      xAxisLine.setAttribute("x2", margin.left + width);
+      xAxisLine.setAttribute("y2", xAxisY);
+      xAxisLine.setAttribute("stroke", "#666666");
+      xAxisLine.setAttribute("stroke-width", "1");
+      svg.appendChild(xAxisLine);
+
       // Add data points
       data.forEach(d => {
         const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -136,79 +179,95 @@
         defs.appendChild(marker);
         svg.insertBefore(defs, svg.firstChild);
         
-        // Add data labels for start and end points with manual positioning
-        const chartId = "{{ $chartId }}";
-        
-        // Manual positioning configurations based on extracted data
-        const labelConfigs = {
-          "legal-slavery": { start: "above", end: "right", distance: 20, unit: "countries" },
-          "oil-spills": { start: "above", end: "right", distance: 20, unit: "k tons/year" },
-          "solar-price": { start: "above", end: "right", distance: 20, unit: "$/W" },
-          "battle-deaths": { start: "above", end: "right", distance: 22, unit: "per 100k" },
-          "child-mortality": { start: "above", end: "right", distance: 20, unit: "%" },
-          "death-penalty": { start: "above", end: "right", distance: 25, unit: "countries" },
-          "leaded-gasoline": { start: "above", end: "right", distance: 22, unit: "countries" },
-          "plane-deaths": { start: "above", end: "right", distance: 22, unit: "per 10bn miles" },
-          "disaster-deaths": { start: "above", end: "right", distance: 20, unit: "k deaths/year" },
-          "nuclear-warheads": { start: "above", end: "right", distance: 25, unit: "thousands" },
-          "smallpox": { start: "above", end: "right", distance: 25, unit: "countries" },
-          "so2-emissions": { start: "above", end: "right", distance: 18, unit: "kg per person" },
-          "ozone-depletion": { start: "above", end: "right", distance: 18, unit: "k tons ODS" },
-          "hunger": { start: "above", end: "right", distance: 20, unit: "%" },
-          "protected-areas": { start: "above", end: "right", distance: 15, unit: "%" },
-          "scientific-papers": { start: "above", end: "right", distance: 12, unit: "per year" },
-          "cereal-yield": { start: "above", end: "right", distance: 18, unit: "t/ha" },
-          "literacy": { start: "above", end: "right", distance: 15, unit: "%" },
-          "democracy": { start: "above", end: "right", distance: 15, unit: "%" },
-          "girls-school": { start: "above", end: "right", distance: 15, unit: "%" },
-          "electricity": { start: "above", end: "right", distance: 12, unit: "%" },
-          "mobile-phones": { start: "above", end: "right", distance: 12, unit: "%" },
-          "water-access": { start: "above", end: "right", distance: 12, unit: "%" },
-          "internet": { start: "above", end: "right", distance: 12, unit: "%" },
-          // Keep existing configs for charts not in the extracted data
-          "co2-intensity": { start: "above", end: "below", distance: 18 },
-          "extreme-poverty": { start: "above", end: "below", distance: 25 },
-          "life-expectancy": { start: "below", end: "above", distance: 18 },
-          "maternal-mortality": { start: "above", end: "below", distance: 20 },
-          "renewable-energy": { start: "below", end: "above", distance: 12 }
+        // Data labels: default positions only, based on direction
+        const config = (direction === "down")
+          ? { start: "below", end: "above" }
+          : { start: "above", end: "below" };
+
+        // Use asymmetric spacing so "above" labels sit a bit farther
+        const distanceAbove = 22; // px
+        const distanceBelow = 12; // px
+        const startDistance = config.start === "above" ? distanceAbove : distanceBelow;
+        const endDistance = config.end === "above" ? distanceAbove : distanceBelow;
+
+        // Screen-space points for interpolation and label-to-line clearance clamp
+        const pts = data.map(d => ({ x: xScale(d.year), y: yScale(d.value) }));
+        const yOnLine = (x) => {
+          let best = pts[0];
+          for (let i = 0; i < pts.length - 1; i++) {
+            const p0 = pts[i], p1 = pts[i + 1];
+            const minX = Math.min(p0.x, p1.x), maxX = Math.max(p0.x, p1.x);
+            if (x >= minX && x <= maxX && maxX !== minX) {
+              const t = (x - p0.x) / (p1.x - p0.x);
+              return p0.y + t * (p1.y - p0.y);
+            }
+            // Track nearest endpoint if outside segment ranges
+            if (Math.abs(x - p0.x) < Math.abs(x - best.x)) best = p0;
+            if (Math.abs(x - p1.x) < Math.abs(x - best.x)) best = p1;
+          }
+          return best.y;
         };
-        
-        const config = labelConfigs[chartId] || { start: "above", end: "above", distance: 15 };
-        
+
+        const clearanceAbove = 18; // ensure at least this many px above the line
+        const clearanceBelow = 10; // ensure at least this many px below the line
+
+        const adjustLabelPair = (valueEl, yearEl, x, side) => {
+          // Measure current sizes
+          const vb = valueEl.getBBox();
+          const yb = yearEl.getBBox();
+          const gap = 12;
+          const blockH = vb.height + gap + yb.height;
+          const yLine = yOnLine(x);
+
+          if (side === 'above') {
+            const bottom = yLine - clearanceAbove;
+            const valueBaseline = bottom - yb.height - gap + (vb.height * 0.8);
+            const yearBaseline = bottom - (yb.height * 0.2);
+            valueEl.setAttribute('y', Math.max(margin.top + 15, valueBaseline));
+            yearEl.setAttribute('y', Math.max(margin.top + 27, yearBaseline));
+          } else { // below
+            const top = yLine + clearanceBelow;
+            const valueBaseline = top + (vb.height * 0.8);
+            const yearBaseline = valueBaseline + gap + (yb.height * 0.8);
+            valueEl.setAttribute('y', Math.min(margin.top + height - 15, valueBaseline));
+            yearEl.setAttribute('y', Math.min(margin.top + height - 3, yearBaseline));
+          }
+        };
+
         // Helper function to get label position based on config
         const getLabelPosition = (point, position, distance) => {
-          const pointY = yScale(point.value);
+          const pointY = Math.max(margin.top + 10, Math.min(yScale(point.value), margin.top + height - 25));
           const pointX = xScale(point.year);
           
           if (position === "above") {
             return {
-              valueY: pointY - distance,
-              yearY: pointY - (distance - 12),
+              valueY: Math.max(margin.top + 15, pointY - distance),
+              yearY: Math.max(margin.top + 27, pointY - (distance - 12)),
               x: pointX
             };
           } else if (position === "below") {
             return {
-              valueY: pointY + 12,
-              yearY: pointY + 24,
+              valueY: Math.min(margin.top + height - 15, pointY + distance),
+              yearY: Math.min(margin.top + height - 3, pointY + distance + 12),
               x: pointX
             };
           } else if (position === "left") {
             return {
               valueY: pointY - 6,
               yearY: pointY + 6,
-              x: pointX - 25
+              x: Math.max(margin.left + 25, pointX - 25)
             };
           } else if (position === "right") {
             return {
               valueY: pointY - 6,
               yearY: pointY + 6,
-              x: pointX + 25
+              x: Math.min(margin.left + width - 25, pointX + 25)
             };
           }
         };
         
         // Start point labels
-        const startPos = getLabelPosition(startPoint, config.start, config.distance);
+        const startPos = getLabelPosition(startPoint, config.start, startDistance);
         const startValueLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
         startValueLabel.setAttribute("x", startPos.x);
         startValueLabel.setAttribute("y", startPos.valueY);
@@ -229,9 +288,9 @@
         startYearLabel.setAttribute("fill", "#666666");
         startYearLabel.textContent = startPoint.year;
         svg.appendChild(startYearLabel);
-        
+
         // End point labels
-        const endPos = getLabelPosition(currentPoint, config.end, config.distance);
+        const endPos = getLabelPosition(currentPoint, config.end, endDistance);
         const endValueLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
         endValueLabel.setAttribute("x", endPos.x);
         endValueLabel.setAttribute("y", endPos.valueY);
@@ -252,7 +311,11 @@
         endYearLabel.setAttribute("fill", "#666666");
         endYearLabel.textContent = currentPoint.year;
         svg.appendChild(endYearLabel);
-        
+
+        // Ensure a minimum clearance from the line so labels don't get too close when clamped to the top
+        adjustLabelPair(startValueLabel, startYearLabel, xScale(startPoint.year), config.start);
+        adjustLabelPair(endValueLabel, endYearLabel, xScale(currentPoint.year), config.end);
+
       }
       
       container.appendChild(svg);
@@ -260,19 +323,6 @@
   </script>
   {{- end -}}
   
-  <div class="chart-footer">
-    <small>
-      Source: 
-      {{- if eq $chartData.source "owid" -}}
-        <a href="https://ourworldindata.org/grapher/{{ $chartData.slug }}" target="_blank">Our World in Data</a>
-      {{- else -}}
-        {{ $chartData.source }}
-      {{- end -}}
-      {{- if $chartData.lastUpdated -}}
-        • Updated: {{ dateFormat "Jan 2, 2006" $chartData.lastUpdated }}
-      {{- end -}}
-    </small>
-  </div>
 </div>
 {{- else -}}
 <div class="chart-error">
