@@ -1,0 +1,199 @@
+/* Minimalist Monochromatic Chart Styling */
+
+/* Typography */
+.chart-container,
+.chart-container * {
+  font-family: "Helvetica", "Arial", sans-serif;
+}
+
+/* 2-Column Masonry Grid Layout */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Chart Section Wrapper */
+.chart-section {
+  display: block;
+  width: 100%;
+}
+
+.chart-section h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.3;
+}
+
+/* Individual Chart Container */
+.chart-container {
+  margin-bottom: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: #ffffff;
+  box-shadow: none;
+  display: block;
+  width: 100%;
+}
+
+.chart-header {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.chart-header h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.chart-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: "Helvetica", "Arial", sans-serif;
+  margin-bottom: 0.25rem;
+}
+
+.chart-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1;
+}
+
+.chart-year {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.chart-trend {
+  display: none; /* Remove trend arrows per minimalist guidelines */
+}
+
+.chart-visualization {
+  margin: 0.75rem 0 0.5rem 0;
+  overflow: visible;
+  width: 100%;
+}
+
+.chart-visualization svg {
+  width: 100%;
+  height: auto;
+  min-width: auto;
+}
+
+/* Observable Plot styling */
+.chart-visualization .plot-d6a7b5 {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Override Observable Plot default styles to match our minimalist theme */
+.chart-visualization text {
+  font-family: "Helvetica", "Arial", sans-serif !important;
+  font-size: 10px !important;
+  fill: #666666 !important;
+}
+
+/* Tooltip styling */
+.plot-tip {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: "Helvetica", "Arial", sans-serif !important;
+  font-size: 11px !important;
+  padding: 4px 8px !important;
+}
+
+.chart-label {
+  font-size: 10px;
+  font-weight: 400;
+  fill: #666666;
+  font-family: "Helvetica", "Arial", sans-serif;
+}
+
+.chart-footer {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0.5rem;
+}
+
+.chart-footer small {
+  color: #666666;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.chart-footer a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.chart-footer a:hover {
+  text-decoration: underline;
+}
+
+.chart-error {
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 0;
+  color: #666666;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chart-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .chart-header h4 {
+    font-size: 15px;
+  }
+  
+  .chart-value {
+    font-size: 20px;
+  }
+  
+  .chart-visualization svg {
+    height: 100px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .charts-grid {
+    column-count: 2;
+    column-gap: 1.5rem;
+  }
+  
+  .chart-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .chart-footer a {
+    color: #000000 !important;
+  }
+}

@@ -1,3 +1,92 @@
+/* Import charts styling */
+@import "charts.css";
+
+/* Wide Layout for Charts - Override theme width constraints */
+:root:has(.wide-layout) {
+  --main-width: 1600px !important;
+  --main-padding: 0 !important;
+}
+
+.wide-layout {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 auto;
+}
+
+/* Fallback for browsers without :has() support */
+html[data-wide-layout] {
+  --main-width: 1600px !important;
+  --main-padding: 0 !important;
+}
+
+/* Force override body constraints */
+body {
+  max-width: var(--main-width) !important;
+}
+
+.wide-layout .single-content,
+.wide-content {
+  max-width: 1600px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* Force override any theme restrictions */
+body .wide-layout,
+body .wide-layout .single-content,
+body .wide-content {
+  max-width: 1600px !important;
+  width: 100% !important;
+}
+
+/* Ensure charts grid uses full available width */
+.wide-layout .charts-grid {
+  width: 100% !important;
+  max-width: none !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 3rem !important;
+}
+
+/* Responsive adjustments for wide layout */
+@media (max-width: 1700px) {
+  .wide-layout .single-content,
+  .wide-content {
+    max-width: 95% !important;
+    padding: 0 !important;
+  }
+  
+  .wide-layout .charts-grid {
+    gap: 2.5rem !important;
+  }
+}
+
+@media (max-width: 1280px) {
+  .wide-layout .single-content,
+  .wide-content {
+    max-width: 90% !important;
+    padding: 0 !important;
+  }
+  
+  .wide-layout .charts-grid {
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .wide-layout .single-content,
+  .wide-content {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  .wide-layout .charts-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
 /* Basic profile picture styling */
 .profile-picture {
   flex-shrink: 0;

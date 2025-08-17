@@ -2,13 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2024-08-15T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/writing/32-optimistic-charts/</loc>
+    <lastmod>2025-08-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/writing/learned/</loc>
-    <lastmod>2024-08-15T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/tags/data/</loc>
+    <lastmod>2025-08-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-08-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/optimism/</loc>
+    <lastmod>2025-08-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/progress/</loc>
+    <lastmod>2025-08-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-08-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/writing/</loc>
+    <lastmod>2025-08-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/writing/learned/</loc>
     <lastmod>2024-08-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/writing/zync/</loc>
@@ -22,12 +37,5 @@
   </url><url>
     <loc>http://localhost:1313/writing/principles/</loc>
     <lastmod>2023-11-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/engineering/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/software/</loc>
   </url>
 </urlset>

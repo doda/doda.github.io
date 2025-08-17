@@ -1,0 +1,2888 @@
+{
+  "battle-deaths": {
+    "id": "battle-deaths",
+    "title": "Battle Deaths",
+    "description": "The number of deaths in state-based conflicts per 100,000 people has fallen to historic lows.",
+    "source": "owid",
+    "slug": "state-based-battle-related-deaths-per-100000-since-1946",
+    "direction": "down",
+    "year": 2024,
+    "value": 0,
+    "valueColumn": "Death rate in ongoing conflicts (best estimate) - Conflict type: extrasystemic",
+    "dataPoints": [
+      {
+        "year": 1946,
+        "value": 1.7845484
+      },
+      {
+        "year": 1949,
+        "value": 1.761051
+      },
+      {
+        "year": 1952,
+        "value": 1.7986227
+      },
+      {
+        "year": 1955,
+        "value": 0.8757755
+      },
+      {
+        "year": 1958,
+        "value": 0.8398103
+      },
+      {
+        "year": 1961,
+        "value": 0.8482149
+      },
+      {
+        "year": 1964,
+        "value": 0.2313092
+      },
+      {
+        "year": 1967,
+        "value": 0.23980215
+      },
+      {
+        "year": 1970,
+        "value": 0.21728988
+      },
+      {
+        "year": 1973,
+        "value": 0.2496556
+      },
+      {
+        "year": 1976,
+        "value": 0
+      },
+      {
+        "year": 1979,
+        "value": 0
+      },
+      {
+        "year": 1982,
+        "value": 0
+      },
+      {
+        "year": 1985,
+        "value": 0
+      },
+      {
+        "year": 1988,
+        "value": 0
+      },
+      {
+        "year": 1991,
+        "value": 0
+      },
+      {
+        "year": 1994,
+        "value": 0
+      },
+      {
+        "year": 1997,
+        "value": 0
+      },
+      {
+        "year": 2000,
+        "value": 0
+      },
+      {
+        "year": 2003,
+        "value": 0
+      },
+      {
+        "year": 2006,
+        "value": 0
+      },
+      {
+        "year": 2009,
+        "value": 0
+      },
+      {
+        "year": 2012,
+        "value": 0
+      },
+      {
+        "year": 2015,
+        "value": 0
+      },
+      {
+        "year": 2018,
+        "value": 0
+      },
+      {
+        "year": 2021,
+        "value": 0
+      },
+      {
+        "year": 2024,
+        "value": 0
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:32-07:00"
+  },
+  "cereal-yield": {
+    "id": "cereal-yield",
+    "title": "Harvest",
+    "description": "The amount of cereal yield (in tonnes per hectare) has increased, meaning more food from the same land.",
+    "source": "owid",
+    "slug": "cereal-yield",
+    "direction": "up",
+    "year": 2023,
+    "value": 4.2426004,
+    "valueColumn": "Cereals | 00001717 || Yield | 005412 || tonnes per hectare",
+    "dataPoints": [
+      {
+        "year": 1961,
+        "value": 1.3532
+      },
+      {
+        "year": 1964,
+        "value": 1.4938002
+      },
+      {
+        "year": 1967,
+        "value": 1.6533002
+      },
+      {
+        "year": 1970,
+        "value": 1.7655001
+      },
+      {
+        "year": 1973,
+        "value": 1.9404001
+      },
+      {
+        "year": 1976,
+        "value": 2.0259001
+      },
+      {
+        "year": 1979,
+        "value": 2.1761003
+      },
+      {
+        "year": 1982,
+        "value": 2.3693001
+      },
+      {
+        "year": 1985,
+        "value": 2.5288002
+      },
+      {
+        "year": 1988,
+        "value": 2.4599
+      },
+      {
+        "year": 1991,
+        "value": 2.6832001
+      },
+      {
+        "year": 1994,
+        "value": 2.8226001
+      },
+      {
+        "year": 1997,
+        "value": 2.9945002
+      },
+      {
+        "year": 2000,
+        "value": 3.0679
+      },
+      {
+        "year": 2003,
+        "value": 3.0926003
+      },
+      {
+        "year": 2006,
+        "value": 3.3075001
+      },
+      {
+        "year": 2009,
+        "value": 3.5547001
+      },
+      {
+        "year": 2012,
+        "value": 3.6144001
+      },
+      {
+        "year": 2015,
+        "value": 3.9253001
+      },
+      {
+        "year": 2018,
+        "value": 4.0291004
+      },
+      {
+        "year": 2021,
+        "value": 4.1604
+      },
+      {
+        "year": 2023,
+        "value": 4.2426004
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:38-07:00"
+  },
+  "child-mortality": {
+    "id": "child-mortality",
+    "title": "Children Dying",
+    "description": "The percentage of children dying before their fifth birthday has dramatically declined.",
+    "source": "owid",
+    "slug": "child-mortality",
+    "direction": "down",
+    "year": 2023,
+    "value": 3.67,
+    "valueColumn": "Child mortality rate",
+    "dataPoints": [
+      {
+        "year": 1800,
+        "value": 42.8
+      },
+      {
+        "year": 1811,
+        "value": 42.4
+      },
+      {
+        "year": 1822,
+        "value": 42.1
+      },
+      {
+        "year": 1833,
+        "value": 42.2
+      },
+      {
+        "year": 1844,
+        "value": 42.1
+      },
+      {
+        "year": 1855,
+        "value": 44
+      },
+      {
+        "year": 1866,
+        "value": 42.1
+      },
+      {
+        "year": 1877,
+        "value": 41.2
+      },
+      {
+        "year": 1888,
+        "value": 41
+      },
+      {
+        "year": 1899,
+        "value": 40.8
+      },
+      {
+        "year": 1910,
+        "value": 36.4
+      },
+      {
+        "year": 1921,
+        "value": 34.2
+      },
+      {
+        "year": 1932,
+        "value": 30.7
+      },
+      {
+        "year": 1943,
+        "value": 27.7
+      },
+      {
+        "year": 1954,
+        "value": 22.8
+      },
+      {
+        "year": 1965,
+        "value": 15.1
+      },
+      {
+        "year": 1976,
+        "value": 12.8
+      },
+      {
+        "year": 1987,
+        "value": 9.94
+      },
+      {
+        "year": 1998,
+        "value": 8.23
+      },
+      {
+        "year": 2009,
+        "value": 5.4
+      },
+      {
+        "year": 2020,
+        "value": 3.87
+      },
+      {
+        "year": 2023,
+        "value": 3.67
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:34-07:00"
+  },
+  "co2-intensity": {
+    "id": "co2-intensity",
+    "title": "CO₂ Intensity",
+    "description": "Each dollar of world GDP now emits ~40% less CO₂ than in 1990.",
+    "source": "owid",
+    "slug": "co2-intensity",
+    "direction": "down",
+    "year": 2022,
+    "value": 0.28662747,
+    "valueColumn": "Annual CO₂ emissions per GDP (kg per international-$)",
+    "dataPoints": [
+      {
+        "year": 1820,
+        "value": 0.043172903
+      },
+      {
+        "year": 1850,
+        "value": 0.12727068
+      },
+      {
+        "year": 1870,
+        "value": 0.27310827
+      },
+      {
+        "year": 1900,
+        "value": 0.55983275
+      },
+      {
+        "year": 1920,
+        "value": 0.7332383
+      },
+      {
+        "year": 1940,
+        "value": 0.6387778
+      },
+      {
+        "year": 1950,
+        "value": 0.7008459
+      },
+      {
+        "year": 1960,
+        "value": 0.70377547
+      },
+      {
+        "year": 1970,
+        "value": 0.6790251
+      },
+      {
+        "year": 1980,
+        "value": 0.60934746
+      },
+      {
+        "year": 1990,
+        "value": 0.5281683
+      },
+      {
+        "year": 2000,
+        "value": 0.42590228
+      },
+      {
+        "year": 2010,
+        "value": 0.3714147
+      },
+      {
+        "year": 2015,
+        "value": 0.33128375
+      },
+      {
+        "year": 2016,
+        "value": 0.32078212
+      },
+      {
+        "year": 2017,
+        "value": 0.31424102
+      },
+      {
+        "year": 2018,
+        "value": 0.30926767
+      },
+      {
+        "year": 2019,
+        "value": 0.3037615
+      },
+      {
+        "year": 2020,
+        "value": 0.29620138
+      },
+      {
+        "year": 2021,
+        "value": 0.29357404
+      },
+      {
+        "year": 2022,
+        "value": 0.28662747
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:28-07:00"
+  },
+  "death-penalty": {
+    "id": "death-penalty",
+    "title": "Death Penalty",
+    "description": "The number of countries that have abolished the death penalty has steadily increased.",
+    "source": "manual",
+    "direction": "up",
+    "year": 2024,
+    "value": null,
+    "valueColumn": "Manual Data Required",
+    "dataPoints": [],
+    "lastUpdated": "2025-08-17T13:32:42-07:00"
+  },
+  "democracy": {
+    "id": "democracy",
+    "title": "Democracy",
+    "description": "The share of humanity living in a democracy has increased significantly.",
+    "source": "owid",
+    "slug": "people-living-in-democracies-autocracies",
+    "direction": "up",
+    "year": 2024,
+    "value": 1351854565,
+    "valueColumn": "People living in electoral democracies",
+    "dataPoints": [
+      {
+        "year": 1789,
+        "value": 0
+      },
+      {
+        "year": 1800,
+        "value": 0
+      },
+      {
+        "year": 1811,
+        "value": 0
+      },
+      {
+        "year": 1822,
+        "value": 0
+      },
+      {
+        "year": 1833,
+        "value": 0
+      },
+      {
+        "year": 1844,
+        "value": 0
+      },
+      {
+        "year": 1855,
+        "value": 0
+      },
+      {
+        "year": 1866,
+        "value": 0
+      },
+      {
+        "year": 1877,
+        "value": 38562323
+      },
+      {
+        "year": 1888,
+        "value": 40018115
+      },
+      {
+        "year": 1899,
+        "value": 40762987
+      },
+      {
+        "year": 1910,
+        "value": 43869795
+      },
+      {
+        "year": 1921,
+        "value": 269171560
+      },
+      {
+        "year": 1932,
+        "value": 297308342
+      },
+      {
+        "year": 1943,
+        "value": 148583345
+      },
+      {
+        "year": 1954,
+        "value": 626331361
+      },
+      {
+        "year": 1965,
+        "value": 818886050
+      },
+      {
+        "year": 1976,
+        "value": 90630605
+      },
+      {
+        "year": 1987,
+        "value": 1056568758
+      },
+      {
+        "year": 1998,
+        "value": 1940693474
+      },
+      {
+        "year": 2009,
+        "value": 2230990836
+      },
+      {
+        "year": 2020,
+        "value": 1525178859
+      },
+      {
+        "year": 2024,
+        "value": 1351854565
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:40-07:00"
+  },
+  "disaster-deaths": {
+    "id": "disaster-deaths",
+    "title": "Deaths from Disaster",
+    "description": "The number of people killed by natural disasters has fallen significantly over the last century.",
+    "source": "owid",
+    "slug": "number-of-deaths-from-natural-disasters",
+    "direction": "down",
+    "year": 2024,
+    "value": 0,
+    "valueColumn": "Deaths - Drought",
+    "dataPoints": [
+      {
+        "year": 1900,
+        "value": 1261000
+      },
+      {
+        "year": 1910,
+        "value": 16990
+      },
+      {
+        "year": 1914,
+        "value": 17040
+      },
+      {
+        "year": 1922,
+        "value": 0
+      },
+      {
+        "year": 1932,
+        "value": 0
+      },
+      {
+        "year": 1936,
+        "value": 0
+      },
+      {
+        "year": 1940,
+        "value": 4006
+      },
+      {
+        "year": 1944,
+        "value": 4009
+      },
+      {
+        "year": 1961,
+        "value": 0
+      },
+      {
+        "year": 1966,
+        "value": 508000
+      },
+      {
+        "year": 1970,
+        "value": 0
+      },
+      {
+        "year": 1974,
+        "value": 20427
+      },
+      {
+        "year": 1978,
+        "value": 19774
+      },
+      {
+        "year": 1982,
+        "value": 20988
+      },
+      {
+        "year": 1986,
+        "value": 84
+      },
+      {
+        "year": 1990,
+        "value": 42
+      },
+      {
+        "year": 1994,
+        "value": 0
+      },
+      {
+        "year": 1998,
+        "value": 65
+      },
+      {
+        "year": 2002,
+        "value": 671
+      },
+      {
+        "year": 2006,
+        "value": 169
+      },
+      {
+        "year": 2010,
+        "value": 10000
+      },
+      {
+        "year": 2014,
+        "value": 0
+      },
+      {
+        "year": 2018,
+        "value": 0
+      },
+      {
+        "year": 2022,
+        "value": 2601
+      },
+      {
+        "year": 2024,
+        "value": 0
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:37-07:00"
+  },
+  "electricity": {
+    "id": "electricity",
+    "title": "Electricity Coverage",
+    "description": "The share of people with some access to electricity has grown.",
+    "source": "owid",
+    "slug": "share-of-the-population-with-access-to-electricity",
+    "direction": "up",
+    "year": 2022,
+    "value": 91.277855,
+    "valueColumn": "Access to electricity (% of population)",
+    "dataPoints": [
+      {
+        "year": 1998,
+        "value": 73.196236
+      },
+      {
+        "year": 1999,
+        "value": 74.50321
+      },
+      {
+        "year": 2000,
+        "value": 78.2214
+      },
+      {
+        "year": 2001,
+        "value": 78.71523
+      },
+      {
+        "year": 2002,
+        "value": 79.10069
+      },
+      {
+        "year": 2003,
+        "value": 79.96463
+      },
+      {
+        "year": 2004,
+        "value": 79.951706
+      },
+      {
+        "year": 2005,
+        "value": 80.700745
+      },
+      {
+        "year": 2006,
+        "value": 81.35274
+      },
+      {
+        "year": 2007,
+        "value": 81.9703
+      },
+      {
+        "year": 2008,
+        "value": 82.66719
+      },
+      {
+        "year": 2009,
+        "value": 82.86468
+      },
+      {
+        "year": 2010,
+        "value": 83.445724
+      },
+      {
+        "year": 2011,
+        "value": 84.50422
+      },
+      {
+        "year": 2012,
+        "value": 84.933945
+      },
+      {
+        "year": 2013,
+        "value": 85.70948
+      },
+      {
+        "year": 2014,
+        "value": 86.195206
+      },
+      {
+        "year": 2015,
+        "value": 86.923546
+      },
+      {
+        "year": 2016,
+        "value": 88.10383
+      },
+      {
+        "year": 2017,
+        "value": 88.9311
+      },
+      {
+        "year": 2018,
+        "value": 89.79635
+      },
+      {
+        "year": 2019,
+        "value": 90.10693
+      },
+      {
+        "year": 2020,
+        "value": 90.39738
+      },
+      {
+        "year": 2021,
+        "value": 91.33499
+      },
+      {
+        "year": 2022,
+        "value": 91.277855
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:35-07:00"
+  },
+  "extreme-poverty": {
+    "id": "extreme-poverty",
+    "title": "Extreme Poverty",
+    "description": "The share of humanity living on less than $3/day has fallen from \u003e40% in 1981 to \u003c10% today.",
+    "source": "owid",
+    "slug": "share-of-population-in-extreme-poverty",
+    "direction": "down",
+    "year": 2025,
+    "value": 9.856213,
+    "valueColumn": "Share of population in poverty ($3 a day, 2021 prices) - Income or consumption consolidated",
+    "dataPoints": [
+      {
+        "year": 1990,
+        "value": 43.62347
+      },
+      {
+        "year": 1991,
+        "value": 43.308975
+      },
+      {
+        "year": 1992,
+        "value": 42.646713
+      },
+      {
+        "year": 1993,
+        "value": 42.162754
+      },
+      {
+        "year": 1994,
+        "value": 40.751804
+      },
+      {
+        "year": 1995,
+        "value": 39.29992
+      },
+      {
+        "year": 1996,
+        "value": 37.99766
+      },
+      {
+        "year": 1997,
+        "value": 37.6325
+      },
+      {
+        "year": 1998,
+        "value": 37.821438
+      },
+      {
+        "year": 1999,
+        "value": 37.296734
+      },
+      {
+        "year": 2000,
+        "value": 36.258648
+      },
+      {
+        "year": 2001,
+        "value": 35.3276
+      },
+      {
+        "year": 2002,
+        "value": 33.82348
+      },
+      {
+        "year": 2003,
+        "value": 32.322193
+      },
+      {
+        "year": 2004,
+        "value": 30.390305
+      },
+      {
+        "year": 2005,
+        "value": 28.426996
+      },
+      {
+        "year": 2006,
+        "value": 27.02685
+      },
+      {
+        "year": 2007,
+        "value": 25.348526
+      },
+      {
+        "year": 2008,
+        "value": 24.160345
+      },
+      {
+        "year": 2009,
+        "value": 23.068974
+      },
+      {
+        "year": 2010,
+        "value": 20.992023
+      },
+      {
+        "year": 2011,
+        "value": 19.143898
+      },
+      {
+        "year": 2012,
+        "value": 17.860125
+      },
+      {
+        "year": 2013,
+        "value": 15.481716
+      },
+      {
+        "year": 2014,
+        "value": 14.438818
+      },
+      {
+        "year": 2015,
+        "value": 13.338141
+      },
+      {
+        "year": 2016,
+        "value": 12.48118
+      },
+      {
+        "year": 2017,
+        "value": 11.723499
+      },
+      {
+        "year": 2018,
+        "value": 11.059525
+      },
+      {
+        "year": 2019,
+        "value": 10.694138
+      },
+      {
+        "year": 2020,
+        "value": 11.221615
+      },
+      {
+        "year": 2021,
+        "value": 10.967278
+      },
+      {
+        "year": 2022,
+        "value": 10.48834
+      },
+      {
+        "year": 2023,
+        "value": 10.192862
+      },
+      {
+        "year": 2024,
+        "value": 10.044863
+      },
+      {
+        "year": 2025,
+        "value": 9.856213
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:41-07:00"
+  },
+  "girls-school": {
+    "id": "girls-school",
+    "title": "Girls in School",
+    "description": "The share of girls of primary school age who are enrolled has risen to near-parity with boys.",
+    "source": "owid",
+    "slug": "net-enrollment-rate-primary-gender-parity-index-gpi",
+    "direction": "up",
+    "year": 2023,
+    "value": 0.97313,
+    "valueColumn": "Net enrollment rates in primary education, adjusted gender parity index",
+    "dataPoints": [
+      {
+        "year": 1970,
+        "value": 0.84016
+      },
+      {
+        "year": 1972,
+        "value": 0.79965
+      },
+      {
+        "year": 1974,
+        "value": 0.79201
+      },
+      {
+        "year": 1976,
+        "value": 0.83173
+      },
+      {
+        "year": 1978,
+        "value": 0.81504
+      },
+      {
+        "year": 1980,
+        "value": 0.81496
+      },
+      {
+        "year": 1982,
+        "value": 0.83338
+      },
+      {
+        "year": 1984,
+        "value": 0.85876
+      },
+      {
+        "year": 1986,
+        "value": 0.8908
+      },
+      {
+        "year": 1988,
+        "value": 0.90111
+      },
+      {
+        "year": 1990,
+        "value": 0.90292
+      },
+      {
+        "year": 1992,
+        "value": 0.90683
+      },
+      {
+        "year": 1994,
+        "value": 0.9158
+      },
+      {
+        "year": 1996,
+        "value": 0.91734
+      },
+      {
+        "year": 1998,
+        "value": 0.93585
+      },
+      {
+        "year": 2000,
+        "value": 0.94073
+      },
+      {
+        "year": 2002,
+        "value": 0.94699
+      },
+      {
+        "year": 2004,
+        "value": 0.966
+      },
+      {
+        "year": 2006,
+        "value": 0.97191
+      },
+      {
+        "year": 2008,
+        "value": 0.97863
+      },
+      {
+        "year": 2010,
+        "value": 0.98475
+      },
+      {
+        "year": 2012,
+        "value": 0.9816
+      },
+      {
+        "year": 2014,
+        "value": 0.97883
+      },
+      {
+        "year": 2016,
+        "value": 0.97548
+      },
+      {
+        "year": 2018,
+        "value": 0.97063
+      },
+      {
+        "year": 2020,
+        "value": 0.97528
+      },
+      {
+        "year": 2022,
+        "value": 0.97345
+      },
+      {
+        "year": 2023,
+        "value": 0.97313
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:42-07:00"
+  },
+  "hunger": {
+    "id": "hunger",
+    "title": "Hunger",
+    "description": "The share of people who are undernourished has been falling.",
+    "source": "owid",
+    "slug": "prevalence-of-undernourishment",
+    "direction": "down",
+    "year": 2023,
+    "value": 9.1,
+    "valueColumn": "2.1.1 Prevalence of undernourishment | 000000000024000 || Value | 006121 || percent",
+    "dataPoints": [
+      {
+        "year": 2000,
+        "value": 12.8
+      },
+      {
+        "year": 2001,
+        "value": 12.9
+      },
+      {
+        "year": 2002,
+        "value": 13.2
+      },
+      {
+        "year": 2003,
+        "value": 12.9
+      },
+      {
+        "year": 2004,
+        "value": 12.7
+      },
+      {
+        "year": 2005,
+        "value": 12.2
+      },
+      {
+        "year": 2006,
+        "value": 11.2
+      },
+      {
+        "year": 2007,
+        "value": 10.1
+      },
+      {
+        "year": 2008,
+        "value": 9.5
+      },
+      {
+        "year": 2009,
+        "value": 9.2
+      },
+      {
+        "year": 2010,
+        "value": 8.7
+      },
+      {
+        "year": 2011,
+        "value": 8.1
+      },
+      {
+        "year": 2012,
+        "value": 8
+      },
+      {
+        "year": 2013,
+        "value": 7.8
+      },
+      {
+        "year": 2014,
+        "value": 7.3
+      },
+      {
+        "year": 2015,
+        "value": 7.7
+      },
+      {
+        "year": 2016,
+        "value": 7.6
+      },
+      {
+        "year": 2017,
+        "value": 7.1
+      },
+      {
+        "year": 2018,
+        "value": 7.2
+      },
+      {
+        "year": 2019,
+        "value": 7.5
+      },
+      {
+        "year": 2020,
+        "value": 8.5
+      },
+      {
+        "year": 2021,
+        "value": 9
+      },
+      {
+        "year": 2022,
+        "value": 9.1
+      },
+      {
+        "year": 2023,
+        "value": 9.1
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:40-07:00"
+  },
+  "internet": {
+    "id": "internet",
+    "title": "Internet",
+    "description": "The share of people using the internet has seen rapid growth.",
+    "source": "owid",
+    "slug": "share-of-individuals-using-the-internet",
+    "direction": "up",
+    "year": 2023,
+    "value": 67.4,
+    "valueColumn": "Individuals using the Internet (% of population)",
+    "dataPoints": [
+      {
+        "year": 1990,
+        "value": 0.048824694
+      },
+      {
+        "year": 1991,
+        "value": 0.07881051
+      },
+      {
+        "year": 1992,
+        "value": 0.12518632
+      },
+      {
+        "year": 1993,
+        "value": 0.17900668
+      },
+      {
+        "year": 1994,
+        "value": 0.36050814
+      },
+      {
+        "year": 1995,
+        "value": 0.68308204
+      },
+      {
+        "year": 1996,
+        "value": 1.3265672
+      },
+      {
+        "year": 1997,
+        "value": 2.042697
+      },
+      {
+        "year": 1998,
+        "value": 3.1405797
+      },
+      {
+        "year": 1999,
+        "value": 4.6329026
+      },
+      {
+        "year": 2000,
+        "value": 6.720288
+      },
+      {
+        "year": 2001,
+        "value": 8.022651
+      },
+      {
+        "year": 2002,
+        "value": 10.478108
+      },
+      {
+        "year": 2003,
+        "value": 12.161165
+      },
+      {
+        "year": 2004,
+        "value": 14.037434
+      },
+      {
+        "year": 2005,
+        "value": 15.6
+      },
+      {
+        "year": 2006,
+        "value": 17.3
+      },
+      {
+        "year": 2007,
+        "value": 20.3
+      },
+      {
+        "year": 2008,
+        "value": 22.8
+      },
+      {
+        "year": 2009,
+        "value": 25.4
+      },
+      {
+        "year": 2010,
+        "value": 28.5
+      },
+      {
+        "year": 2011,
+        "value": 31
+      },
+      {
+        "year": 2012,
+        "value": 33.5
+      },
+      {
+        "year": 2013,
+        "value": 35.4
+      },
+      {
+        "year": 2014,
+        "value": 37.5
+      },
+      {
+        "year": 2015,
+        "value": 39.9
+      },
+      {
+        "year": 2016,
+        "value": 42.9
+      },
+      {
+        "year": 2017,
+        "value": 45.4
+      },
+      {
+        "year": 2018,
+        "value": 48.6
+      },
+      {
+        "year": 2019,
+        "value": 53.2
+      },
+      {
+        "year": 2020,
+        "value": 59.3
+      },
+      {
+        "year": 2021,
+        "value": 62.2
+      },
+      {
+        "year": 2022,
+        "value": 64.4
+      },
+      {
+        "year": 2023,
+        "value": 67.4
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:29-07:00"
+  },
+  "leaded-gasoline": {
+    "id": "leaded-gasoline",
+    "title": "Leaded Gasoline",
+    "description": "The number of countries using leaded gasoline has dropped to just a few.",
+    "source": "manual",
+    "direction": "down",
+    "year": 2024,
+    "value": null,
+    "valueColumn": "Manual Data Required",
+    "dataPoints": [],
+    "lastUpdated": "2025-08-17T13:32:42-07:00"
+  },
+  "legal-slavery": {
+    "id": "legal-slavery",
+    "title": "Legal Slavery",
+    "description": "The share of countries where slavery is legal has dropped to zero.",
+    "source": "manual",
+    "direction": "down",
+    "year": 2024,
+    "value": null,
+    "valueColumn": "Manual Data Required",
+    "dataPoints": [],
+    "lastUpdated": "2025-08-17T13:32:42-07:00"
+  },
+  "life-expectancy": {
+    "id": "life-expectancy",
+    "title": "Life Expectancy",
+    "description": "Average life expectancy has climbed from 52 years in 1960 to 73 years in 2023.",
+    "source": "owid",
+    "slug": "life-expectancy",
+    "direction": "up",
+    "year": 2023,
+    "value": 73.1694,
+    "valueColumn": "Period life expectancy at birth",
+    "dataPoints": [
+      {
+        "year": 1770,
+        "value": 28.5
+      },
+      {
+        "year": 1870,
+        "value": 29.7
+      },
+      {
+        "year": 1951,
+        "value": 47.1259
+      },
+      {
+        "year": 1955,
+        "value": 50.2055
+      },
+      {
+        "year": 1959,
+        "value": 49.5818
+      },
+      {
+        "year": 1963,
+        "value": 53.7161
+      },
+      {
+        "year": 1967,
+        "value": 55.0678
+      },
+      {
+        "year": 1971,
+        "value": 56.0193
+      },
+      {
+        "year": 1975,
+        "value": 58.2681
+      },
+      {
+        "year": 1979,
+        "value": 60.1571
+      },
+      {
+        "year": 1983,
+        "value": 61.5211
+      },
+      {
+        "year": 1987,
+        "value": 63.1809
+      },
+      {
+        "year": 1991,
+        "value": 64.0642
+      },
+      {
+        "year": 1995,
+        "value": 64.8817
+      },
+      {
+        "year": 1999,
+        "value": 66.0412
+      },
+      {
+        "year": 2003,
+        "value": 67.4015
+      },
+      {
+        "year": 2007,
+        "value": 69.0316
+      },
+      {
+        "year": 2011,
+        "value": 70.4033
+      },
+      {
+        "year": 2015,
+        "value": 71.606
+      },
+      {
+        "year": 2019,
+        "value": 72.6093
+      },
+      {
+        "year": 2023,
+        "value": 73.1694
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:27-07:00"
+  },
+  "literacy": {
+    "id": "literacy",
+    "title": "Literacy",
+    "description": "The share of adults who are literate has risen dramatically.",
+    "source": "owid",
+    "slug": "literacy-rate-adults",
+    "direction": "up",
+    "year": 2023,
+    "value": 87.356,
+    "valueColumn": "Literacy rate, adult total (% of people ages 15 and above)",
+    "dataPoints": [
+      {
+        "year": 1976,
+        "value": 65.65878
+      },
+      {
+        "year": 1978,
+        "value": 66.57206
+      },
+      {
+        "year": 1980,
+        "value": 67.84755
+      },
+      {
+        "year": 1982,
+        "value": 69.04214
+      },
+      {
+        "year": 1984,
+        "value": 70.27237
+      },
+      {
+        "year": 1986,
+        "value": 71.41604
+      },
+      {
+        "year": 1988,
+        "value": 73.82409
+      },
+      {
+        "year": 1990,
+        "value": 74.90692
+      },
+      {
+        "year": 1992,
+        "value": 75.69422
+      },
+      {
+        "year": 1994,
+        "value": 76.50139
+      },
+      {
+        "year": 1996,
+        "value": 77.29624
+      },
+      {
+        "year": 1998,
+        "value": 80.46865
+      },
+      {
+        "year": 2000,
+        "value": 80.97918
+      },
+      {
+        "year": 2002,
+        "value": 81.64014
+      },
+      {
+        "year": 2004,
+        "value": 82.44724
+      },
+      {
+        "year": 2006,
+        "value": 82.42525
+      },
+      {
+        "year": 2008,
+        "value": 83.38551
+      },
+      {
+        "year": 2010,
+        "value": 84.22716
+      },
+      {
+        "year": 2012,
+        "value": 84.60138
+      },
+      {
+        "year": 2014,
+        "value": 85.28639
+      },
+      {
+        "year": 2016,
+        "value": 86.00011
+      },
+      {
+        "year": 2018,
+        "value": 86.43748
+      },
+      {
+        "year": 2020,
+        "value": 86.74745
+      },
+      {
+        "year": 2022,
+        "value": 87.15533
+      },
+      {
+        "year": 2023,
+        "value": 87.356
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:39-07:00"
+  },
+  "maternal-mortality": {
+    "id": "maternal-mortality",
+    "title": "Maternal Deaths",
+    "description": "Global maternal deaths have more than halved since 1990.",
+    "source": "owid",
+    "slug": "maternal-mortality",
+    "direction": "down",
+    "year": 2020,
+    "value": 212.23637,
+    "valueColumn": "Maternal mortality ratio",
+    "dataPoints": [
+      {
+        "year": 1985,
+        "value": 428.5482
+      },
+      {
+        "year": 1986,
+        "value": 410.23654
+      },
+      {
+        "year": 1987,
+        "value": 401.5882
+      },
+      {
+        "year": 1988,
+        "value": 396.0917
+      },
+      {
+        "year": 1989,
+        "value": 384.8084
+      },
+      {
+        "year": 1990,
+        "value": 370.27313
+      },
+      {
+        "year": 1991,
+        "value": 378.09518
+      },
+      {
+        "year": 1992,
+        "value": 386.26517
+      },
+      {
+        "year": 1993,
+        "value": 385.65283
+      },
+      {
+        "year": 1994,
+        "value": 375.2249
+      },
+      {
+        "year": 1995,
+        "value": 373.19336
+      },
+      {
+        "year": 1996,
+        "value": 372.66693
+      },
+      {
+        "year": 1997,
+        "value": 365.62094
+      },
+      {
+        "year": 1998,
+        "value": 362.9174
+      },
+      {
+        "year": 1999,
+        "value": 343.77753
+      },
+      {
+        "year": 2000,
+        "value": 334.10532
+      },
+      {
+        "year": 2001,
+        "value": 329.2917
+      },
+      {
+        "year": 2002,
+        "value": 317.67972
+      },
+      {
+        "year": 2003,
+        "value": 307.0511
+      },
+      {
+        "year": 2004,
+        "value": 299.8426
+      },
+      {
+        "year": 2005,
+        "value": 291.26068
+      },
+      {
+        "year": 2006,
+        "value": 276.11456
+      },
+      {
+        "year": 2007,
+        "value": 270.64816
+      },
+      {
+        "year": 2008,
+        "value": 265.16806
+      },
+      {
+        "year": 2009,
+        "value": 258.04745
+      },
+      {
+        "year": 2010,
+        "value": 248.80334
+      },
+      {
+        "year": 2011,
+        "value": 241.46191
+      },
+      {
+        "year": 2012,
+        "value": 231.28264
+      },
+      {
+        "year": 2013,
+        "value": 228.95949
+      },
+      {
+        "year": 2014,
+        "value": 223.14148
+      },
+      {
+        "year": 2015,
+        "value": 219.4542
+      },
+      {
+        "year": 2016,
+        "value": 215.49913
+      },
+      {
+        "year": 2017,
+        "value": 213.16835
+      },
+      {
+        "year": 2018,
+        "value": 215.09969
+      },
+      {
+        "year": 2019,
+        "value": 214.92525
+      },
+      {
+        "year": 2020,
+        "value": 212.23637
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:41-07:00"
+  },
+  "mobile-phones": {
+    "id": "mobile-phones",
+    "title": "Mobile Phones",
+    "description": "The share of people with a mobile phone subscription has skyrocketed.",
+    "source": "owid",
+    "slug": "mobile-cellular-subscriptions-per-100-people",
+    "direction": "up",
+    "year": 2023,
+    "value": 110.6,
+    "valueColumn": "Mobile cellular subscriptions (per 100 people)",
+    "dataPoints": [
+      {
+        "year": 1960,
+        "value": 0
+      },
+      {
+        "year": 1970,
+        "value": 0
+      },
+      {
+        "year": 1976,
+        "value": 0
+      },
+      {
+        "year": 1978,
+        "value": 0
+      },
+      {
+        "year": 1980,
+        "value": 0.00053235854
+      },
+      {
+        "year": 1982,
+        "value": 0.0023355952
+      },
+      {
+        "year": 1984,
+        "value": 0.0068745855
+      },
+      {
+        "year": 1986,
+        "value": 0.029605433
+      },
+      {
+        "year": 1988,
+        "value": 0.08511321
+      },
+      {
+        "year": 1990,
+        "value": 0.21159427
+      },
+      {
+        "year": 1992,
+        "value": 0.4277416
+      },
+      {
+        "year": 1994,
+        "value": 0.991495
+      },
+      {
+        "year": 1996,
+        "value": 2.4996634
+      },
+      {
+        "year": 1998,
+        "value": 5.333583
+      },
+      {
+        "year": 2000,
+        "value": 12.045212
+      },
+      {
+        "year": 2002,
+        "value": 18.50668
+      },
+      {
+        "year": 2004,
+        "value": 27.264036
+      },
+      {
+        "year": 2006,
+        "value": 41.7
+      },
+      {
+        "year": 2008,
+        "value": 59.7
+      },
+      {
+        "year": 2010,
+        "value": 76.6
+      },
+      {
+        "year": 2012,
+        "value": 88.5
+      },
+      {
+        "year": 2014,
+        "value": 96.7
+      },
+      {
+        "year": 2016,
+        "value": 99.3
+      },
+      {
+        "year": 2018,
+        "value": 103.1
+      },
+      {
+        "year": 2020,
+        "value": 105.5
+      },
+      {
+        "year": 2022,
+        "value": 108.1
+      },
+      {
+        "year": 2023,
+        "value": 110.6
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:29-07:00"
+  },
+  "nuclear-warheads": {
+    "id": "nuclear-warheads",
+    "title": "Nuclear Arms",
+    "description": "The total number of nuclear warheads has been reduced since the Cold War peak.",
+    "source": "owid",
+    "slug": "nuclear-warhead-stockpiles",
+    "direction": "down",
+    "year": 2024,
+    "value": 12121,
+    "valueColumn": "Number of nuclear warheads",
+    "dataPoints": [
+      {
+        "year": 1945,
+        "value": 6
+      },
+      {
+        "year": 1949,
+        "value": 236
+      },
+      {
+        "year": 1953,
+        "value": 1557
+      },
+      {
+        "year": 1957,
+        "value": 7162
+      },
+      {
+        "year": 1961,
+        "value": 26752
+      },
+      {
+        "year": 1965,
+        "value": 38419
+      },
+      {
+        "year": 1969,
+        "value": 38278
+      },
+      {
+        "year": 1973,
+        "value": 45695
+      },
+      {
+        "year": 1977,
+        "value": 49698
+      },
+      {
+        "year": 1981,
+        "value": 56530
+      },
+      {
+        "year": 1985,
+        "value": 64408
+      },
+      {
+        "year": 1989,
+        "value": 63657
+      },
+      {
+        "year": 1993,
+        "value": 48830
+      },
+      {
+        "year": 1997,
+        "value": 36776
+      },
+      {
+        "year": 2001,
+        "value": 33190
+      },
+      {
+        "year": 2005,
+        "value": 28358
+      },
+      {
+        "year": 2009,
+        "value": 22524
+      },
+      {
+        "year": 2013,
+        "value": 17680
+      },
+      {
+        "year": 2017,
+        "value": 14540
+      },
+      {
+        "year": 2021,
+        "value": 13100
+      },
+      {
+        "year": 2024,
+        "value": 12121
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:38-07:00"
+  },
+  "oil-spills": {
+    "id": "oil-spills",
+    "title": "Oil Spills",
+    "description": "The volume of oil spilled from tankers has significantly decreased.",
+    "source": "owid",
+    "slug": "quantity-oil-spills",
+    "direction": "down",
+    "year": 2024,
+    "value": 10000,
+    "valueColumn": "Quantity of oil spilled",
+    "dataPoints": [
+      {
+        "year": 1970,
+        "value": 383000
+      },
+      {
+        "year": 1972,
+        "value": 313000
+      },
+      {
+        "year": 1974,
+        "value": 174000
+      },
+      {
+        "year": 1976,
+        "value": 365000
+      },
+      {
+        "year": 1978,
+        "value": 393000
+      },
+      {
+        "year": 1980,
+        "value": 206000
+      },
+      {
+        "year": 1982,
+        "value": 12000
+      },
+      {
+        "year": 1984,
+        "value": 29000
+      },
+      {
+        "year": 1986,
+        "value": 19000
+      },
+      {
+        "year": 1988,
+        "value": 190000
+      },
+      {
+        "year": 1990,
+        "value": 61000
+      },
+      {
+        "year": 1992,
+        "value": 167000
+      },
+      {
+        "year": 1994,
+        "value": 130000
+      },
+      {
+        "year": 1996,
+        "value": 80000
+      },
+      {
+        "year": 1998,
+        "value": 13000
+      },
+      {
+        "year": 2000,
+        "value": 14000
+      },
+      {
+        "year": 2002,
+        "value": 66000
+      },
+      {
+        "year": 2004,
+        "value": 17000
+      },
+      {
+        "year": 2006,
+        "value": 12000
+      },
+      {
+        "year": 2008,
+        "value": 2000
+      },
+      {
+        "year": 2010,
+        "value": 12000
+      },
+      {
+        "year": 2012,
+        "value": 1000
+      },
+      {
+        "year": 2014,
+        "value": 5000
+      },
+      {
+        "year": 2016,
+        "value": 6000
+      },
+      {
+        "year": 2018,
+        "value": 116000
+      },
+      {
+        "year": 2020,
+        "value": 1000
+      },
+      {
+        "year": 2022,
+        "value": 15000
+      },
+      {
+        "year": 2024,
+        "value": 10000
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:33-07:00"
+  },
+  "ozone-depletion": {
+    "id": "ozone-depletion",
+    "title": "Ozone Depletion",
+    "description": "The production of ozone-depleting substances has been almost entirely phased out.",
+    "source": "owid",
+    "slug": "ozone-depleting-substance-consumption",
+    "direction": "down",
+    "year": 2021,
+    "value": -21.7,
+    "valueColumn": "Consumption of controlled substance (zero-filled) - Chemical: Methyl Chloroform (TCA)",
+    "dataPoints": [
+      {
+        "year": 1986,
+        "value": 4.6
+      },
+      {
+        "year": 1989,
+        "value": 65667.4
+      },
+      {
+        "year": 1990,
+        "value": 16754
+      },
+      {
+        "year": 1991,
+        "value": 35873.2
+      },
+      {
+        "year": 1992,
+        "value": 56687.7
+      },
+      {
+        "year": 1993,
+        "value": 38083.8
+      },
+      {
+        "year": 1994,
+        "value": 14215.7
+      },
+      {
+        "year": 1995,
+        "value": 15455.899
+      },
+      {
+        "year": 1996,
+        "value": 2896.8
+      },
+      {
+        "year": 1997,
+        "value": 2295
+      },
+      {
+        "year": 1998,
+        "value": 1732.8999
+      },
+      {
+        "year": 1999,
+        "value": 2155.7998
+      },
+      {
+        "year": 2000,
+        "value": 2119.5
+      },
+      {
+        "year": 2001,
+        "value": 1322.5
+      },
+      {
+        "year": 2002,
+        "value": -599.49994
+      },
+      {
+        "year": 2003,
+        "value": 1330.4
+      },
+      {
+        "year": 2004,
+        "value": 799.9
+      },
+      {
+        "year": 2005,
+        "value": 618.30005
+      },
+      {
+        "year": 2006,
+        "value": 613.4
+      },
+      {
+        "year": 2007,
+        "value": 491.1
+      },
+      {
+        "year": 2008,
+        "value": 387
+      },
+      {
+        "year": 2009,
+        "value": 235.90001
+      },
+      {
+        "year": 2010,
+        "value": -20.300003
+      },
+      {
+        "year": 2011,
+        "value": -107.9
+      },
+      {
+        "year": 2012,
+        "value": -117.8
+      },
+      {
+        "year": 2013,
+        "value": -25.5
+      },
+      {
+        "year": 2014,
+        "value": -6.1
+      },
+      {
+        "year": 2015,
+        "value": -22.4
+      },
+      {
+        "year": 2016,
+        "value": -31.4
+      },
+      {
+        "year": 2017,
+        "value": -46.8
+      },
+      {
+        "year": 2018,
+        "value": -41.2
+      },
+      {
+        "year": 2019,
+        "value": -37.6
+      },
+      {
+        "year": 2020,
+        "value": -32.3
+      },
+      {
+        "year": 2021,
+        "value": -21.7
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:36-07:00"
+  },
+  "plane-deaths": {
+    "id": "plane-deaths",
+    "title": "Plane Crash Deaths",
+    "description": "The number of deaths per 10 billion passenger miles has drastically reduced.",
+    "source": "owid",
+    "slug": "global-fatalities-from-aviation-accidents-and-hijackings",
+    "direction": "down",
+    "year": 2021,
+    "value": 0,
+    "valueColumn": "Hijacking fatalities",
+    "dataPoints": [
+      {
+        "year": 1942,
+        "value": 0
+      },
+      {
+        "year": 1946,
+        "value": 0
+      },
+      {
+        "year": 1950,
+        "value": 0
+      },
+      {
+        "year": 1954,
+        "value": 2
+      },
+      {
+        "year": 1958,
+        "value": 19
+      },
+      {
+        "year": 1962,
+        "value": 0
+      },
+      {
+        "year": 1966,
+        "value": 2
+      },
+      {
+        "year": 1970,
+        "value": 7
+      },
+      {
+        "year": 1974,
+        "value": 83
+      },
+      {
+        "year": 1978,
+        "value": 4
+      },
+      {
+        "year": 1982,
+        "value": 1
+      },
+      {
+        "year": 1986,
+        "value": 87
+      },
+      {
+        "year": 1990,
+        "value": 86
+      },
+      {
+        "year": 1994,
+        "value": 8
+      },
+      {
+        "year": 1998,
+        "value": 1
+      },
+      {
+        "year": 2002,
+        "value": 2
+      },
+      {
+        "year": 2006,
+        "value": 0
+      },
+      {
+        "year": 2010,
+        "value": 0
+      },
+      {
+        "year": 2014,
+        "value": 0
+      },
+      {
+        "year": 2018,
+        "value": 0
+      },
+      {
+        "year": 2021,
+        "value": 0
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:37-07:00"
+  },
+  "protected-areas": {
+    "id": "protected-areas",
+    "title": "Protected Nature",
+    "description": "The share of the Earth's land surface that is protected as national parks and other reserves has increased.",
+    "source": "owid",
+    "slug": "terrestrial-protected-areas",
+    "direction": "up",
+    "year": 2021,
+    "value": 15.272336,
+    "valueColumn": "Terrestrial protected areas (% of total land area)",
+    "dataPoints": [
+      {
+        "year": 2016,
+        "value": 14.400239
+      },
+      {
+        "year": 2017,
+        "value": 14.572377
+      },
+      {
+        "year": 2018,
+        "value": 14.572405
+      },
+      {
+        "year": 2019,
+        "value": 14.701448
+      },
+      {
+        "year": 2020,
+        "value": 14.75412
+      },
+      {
+        "year": 2021,
+        "value": 15.272336
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:34-07:00"
+  },
+  "renewable-energy": {
+    "id": "renewable-energy",
+    "title": "Clean Power",
+    "description": "Renewables' share of global electricity has doubled in a decade, passing 30% in 2024.",
+    "source": "owid",
+    "slug": "share-of-electricity-production-from-renewable-sources",
+    "direction": "up",
+    "year": 2024,
+    "value": 31.918001,
+    "valueColumn": "Renewables - % electricity",
+    "dataPoints": [
+      {
+        "year": 1985,
+        "value": 20.817406
+      },
+      {
+        "year": 1987,
+        "value": 19.913677
+      },
+      {
+        "year": 1989,
+        "value": 18.829807
+      },
+      {
+        "year": 1991,
+        "value": 19.107336
+      },
+      {
+        "year": 1993,
+        "value": 19.706957
+      },
+      {
+        "year": 1995,
+        "value": 19.720285
+      },
+      {
+        "year": 1997,
+        "value": 19.361753
+      },
+      {
+        "year": 1999,
+        "value": 18.75384
+      },
+      {
+        "year": 2001,
+        "value": 18.045189
+      },
+      {
+        "year": 2003,
+        "value": 17.44261
+      },
+      {
+        "year": 2005,
+        "value": 18.095892
+      },
+      {
+        "year": 2007,
+        "value": 17.97301
+      },
+      {
+        "year": 2009,
+        "value": 19.471212
+      },
+      {
+        "year": 2011,
+        "value": 20.02158
+      },
+      {
+        "year": 2013,
+        "value": 21.72934
+      },
+      {
+        "year": 2015,
+        "value": 23.005732
+      },
+      {
+        "year": 2017,
+        "value": 24.497082
+      },
+      {
+        "year": 2019,
+        "value": 26.128609
+      },
+      {
+        "year": 2021,
+        "value": 28.133307
+      },
+      {
+        "year": 2023,
+        "value": 30.261606
+      },
+      {
+        "year": 2024,
+        "value": 31.918001
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:32-07:00"
+  },
+  "scientific-papers": {
+    "id": "scientific-papers",
+    "title": "Science",
+    "description": "The number of scholarly articles published per year has seen exponential growth.",
+    "source": "owid",
+    "slug": "scientific-and-technical-journal-articles",
+    "direction": "up",
+    "year": 2020,
+    "value": 2933010.8,
+    "valueColumn": "Scientific and technical journal articles",
+    "dataPoints": [
+      {
+        "year": 1996,
+        "value": 984812.2
+      },
+      {
+        "year": 1997,
+        "value": 1014880.06
+      },
+      {
+        "year": 1998,
+        "value": 1020474.94
+      },
+      {
+        "year": 1999,
+        "value": 1020833.56
+      },
+      {
+        "year": 2000,
+        "value": 1071009.5
+      },
+      {
+        "year": 2001,
+        "value": 1109618.4
+      },
+      {
+        "year": 2002,
+        "value": 1158076.9
+      },
+      {
+        "year": 2003,
+        "value": 1214597.9
+      },
+      {
+        "year": 2004,
+        "value": 1327931.2
+      },
+      {
+        "year": 2005,
+        "value": 1489848
+      },
+      {
+        "year": 2006,
+        "value": 1580500.6
+      },
+      {
+        "year": 2007,
+        "value": 1648986.1
+      },
+      {
+        "year": 2008,
+        "value": 1742799
+      },
+      {
+        "year": 2009,
+        "value": 1844539.1
+      },
+      {
+        "year": 2010,
+        "value": 1929771.1
+      },
+      {
+        "year": 2011,
+        "value": 2028062.9
+      },
+      {
+        "year": 2012,
+        "value": 2083570.1
+      },
+      {
+        "year": 2013,
+        "value": 2149755.8
+      },
+      {
+        "year": 2014,
+        "value": 2223226.5
+      },
+      {
+        "year": 2015,
+        "value": 2275681.2
+      },
+      {
+        "year": 2016,
+        "value": 2356514.8
+      },
+      {
+        "year": 2017,
+        "value": 2430534
+      },
+      {
+        "year": 2018,
+        "value": 2565871.5
+      },
+      {
+        "year": 2019,
+        "value": 2734961.8
+      },
+      {
+        "year": 2020,
+        "value": 2933010.8
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:30-07:00"
+  },
+  "smallpox": {
+    "id": "smallpox",
+    "title": "Smallpox",
+    "description": "The number of countries with smallpox has been eliminated (the disease is eradicated).",
+    "source": "manual",
+    "direction": "down",
+    "year": 2024,
+    "value": null,
+    "valueColumn": "Manual Data Required",
+    "dataPoints": [],
+    "lastUpdated": "2025-08-17T13:32:42-07:00"
+  },
+  "so2-emissions": {
+    "id": "so2-emissions",
+    "title": "Smoke Particles",
+    "description": "The amount of smoke particles (SO₂) emitted per person has decreased.",
+    "source": "owid",
+    "slug": "so-emissions-by-world-region-in-million-tonnes",
+    "direction": "down",
+    "year": 2022,
+    "value": 73466960,
+    "valueColumn": "Sulfur dioxide emissions from all sectors",
+    "dataPoints": [
+      {
+        "year": 1750,
+        "value": 372348.8
+      },
+      {
+        "year": 1763,
+        "value": 400937.75
+      },
+      {
+        "year": 1776,
+        "value": 460547.53
+      },
+      {
+        "year": 1789,
+        "value": 522329.72
+      },
+      {
+        "year": 1802,
+        "value": 660536.7
+      },
+      {
+        "year": 1815,
+        "value": 783391.44
+      },
+      {
+        "year": 1828,
+        "value": 1028865.5
+      },
+      {
+        "year": 1841,
+        "value": 1619054.8
+      },
+      {
+        "year": 1854,
+        "value": 2820843.8
+      },
+      {
+        "year": 1867,
+        "value": 5153144
+      },
+      {
+        "year": 1880,
+        "value": 9752826
+      },
+      {
+        "year": 1893,
+        "value": 15644939
+      },
+      {
+        "year": 1906,
+        "value": 30750544
+      },
+      {
+        "year": 1919,
+        "value": 34120736
+      },
+      {
+        "year": 1932,
+        "value": 32253812
+      },
+      {
+        "year": 1945,
+        "value": 47722824
+      },
+      {
+        "year": 1958,
+        "value": 79369420
+      },
+      {
+        "year": 1971,
+        "value": 124511130
+      },
+      {
+        "year": 1984,
+        "value": 131849490
+      },
+      {
+        "year": 1997,
+        "value": 117210260
+      },
+      {
+        "year": 2010,
+        "value": 105690750
+      },
+      {
+        "year": 2022,
+        "value": 73466960
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:35-07:00"
+  },
+  "solar-price": {
+    "id": "solar-price",
+    "title": "Expensive Solar Panels",
+    "description": "The price of solar energy has plummeted.",
+    "source": "owid",
+    "slug": "solar-pv-prices",
+    "direction": "down",
+    "year": 2023,
+    "value": 0.3056964,
+    "valueColumn": "Solar photovoltaic module price",
+    "dataPoints": [
+      {
+        "year": 1975,
+        "value": 130.70473
+      },
+      {
+        "year": 1977,
+        "value": 71.74392
+      },
+      {
+        "year": 1979,
+        "value": 42.64987
+      },
+      {
+        "year": 1981,
+        "value": 28.896935
+      },
+      {
+        "year": 1983,
+        "value": 20.960136
+      },
+      {
+        "year": 1985,
+        "value": 17.003012
+      },
+      {
+        "year": 1987,
+        "value": 11.957518
+      },
+      {
+        "year": 1989,
+        "value": 11.542489
+      },
+      {
+        "year": 1991,
+        "value": 11.059409
+      },
+      {
+        "year": 1993,
+        "value": 9.635483
+      },
+      {
+        "year": 1995,
+        "value": 8.427791
+      },
+      {
+        "year": 1997,
+        "value": 7.8516297
+      },
+      {
+        "year": 1999,
+        "value": 6.5357065
+      },
+      {
+        "year": 2001,
+        "value": 6.2051206
+      },
+      {
+        "year": 2003,
+        "value": 5.3948364
+      },
+      {
+        "year": 2005,
+        "value": 4.569292
+      },
+      {
+        "year": 2007,
+        "value": 5.0173874
+      },
+      {
+        "year": 2009,
+        "value": 3.0563195
+      },
+      {
+        "year": 2011,
+        "value": 1.9594005
+      },
+      {
+        "year": 2013,
+        "value": 0.81395847
+      },
+      {
+        "year": 2015,
+        "value": 0.697721
+      },
+      {
+        "year": 2017,
+        "value": 0.5409895
+      },
+      {
+        "year": 2019,
+        "value": 0.44111046
+      },
+      {
+        "year": 2021,
+        "value": 0.31517783
+      },
+      {
+        "year": 2023,
+        "value": 0.3056964
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:32-07:00"
+  },
+  "water-access": {
+    "id": "water-access",
+    "title": "Water",
+    "description": "The share of people with access to a protected water source has increased.",
+    "source": "owid",
+    "slug": "population-using-at-least-basic-drinking-water",
+    "direction": "up",
+    "year": 2022,
+    "value": 91.18254,
+    "valueColumn": "Share of the population using at least basic drinking water services",
+    "dataPoints": [
+      {
+        "year": 2000,
+        "value": 81.268005
+      },
+      {
+        "year": 2001,
+        "value": 81.60539
+      },
+      {
+        "year": 2002,
+        "value": 82.25051
+      },
+      {
+        "year": 2003,
+        "value": 82.76296
+      },
+      {
+        "year": 2004,
+        "value": 83.2708
+      },
+      {
+        "year": 2005,
+        "value": 83.76251
+      },
+      {
+        "year": 2006,
+        "value": 84.26049
+      },
+      {
+        "year": 2007,
+        "value": 84.75209
+      },
+      {
+        "year": 2008,
+        "value": 85.2404
+      },
+      {
+        "year": 2009,
+        "value": 85.71571
+      },
+      {
+        "year": 2010,
+        "value": 86.183
+      },
+      {
+        "year": 2011,
+        "value": 86.57294
+      },
+      {
+        "year": 2012,
+        "value": 87.01813
+      },
+      {
+        "year": 2013,
+        "value": 87.458954
+      },
+      {
+        "year": 2014,
+        "value": 87.893524
+      },
+      {
+        "year": 2015,
+        "value": 88.3615
+      },
+      {
+        "year": 2016,
+        "value": 88.78253
+      },
+      {
+        "year": 2017,
+        "value": 89.193
+      },
+      {
+        "year": 2018,
+        "value": 89.605576
+      },
+      {
+        "year": 2019,
+        "value": 90.004906
+      },
+      {
+        "year": 2020,
+        "value": 90.3829
+      },
+      {
+        "year": 2021,
+        "value": 90.80476
+      },
+      {
+        "year": 2022,
+        "value": 91.18254
+      }
+    ],
+    "lastUpdated": "2025-08-17T13:32:30-07:00"
+  }
+}

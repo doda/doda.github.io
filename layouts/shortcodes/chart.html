@@ -1,0 +1,183 @@
+{{- $chartId := .Get "id" | default (.Get 0) -}}
+{{- $chartData := "" -}}
+{{- if site.Data.optimistic_charts -}}
+  {{- $chartData = index site.Data.optimistic_charts $chartId -}}
+{{- end -}}
+
+{{- if $chartData -}}
+<div class="chart-container" id="chart-{{ $chartId }}">
+  <div class="chart-header">
+    <h4>{{ $chartData.title }}</h4>
+    {{- if $chartData.value -}}
+    <div class="chart-metric">
+      <span class="chart-value">{{ $chartData.value | printf "%.1f" }}</span>
+      <span class="chart-year">({{ $chartData.year }})</span>
+      {{- if eq $chartData.direction "down" -}}
+      <span class="chart-trend chart-trend-down">↓</span>
+      {{- else -}}
+      <span class="chart-trend chart-trend-up">↑</span>
+      {{- end -}}
+    </div>
+    {{- end -}}
+  </div>
+  
+  {{- if $chartData.dataPoints -}}
+  <div class="chart-visualization" id="chart-viz-{{ $chartId }}"></div>
+  <script type="module">
+    import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+    
+    const data = [
+      {{- range $chartData.dataPoints -}}
+      {year: {{ .year }}, value: {{ .value }}},
+      {{- end -}}
+    ];
+    
+    // Find significant points based on direction
+    const direction = "{{ $chartData.direction }}";
+    let startPoint, currentPoint;
+    
+    if (direction === "down") {
+      // For "bad things decreasing", start is the highest value (worst historical point)
+      startPoint = data.reduce((max, p) => p.value > max.value ? p : max);
+    } else {
+      // For "good things increasing", start is the lowest value (starting point of progress)
+      startPoint = data.reduce((min, p) => p.value < min.value ? p : min);
+    }
+    
+    currentPoint = data[data.length - 1]; // Last data point
+    
+    // Only show arrow if there's meaningful progress
+    const showArrow = Math.abs(startPoint.value - currentPoint.value) > 0.01 && 
+                     startPoint.year !== currentPoint.year;
+    
+    const chart = Plot.plot({
+      width: 500,
+      height: 150,
+      marginTop: 20,
+      marginRight: 20,
+      marginBottom: 30,
+      marginLeft: 50,
+      x: {
+        domain: [Math.min(...data.map(d => d.year)), Math.max(...data.map(d => d.year))],
+        tickFormat: d => d.toString()
+      },
+      y: {
+        domain: [0, Math.max(...data.map(d => d.value))],
+        grid: false,
+        axis: null
+      },
+      style: {
+        background: "transparent",
+        fontFamily: "Helvetica, Arial, sans-serif",
+        fontSize: "10px"
+      },
+      marks: [
+        // Light area fill
+        Plot.areaY(data, {
+          x: "year", 
+          y: "value", 
+          fill: "#f5f5f5", 
+          fillOpacity: 0.6
+        }),
+        
+        // Main data line
+        Plot.line(data, {
+          x: "year", 
+          y: "value", 
+          stroke: "#000000", 
+          strokeWidth: 1.5
+        }),
+        
+        // Data points
+        Plot.dot(data, {
+          x: "year", 
+          y: "value", 
+          fill: "#000000", 
+          r: 2
+        }),
+        
+        // ATH to current arrow (thick line)
+        ...(showArrow ? [Plot.line(
+          data.filter(d => d.year >= startPoint.year && d.year <= currentPoint.year),
+          {
+            x: "year", 
+            y: "value", 
+            stroke: "#000000", 
+            strokeWidth: 4,
+            strokeOpacity: 0.6,
+            markerEnd: "arrow"
+          }
+        )] : []),
+        
+        // Highlight start and end points
+        ...(showArrow ? [
+          Plot.dot([startPoint], {
+            x: "year", 
+            y: "value", 
+            fill: "#000000", 
+            r: 4,
+            strokeWidth: 2,
+            stroke: "#ffffff"
+          }),
+          Plot.dot([currentPoint], {
+            x: "year", 
+            y: "value", 
+            fill: "#000000", 
+            r: 4,
+            strokeWidth: 2,
+            stroke: "#ffffff"
+          })
+        ] : []),
+        
+        // Interactive tooltips on hover
+        Plot.tip(data, Plot.pointer({
+          x: "year",
+          y: "value",
+          title: d => `${d.value.toFixed(1)} (${d.year})`
+        })),
+        
+        // Highlight start and end points if arrow is shown
+        ...(showArrow ? [
+          Plot.dot([startPoint], {
+            x: "year", 
+            y: "value", 
+            fill: "#000000", 
+            r: 4,
+            strokeWidth: 2,
+            stroke: "#ffffff"
+          }),
+          Plot.dot([currentPoint], {
+            x: "year", 
+            y: "value", 
+            fill: "#000000", 
+            r: 4,
+            strokeWidth: 2,
+            stroke: "#ffffff"
+          })
+        ] : [])
+      ]
+    });
+    
+    document.getElementById("chart-viz-{{ $chartId }}").appendChild(chart);
+  </script>
+  {{- end -}}
+  
+  <div class="chart-footer">
+    <small>
+      Source: 
+      {{- if eq $chartData.source "owid" -}}
+        <a href="https://ourworldindata.org/grapher/{{ $chartData.slug }}" target="_blank">Our World in Data</a>
+      {{- else -}}
+        {{ $chartData.source }}
+      {{- end -}}
+      {{- if $chartData.lastUpdated -}}
+        • Updated: {{ dateFormat "Jan 2, 2006" $chartData.lastUpdated }}
+      {{- end -}}
+    </small>
+  </div>
+</div>
+{{- else -}}
+<div class="chart-error">
+  <p>Chart data not available for: {{ $chartId }}</p>
+</div>
+{{- end -}}
