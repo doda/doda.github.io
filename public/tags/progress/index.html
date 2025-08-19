@@ -197,6 +197,8 @@
       const direction = "down";
       
       
+      
+      
       let startPoint, currentPoint;
       if (direction === "down") {
         startPoint = data.reduce((max, p) => p.value > max.value ? p : max);
@@ -340,16 +342,16 @@
         const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
         const marker = document.createElementNS("http://www.w3.org/2000/svg", "marker");
         marker.setAttribute("id", "arrow");
-        marker.setAttribute("viewBox", "0 0 10 6");
+        marker.setAttribute("viewBox", "0 0 7 6");
         marker.setAttribute("refX", "0");
         marker.setAttribute("refY", "3");
-        marker.setAttribute("markerWidth", "6");
-        marker.setAttribute("markerHeight", "5");
+        marker.setAttribute("markerWidth", "4");
+        marker.setAttribute("markerHeight", "3");
         marker.setAttribute("orient", "auto");
         marker.setAttribute("markerUnits", "strokeWidth");
         
         const arrowPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        arrowPath.setAttribute("d", "M0,0 L0,6 L10,3 z");
+        arrowPath.setAttribute("d", "M0,0 L0,6 L7,3 z");
         arrowPath.setAttribute("fill", "#000000");
         arrowPath.setAttribute("fill-opacity", "0.8");
         marker.appendChild(arrowPath);
@@ -362,54 +364,74 @@
           : { start: "above", end: "below" };
 
         
-        const distanceAbove = 22; 
-        const distanceBelow = 12; 
-        const startDistance = config.start === "above" ? distanceAbove : distanceBelow;
-        const endDistance = config.end === "above" ? distanceAbove : distanceBelow;
+        const override ="{\"distanceEnd\":18,\"end\":\"above\",\"start\":\"below\"}";
+        
+        const parsedOverride = typeof override === 'string' ? JSON.parse(override) : override;
+        if (parsedOverride.start) config.start = parsedOverride.start;
+        if (parsedOverride.end) config.end = parsedOverride.end;
+        
+        try { container.dataset.override = JSON.stringify(parsedOverride); } catch (e) {}
 
         
-        const pts = data.map(d => ({ x: xScale(d.year), y: yScale(d.value) }));
-        const yOnLine = (x) => {
-          let best = pts[0];
-          for (let i = 0; i < pts.length - 1; i++) {
-            const p0 = pts[i], p1 = pts[i + 1];
-            const minX = Math.min(p0.x, p1.x), maxX = Math.max(p0.x, p1.x);
-            if (x >= minX && x <= maxX && maxX !== minX) {
-              const t = (x - p0.x) / (p1.x - p0.x);
-              return p0.y + t * (p1.y - p0.y);
-            }
-            
-            if (Math.abs(x - p0.x) < Math.abs(x - best.x)) best = p0;
-            if (Math.abs(x - p1.x) < Math.abs(x - best.x)) best = p1;
-          }
-          return best.y;
+        let distanceAbove = 16;   
+        let distanceBelow = 8;    
+        let distanceHoriz = 10;   
+        
+        if (parsedOverride.distance !== undefined) { distanceAbove = parsedOverride.distance; distanceBelow = parsedOverride.distance; distanceHoriz = parsedOverride.distance; }
+        if (parsedOverride.distanceAbove !== undefined) distanceAbove = parsedOverride.distanceAbove;
+        if (parsedOverride.distanceBelow !== undefined) distanceBelow = parsedOverride.distanceBelow;
+        if (parsedOverride.distanceHorizontal !== undefined) distanceHoriz = parsedOverride.distanceHorizontal;
+
+        
+        const mapSideToBase = (side) => (side === 'above' ? distanceAbove : side === 'below' ? distanceBelow : distanceHoriz);
+        let startDistance = (parsedOverride.distanceStart !== undefined) ? parsedOverride.distanceStart : mapSideToBase(config.start);
+        let endDistance = (parsedOverride.distanceEnd !== undefined) ? parsedOverride.distanceEnd : mapSideToBase(config.end);
+        
+        startDistance = Number(startDistance);
+        endDistance = Number(endDistance);
+
+        
+        const labelGap = 12;
+
+        
+        const allowedSides = ['above','below','left','right'];
+        const fallbackStart = (direction === 'down') ? 'below' : 'above';
+        const fallbackEnd = (direction === 'down') ? 'above' : 'below';
+        if (!allowedSides.includes(config.start)) {
+          console && console.warn && console.warn(`Unknown start side '${config.start}' for ${'maternal-mortality'}; falling back to ${fallbackStart}`);
+          config.start = fallbackStart;
+        }
+        if (!allowedSides.includes(config.end)) {
+          console && console.warn && console.warn(`Unknown end side '${config.end}' for ${'maternal-mortality'}; falling back to ${fallbackEnd}`);
+          config.end = fallbackEnd;
+        }
+
+        
+        const percentageCharts = ['child-mortality', 'hunger', 'extreme-poverty', 'protected-areas', 'literacy', 'girls-school', 'electricity', 'mobile-phones', 'water-access', 'internet', 'renewable-energy'];
+        const isPercentageChart = percentageCharts.includes('maternal-mortality');
+        
+        const formatValue = (value) => {
+          const formatted = value.toFixed(1);
+          const cleanFormatted = formatted.endsWith('.0') ? formatted.slice(0, -2) : formatted;
+          return isPercentageChart ? cleanFormatted + '%' : cleanFormatted;
+        };
+        
+        const anchorForSide = (side) => (side === 'left' ? 'end' : side === 'right' ? 'start' : 'middle');
+        const createText = (x, y, text, opts = {}) => {
+          const el = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          el.setAttribute('x', x);
+          el.setAttribute('y', y);
+          if (opts.anchor) el.setAttribute('text-anchor', opts.anchor);
+          if (opts.size) el.setAttribute('font-size', String(opts.size));
+          if (opts.weight) el.setAttribute('font-weight', opts.weight);
+          el.setAttribute('font-family', 'Helvetica, Arial, sans-serif');
+          if (opts.fill) el.setAttribute('fill', opts.fill);
+          if (opts.class) el.setAttribute('class', opts.class);
+          el.textContent = text;
+          return el;
         };
 
-        const clearanceAbove = 18; 
-        const clearanceBelow = 10; 
-
-        const adjustLabelPair = (valueEl, yearEl, x, side) => {
-          
-          const vb = valueEl.getBBox();
-          const yb = yearEl.getBBox();
-          const gap = 12;
-          const blockH = vb.height + gap + yb.height;
-          const yLine = yOnLine(x);
-
-          if (side === 'above') {
-            const bottom = yLine - clearanceAbove;
-            const valueBaseline = bottom - yb.height - gap + (vb.height * 0.8);
-            const yearBaseline = bottom - (yb.height * 0.2);
-            valueEl.setAttribute('y', Math.max(margin.top + 15, valueBaseline));
-            yearEl.setAttribute('y', Math.max(margin.top + 27, yearBaseline));
-          } else { 
-            const top = yLine + clearanceBelow;
-            const valueBaseline = top + (vb.height * 0.8);
-            const yearBaseline = valueBaseline + gap + (yb.height * 0.8);
-            valueEl.setAttribute('y', Math.min(margin.top + height - 15, valueBaseline));
-            yearEl.setAttribute('y', Math.min(margin.top + height - 3, yearBaseline));
-          }
-        };
+        
 
         
         const getLabelPosition = (point, position, distance) => {
@@ -419,79 +441,102 @@
           if (position === "above") {
             return {
               valueY: Math.max(margin.top + 15, pointY - distance),
-              yearY: Math.max(margin.top + 27, pointY - (distance - 12)),
+              yearY: Math.max(margin.top + 27, pointY - (distance - labelGap)),
               x: pointX
             };
           } else if (position === "below") {
             return {
               valueY: Math.min(margin.top + height - 15, pointY + distance),
-              yearY: Math.min(margin.top + height - 3, pointY + distance + 12),
+              yearY: Math.min(margin.top + height - 3, pointY + distance + labelGap),
               x: pointX
             };
           } else if (position === "left") {
             return {
               valueY: pointY - 6,
               yearY: pointY + 6,
-              x: Math.max(margin.left + 25, pointX - 25)
+              x: Math.max(margin.left + distance, pointX - distance)
             };
           } else if (position === "right") {
             return {
               valueY: pointY - 6,
               yearY: pointY + 6,
-              x: Math.min(margin.left + width - 25, pointX + 25)
+              x: Math.min(margin.left + width - distance, pointX + distance)
             };
           }
         };
         
         
         const startPos = getLabelPosition(startPoint, config.start, startDistance);
-        const startValueLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        startValueLabel.setAttribute("x", startPos.x);
-        startValueLabel.setAttribute("y", startPos.valueY);
-        startValueLabel.setAttribute("text-anchor", config.start === "left" ? "end" : config.start === "right" ? "start" : "middle");
-        startValueLabel.setAttribute("font-size", "18");
-        startValueLabel.setAttribute("font-weight", "bold");
-        startValueLabel.setAttribute("font-family", "Helvetica, Arial, sans-serif");
-        startValueLabel.setAttribute("fill", "#000000");
-        startValueLabel.textContent = startPoint.value.toFixed(1);
+        const startAnchor = anchorForSide(config.start);
+        const startValueLabel = createText(startPos.x, startPos.valueY, formatValue(startPoint.value), {
+          anchor: startAnchor, size: 18, weight: 'bold', fill: '#000000', class: 'chart-label chart-label-value'
+        });
+        const startYearLabel = createText(startPos.x, startPos.yearY, String(startPoint.year), {
+          anchor: startAnchor, size: 14, fill: '#666666', class: 'chart-label chart-label-year'
+        });
         svg.appendChild(startValueLabel);
-        
-        const startYearLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        startYearLabel.setAttribute("x", startPos.x);
-        startYearLabel.setAttribute("y", startPos.yearY);
-        startYearLabel.setAttribute("text-anchor", config.start === "left" ? "end" : config.start === "right" ? "start" : "middle");
-        startYearLabel.setAttribute("font-size", "14");
-        startYearLabel.setAttribute("font-family", "Helvetica, Arial, sans-serif");
-        startYearLabel.setAttribute("fill", "#666666");
-        startYearLabel.textContent = startPoint.year;
         svg.appendChild(startYearLabel);
 
         
         const endPos = getLabelPosition(currentPoint, config.end, endDistance);
-        const endValueLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        endValueLabel.setAttribute("x", endPos.x);
-        endValueLabel.setAttribute("y", endPos.valueY);
-        endValueLabel.setAttribute("text-anchor", config.end === "left" ? "end" : config.end === "right" ? "start" : "middle");
-        endValueLabel.setAttribute("font-size", "18");
-        endValueLabel.setAttribute("font-weight", "bold");
-        endValueLabel.setAttribute("font-family", "Helvetica, Arial, sans-serif");
-        endValueLabel.setAttribute("fill", "#000000");
-        endValueLabel.textContent = currentPoint.value.toFixed(1);
+        const endAnchor = anchorForSide(config.end);
+        const endValueLabel = createText(endPos.x, endPos.valueY, formatValue(currentPoint.value), {
+          anchor: endAnchor, size: 18, weight: 'bold', fill: '#000000', class: 'chart-label chart-label-value'
+        });
+        const endYearLabel = createText(endPos.x, endPos.yearY, String(currentPoint.year), {
+          anchor: endAnchor, size: 14, fill: '#666666', class: 'chart-label chart-label-year'
+        });
         svg.appendChild(endValueLabel);
-        
-        const endYearLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        endYearLabel.setAttribute("x", endPos.x);
-        endYearLabel.setAttribute("y", endPos.yearY);
-        endYearLabel.setAttribute("text-anchor", config.end === "left" ? "end" : config.end === "right" ? "start" : "middle");
-        endYearLabel.setAttribute("font-size", "14");
-        endYearLabel.setAttribute("font-family", "Helvetica, Arial, sans-serif");
-        endYearLabel.setAttribute("fill", "#666666");
-        endYearLabel.textContent = currentPoint.year;
         svg.appendChild(endYearLabel);
 
         
-        adjustLabelPair(startValueLabel, startYearLabel, xScale(startPoint.year), config.start);
-        adjustLabelPair(endValueLabel, endYearLabel, xScale(currentPoint.year), config.end);
+
+        
+        if (config.start === 'left' || config.start === 'right') {
+          const sx = (config.start === 'right')
+            ? Math.min(margin.left + width - startDistance, xScale(startPoint.year) + startDistance)
+            : Math.max(margin.left + startDistance, xScale(startPoint.year) - startDistance);
+          startValueLabel.setAttribute('x', sx);
+          startYearLabel.setAttribute('x', sx);
+        }
+        if (config.end === 'left' || config.end === 'right') {
+          const ex = (config.end === 'right')
+            ? Math.min(margin.left + width - endDistance, xScale(currentPoint.year) + endDistance)
+            : Math.max(margin.left + endDistance, xScale(currentPoint.year) - endDistance);
+          endValueLabel.setAttribute('x', ex);
+          endYearLabel.setAttribute('x', ex);
+        }
+
+        
+        try {
+          const chartId = "maternal-mortality";
+          const spx = xScale(startPoint.year);
+          const epx = xScale(currentPoint.year);
+          
+          container.parentElement?.setAttribute('data-chart-id', chartId);
+          container.parentElement?.setAttribute('data-start-side', String(config.start));
+          container.parentElement?.setAttribute('data-end-side', String(config.end));
+          container.parentElement?.setAttribute('data-start-distance', String(startDistance));
+          container.parentElement?.setAttribute('data-end-distance', String(endDistance));
+          container.parentElement?.setAttribute('data-start-point-x', String(spx));
+          container.parentElement?.setAttribute('data-end-point-x', String(epx));
+          container.parentElement?.setAttribute('data-start-label-x', String(startValueLabel.getAttribute('x')));
+          container.parentElement?.setAttribute('data-end-label-x', String(endValueLabel.getAttribute('x')));
+
+          
+          startValueLabel.setAttribute('data-role', 'start-value');
+          startYearLabel.setAttribute('data-role', 'start-year');
+          endValueLabel.setAttribute('data-role', 'end-value');
+          endYearLabel.setAttribute('data-role', 'end-year');
+          startValueLabel.setAttribute('data-x', String(startValueLabel.getAttribute('x')));
+          endValueLabel.setAttribute('data-x', String(endValueLabel.getAttribute('x')));
+
+          
+          if (console && console.debug) {
+            console.debug(`[chart ${chartId}] start: side=${config.start}, dist=${startDistance}, pointX=${spx}, labelX=${startValueLabel.getAttribute('x')}`);
+            console.debug(`[chart ${chartId}]   end: side=${config.end}, dist=${endDistance}, pointX=${epx}, labelX=${endValueLabel.getAttribute('x')}`);
+          }
+        } catch (_) {}
 
       }
       

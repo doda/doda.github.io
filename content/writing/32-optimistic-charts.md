@@ -17,6 +17,16 @@ The world often feels like it's falling apart, but the data tells a different st
 
 <div class="chart-section">
 
+### Legal Slavery
+
+Number of countries where slavery is legal
+
+{{< chart id="legal-slavery" >}}
+
+</div>
+
+<div class="chart-section">
+
 <div class="chart-section-header">
 
 ### Maternal Deaths
@@ -91,7 +101,7 @@ Carbon emissions per dollar of GDP
 
 ### Plane Crash Deaths
 
-Aviation deaths per 10 billion passenger‑miles
+Aviation fatalities per million passengers
 
 {{< chart id="plane-deaths" >}}
 
@@ -157,21 +167,35 @@ Population in extreme poverty, percent
 
 </div>
 
+<div class="chart-section">
+
+### Smoking
+
+Share of adults who smoke
+
+{{< chart id="smoking-prevalence" >}}
+
+</div>
+
+<div class="chart-section">
+
+### Homicide Rate
+
+Intentional homicides per 100,000 people
+
+{{< chart id="homicide-rate" >}}
+
+</div>
+
+
+
+
+
 </div>
 
 ## 16 Good Things That Are Increasing
 
 <div class="charts-grid">
-
-<div class="chart-section">
-
-### Protected Nature
-
-Land area protected as reserves, percent
-
-{{< chart id="protected-areas" >}}
-
-</div>
 
 <div class="chart-section">
 
@@ -207,19 +231,9 @@ Population that can read and write, percent
 
 ### Democracy
 
-Population living in democratic countries, percent
+Countries that are electoral + liberal democracies (count)
 
 {{< chart id="democracy" >}}
-
-</div>
-
-<div class="chart-section">
-
-### Girls' Education
-
-Primary school enrollment rate, percent
-
-{{< chart id="girls-school" >}}
 
 </div>
 
@@ -282,6 +296,68 @@ Renewable electricity generation, percent
 {{< chart id="renewable-energy" >}}
 
 </div>
+
+<div class="chart-section">
+
+### Improved Sanitation
+
+Share of the population using safely managed sanitation facilities
+
+{{< chart id="sanitation-access" >}}
+
+</div>
+
+<div class="chart-section">
+
+### Protected Land
+
+Share of land under legal protection
+
+{{< chart id="protected-land" >}}
+
+</div>
+
+<div class="chart-section">
+
+### Women's Right to Vote
+
+Number of countries where women can vote
+
+{{< chart id="womens-suffrage" >}}
+
+</div>
+
+<div class="chart-section">
+
+### Monitored Species
+
+Number of species evaluated for conservation status
+
+{{< chart id="monitored-species" >}}
+
+</div>
+
+<div class="chart-section">
+
+### Comprehensive Vaccination
+
+Share of one-year-olds with all six basic vaccines
+
+{{< chart id="comprehensive-vaccination" >}}
+
+</div>
+
+<div class="chart-section">
+
+### Child Cancer Survival
+
+5-year survival rate for childhood cancer
+
+{{< chart id="child-cancer-survival" >}}
+
+</div>
+
+
 
 </div>
 

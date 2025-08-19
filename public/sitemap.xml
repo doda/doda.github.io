@@ -29,6 +29,15 @@
     <loc>http://localhost:1313/writing/zync/</loc>
     <lastmod>2024-08-14T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/engineering/</loc>
+    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/writing/engineering-principles-draft/</loc>
+    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/writing/engineering-principles/</loc>
+    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/life/</loc>
     <lastmod>2023-11-12T00:00:00+00:00</lastmod>
   </url><url>
@@ -36,6 +45,12 @@
     <lastmod>2023-11-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/writing/principles/</loc>
+    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/writing/principles-draft/</loc>
+    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/software/</loc>
     <lastmod>2023-11-12T00:00:00+00:00</lastmod>
   </url>
 </urlset>

@@ -119,7 +119,7 @@
         "value": 0
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:32-07:00"
+    "lastUpdated": "2025-08-17T21:14:04-07:00"
   },
   "cereal-yield": {
     "id": "cereal-yield",
@@ -221,7 +221,52 @@
         "value": 4.2426004
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:38-07:00"
+    "lastUpdated": "2025-08-17T21:14:13-07:00"
+  },
+  "child-cancer-survival": {
+    "id": "child-cancer-survival",
+    "title": "Child Cancer Survival",
+    "description": "5-year survival rates for childhood cancer have improved from 58% in 1975 to 80% in 2010.",
+    "source": "manual",
+    "direction": "up",
+    "year": 2010,
+    "value": 80,
+    "valueColumn": "5-Year Survival (%)",
+    "dataPoints": [
+      {
+        "year": 1975,
+        "value": 58
+      },
+      {
+        "year": 1980,
+        "value": 60
+      },
+      {
+        "year": 1985,
+        "value": 63
+      },
+      {
+        "year": 1990,
+        "value": 66
+      },
+      {
+        "year": 1995,
+        "value": 70
+      },
+      {
+        "year": 2000,
+        "value": 75
+      },
+      {
+        "year": 2005,
+        "value": 78
+      },
+      {
+        "year": 2010,
+        "value": 80
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "child-mortality": {
     "id": "child-mortality",
@@ -323,7 +368,7 @@
         "value": 3.67
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:34-07:00"
+    "lastUpdated": "2025-08-17T21:14:16-07:00"
   },
   "co2-intensity": {
     "id": "co2-intensity",
@@ -421,7 +466,112 @@
         "value": 0.28662747
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:28-07:00"
+    "lastUpdated": "2025-08-17T21:14:13-07:00"
+  },
+  "comprehensive-vaccination": {
+    "id": "comprehensive-vaccination",
+    "title": "Comprehensive Vaccination",
+    "description": "The lowest vaccination rate among six basic vaccines has increased from 13% in 2000 to 76% in 2022.",
+    "source": "manual",
+    "direction": "up",
+    "year": 2022,
+    "value": 76,
+    "valueColumn": "Lowest vaccination rate (%)",
+    "dataPoints": [
+      {
+        "year": 2000,
+        "value": 13
+      },
+      {
+        "year": 2001,
+        "value": 14
+      },
+      {
+        "year": 2002,
+        "value": 17
+      },
+      {
+        "year": 2003,
+        "value": 18
+      },
+      {
+        "year": 2004,
+        "value": 19
+      },
+      {
+        "year": 2005,
+        "value": 20
+      },
+      {
+        "year": 2006,
+        "value": 21
+      },
+      {
+        "year": 2007,
+        "value": 25
+      },
+      {
+        "year": 2008,
+        "value": 28
+      },
+      {
+        "year": 2009,
+        "value": 38
+      },
+      {
+        "year": 2010,
+        "value": 40
+      },
+      {
+        "year": 2011,
+        "value": 43
+      },
+      {
+        "year": 2012,
+        "value": 45
+      },
+      {
+        "year": 2013,
+        "value": 51
+      },
+      {
+        "year": 2014,
+        "value": 55
+      },
+      {
+        "year": 2015,
+        "value": 63
+      },
+      {
+        "year": 2016,
+        "value": 70
+      },
+      {
+        "year": 2017,
+        "value": 71
+      },
+      {
+        "year": 2018,
+        "value": 73
+      },
+      {
+        "year": 2019,
+        "value": 74
+      },
+      {
+        "year": 2020,
+        "value": 73
+      },
+      {
+        "year": 2021,
+        "value": 72
+      },
+      {
+        "year": 2022,
+        "value": 76
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "death-penalty": {
     "id": "death-penalty",
@@ -433,18 +583,18 @@
     "value": null,
     "valueColumn": "Manual Data Required",
     "dataPoints": [],
-    "lastUpdated": "2025-08-17T13:32:42-07:00"
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "democracy": {
     "id": "democracy",
     "title": "Democracy",
-    "description": "The share of humanity living in a democracy has increased significantly.",
+    "description": "The number of countries that are electoral or liberal democracies has increased significantly.",
     "source": "owid",
-    "slug": "people-living-in-democracies-autocracies",
+    "slug": "countries-democracies-autocracies-row.csv?v=1\u0026csvType=full\u0026useColumnShortNames=true",
     "direction": "up",
     "year": 2024,
-    "value": 1351854565,
-    "valueColumn": "People living in electoral democracies",
+    "value": 88,
+    "valueColumn": "Electoral + Liberal democracies (countries)",
     "dataPoints": [
       {
         "year": 1789,
@@ -472,74 +622,74 @@
       },
       {
         "year": 1855,
-        "value": 0
+        "value": 1
       },
       {
         "year": 1866,
-        "value": 0
+        "value": 2
       },
       {
         "year": 1877,
-        "value": 38562323
+        "value": 3
       },
       {
         "year": 1888,
-        "value": 40018115
+        "value": 4
       },
       {
         "year": 1899,
-        "value": 40762987
+        "value": 4
       },
       {
         "year": 1910,
-        "value": 43869795
+        "value": 8
       },
       {
         "year": 1921,
-        "value": 269171560
+        "value": 20
       },
       {
         "year": 1932,
-        "value": 297308342
+        "value": 23
       },
       {
         "year": 1943,
-        "value": 148583345
+        "value": 10
       },
       {
         "year": 1954,
-        "value": 626331361
+        "value": 27
       },
       {
         "year": 1965,
-        "value": 818886050
+        "value": 33
       },
       {
         "year": 1976,
-        "value": 90630605
+        "value": 37
       },
       {
         "year": 1987,
-        "value": 1056568758
+        "value": 44
       },
       {
         "year": 1998,
-        "value": 1940693474
+        "value": 84
       },
       {
         "year": 2009,
-        "value": 2230990836
+        "value": 90
       },
       {
         "year": 2020,
-        "value": 1525178859
+        "value": 93
       },
       {
         "year": 2024,
-        "value": 1351854565
+        "value": 88
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:40-07:00"
+    "lastUpdated": "2025-08-17T21:14:10-07:00"
   },
   "disaster-deaths": {
     "id": "disaster-deaths",
@@ -653,7 +803,7 @@
         "value": 0
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:37-07:00"
+    "lastUpdated": "2025-08-17T21:14:07-07:00"
   },
   "electricity": {
     "id": "electricity",
@@ -767,7 +917,7 @@
         "value": 91.277855
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:35-07:00"
+    "lastUpdated": "2025-08-17T21:14:11-07:00"
   },
   "extreme-poverty": {
     "id": "extreme-poverty",
@@ -925,7 +1075,7 @@
         "value": 9.856213
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:41-07:00"
+    "lastUpdated": "2025-08-17T21:14:09-07:00"
   },
   "girls-school": {
     "id": "girls-school",
@@ -1051,7 +1201,117 @@
         "value": 0.97313
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:42-07:00"
+    "lastUpdated": "2025-08-17T21:14:10-07:00"
+  },
+  "homicide-rate": {
+    "id": "homicide-rate",
+    "title": "Homicide Rate",
+    "description": "Intentional killings per 100k people have fallen by a third since the early 1990s.",
+    "source": "owid",
+    "slug": "homicide-rate-unodc",
+    "direction": "down",
+    "year": 2023,
+    "value": 5.197053,
+    "valueColumn": "Homicide rate per 100,000 population - sex: Total - age: Total",
+    "dataPoints": [
+      {
+        "year": 2000,
+        "value": 6.930091
+      },
+      {
+        "year": 2001,
+        "value": 7.0186663
+      },
+      {
+        "year": 2002,
+        "value": 6.9801316
+      },
+      {
+        "year": 2003,
+        "value": 6.7978806
+      },
+      {
+        "year": 2004,
+        "value": 6.5749803
+      },
+      {
+        "year": 2005,
+        "value": 6.365925
+      },
+      {
+        "year": 2006,
+        "value": 6.247133
+      },
+      {
+        "year": 2007,
+        "value": 6.0740776
+      },
+      {
+        "year": 2008,
+        "value": 6.0693526
+      },
+      {
+        "year": 2009,
+        "value": 6.1153026
+      },
+      {
+        "year": 2010,
+        "value": 6.091143
+      },
+      {
+        "year": 2011,
+        "value": 6.1597085
+      },
+      {
+        "year": 2012,
+        "value": 6.1843886
+      },
+      {
+        "year": 2013,
+        "value": 6.090741
+      },
+      {
+        "year": 2014,
+        "value": 6.0830593
+      },
+      {
+        "year": 2015,
+        "value": 5.9224563
+      },
+      {
+        "year": 2016,
+        "value": 5.967355
+      },
+      {
+        "year": 2017,
+        "value": 5.894396
+      },
+      {
+        "year": 2018,
+        "value": 5.651801
+      },
+      {
+        "year": 2019,
+        "value": 5.396274
+      },
+      {
+        "year": 2020,
+        "value": 5.286739
+      },
+      {
+        "year": 2021,
+        "value": 5.511355
+      },
+      {
+        "year": 2022,
+        "value": 5.2869196
+      },
+      {
+        "year": 2023,
+        "value": 5.197053
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "hunger": {
     "id": "hunger",
@@ -1161,7 +1421,7 @@
         "value": 9.1
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:40-07:00"
+    "lastUpdated": "2025-08-17T21:14:04-07:00"
   },
   "internet": {
     "id": "internet",
@@ -1311,7 +1571,7 @@
         "value": 67.4
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:29-07:00"
+    "lastUpdated": "2025-08-17T21:14:09-07:00"
   },
   "leaded-gasoline": {
     "id": "leaded-gasoline",
@@ -1323,19 +1583,68 @@
     "value": null,
     "valueColumn": "Manual Data Required",
     "dataPoints": [],
-    "lastUpdated": "2025-08-17T13:32:42-07:00"
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "legal-slavery": {
     "id": "legal-slavery",
     "title": "Legal Slavery",
-    "description": "The share of countries where slavery is legal has dropped to zero.",
+    "description": "The number of countries where slavery is legal has dropped from 194 in 1800 to just 3 today.",
     "source": "manual",
     "direction": "down",
-    "year": 2024,
-    "value": null,
-    "valueColumn": "Manual Data Required",
-    "dataPoints": [],
-    "lastUpdated": "2025-08-17T13:32:42-07:00"
+    "year": 2017,
+    "value": 3,
+    "valueColumn": "Number of countries where slavery is legal",
+    "dataPoints": [
+      {
+        "year": 1800,
+        "value": 194
+      },
+      {
+        "year": 1820,
+        "value": 189
+      },
+      {
+        "year": 1840,
+        "value": 174
+      },
+      {
+        "year": 1860,
+        "value": 165
+      },
+      {
+        "year": 1880,
+        "value": 160
+      },
+      {
+        "year": 1900,
+        "value": 158
+      },
+      {
+        "year": 1920,
+        "value": 157
+      },
+      {
+        "year": 1940,
+        "value": 145
+      },
+      {
+        "year": 1960,
+        "value": 102
+      },
+      {
+        "year": 1980,
+        "value": 54
+      },
+      {
+        "year": 2000,
+        "value": 15
+      },
+      {
+        "year": 2017,
+        "value": 3
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "life-expectancy": {
     "id": "life-expectancy",
@@ -1433,7 +1742,7 @@
         "value": 73.1694
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:27-07:00"
+    "lastUpdated": "2025-08-17T21:14:14-07:00"
   },
   "literacy": {
     "id": "literacy",
@@ -1547,7 +1856,7 @@
         "value": 87.356
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:39-07:00"
+    "lastUpdated": "2025-08-17T21:14:06-07:00"
   },
   "maternal-mortality": {
     "id": "maternal-mortality",
@@ -1705,7 +2014,7 @@
         "value": 212.23637
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:41-07:00"
+    "lastUpdated": "2025-08-17T21:14:11-07:00"
   },
   "mobile-phones": {
     "id": "mobile-phones",
@@ -1827,7 +2136,92 @@
         "value": 110.6
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:29-07:00"
+    "lastUpdated": "2025-08-17T21:14:12-07:00"
+  },
+  "monitored-species": {
+    "id": "monitored-species",
+    "title": "Monitored Species",
+    "description": "The number of species evaluated for conservation status has grown from 34 in 1959 to over 157,000 today.",
+    "source": "manual",
+    "direction": "up",
+    "year": 2023,
+    "value": 157190,
+    "valueColumn": "Evaluated Species",
+    "dataPoints": [
+      {
+        "year": 1959,
+        "value": 34
+      },
+      {
+        "year": 1960,
+        "value": 34
+      },
+      {
+        "year": 1970,
+        "value": 50
+      },
+      {
+        "year": 1980,
+        "value": 200
+      },
+      {
+        "year": 1990,
+        "value": 2500
+      },
+      {
+        "year": 1995,
+        "value": 5000
+      },
+      {
+        "year": 2000,
+        "value": 22456
+      },
+      {
+        "year": 2002,
+        "value": 25000
+      },
+      {
+        "year": 2004,
+        "value": 45000
+      },
+      {
+        "year": 2006,
+        "value": 45000
+      },
+      {
+        "year": 2010,
+        "value": 65000
+      },
+      {
+        "year": 2012,
+        "value": 75000
+      },
+      {
+        "year": 2014,
+        "value": 90000
+      },
+      {
+        "year": 2016,
+        "value": 105000
+      },
+      {
+        "year": 2018,
+        "value": 125000
+      },
+      {
+        "year": 2020,
+        "value": 135000
+      },
+      {
+        "year": 2022,
+        "value": 150000
+      },
+      {
+        "year": 2023,
+        "value": 157190
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "nuclear-warheads": {
     "id": "nuclear-warheads",
@@ -1925,7 +2319,7 @@
         "value": 12121
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:38-07:00"
+    "lastUpdated": "2025-08-17T21:14:08-07:00"
   },
   "oil-spills": {
     "id": "oil-spills",
@@ -2051,7 +2445,7 @@
         "value": 10000
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:33-07:00"
+    "lastUpdated": "2025-08-17T21:14:05-07:00"
   },
   "ozone-depletion": {
     "id": "ozone-depletion",
@@ -2201,143 +2595,194 @@
         "value": -21.7
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:36-07:00"
+    "lastUpdated": "2025-08-17T21:14:06-07:00"
   },
   "plane-deaths": {
     "id": "plane-deaths",
     "title": "Plane Crash Deaths",
-    "description": "The number of deaths per 10 billion passenger miles has drastically reduced.",
+    "description": "Aviation fatalities per million passengers have dramatically declined, making flying safer than ever.",
     "source": "owid",
-    "slug": "global-fatalities-from-aviation-accidents-and-hijackings",
+    "slug": "aviation-fatalities-per-million-passengers",
     "direction": "down",
     "year": 2021,
-    "value": 0,
-    "valueColumn": "Hijacking fatalities",
+    "value": 0.053947967,
+    "valueColumn": "Fatalities per million passengers",
     "dataPoints": [
-      {
-        "year": 1942,
-        "value": 0
-      },
-      {
-        "year": 1946,
-        "value": 0
-      },
-      {
-        "year": 1950,
-        "value": 0
-      },
-      {
-        "year": 1954,
-        "value": 2
-      },
-      {
-        "year": 1958,
-        "value": 19
-      },
-      {
-        "year": 1962,
-        "value": 0
-      },
-      {
-        "year": 1966,
-        "value": 2
-      },
       {
         "year": 1970,
-        "value": 7
+        "value": 4.767405
       },
       {
-        "year": 1974,
-        "value": 83
+        "year": 1973,
+        "value": 5.652787
       },
       {
-        "year": 1978,
-        "value": 4
+        "year": 1975,
+        "value": 2.671901
       },
       {
-        "year": 1982,
-        "value": 1
+        "year": 1977,
+        "value": 3.3354812
       },
       {
-        "year": 1986,
-        "value": 87
+        "year": 1979,
+        "value": 2.6974065
       },
       {
-        "year": 1990,
-        "value": 86
+        "year": 1981,
+        "value": 1.3440118
       },
       {
-        "year": 1994,
-        "value": 8
+        "year": 1983,
+        "value": 1.9646722
       },
       {
-        "year": 1998,
-        "value": 1
+        "year": 1985,
+        "value": 3.091172
       },
       {
-        "year": 2002,
-        "value": 2
+        "year": 1987,
+        "value": 1.4544039
       },
       {
-        "year": 2006,
-        "value": 0
+        "year": 1989,
+        "value": 1.8022621
       },
       {
-        "year": 2010,
-        "value": 0
+        "year": 1991,
+        "value": 1.0130352
       },
       {
-        "year": 2014,
-        "value": 0
+        "year": 1993,
+        "value": 1.0645514
       },
       {
-        "year": 2018,
-        "value": 0
+        "year": 1995,
+        "value": 0.9079803
       },
       {
-        "year": 2021,
-        "value": 0
-      }
-    ],
-    "lastUpdated": "2025-08-17T13:32:37-07:00"
-  },
-  "protected-areas": {
-    "id": "protected-areas",
-    "title": "Protected Nature",
-    "description": "The share of the Earth's land surface that is protected as national parks and other reserves has increased.",
-    "source": "owid",
-    "slug": "terrestrial-protected-areas",
-    "direction": "up",
-    "year": 2021,
-    "value": 15.272336,
-    "valueColumn": "Terrestrial protected areas (% of total land area)",
-    "dataPoints": [
+        "year": 1997,
+        "value": 0.8521726
+      },
       {
-        "year": 2016,
-        "value": 14.400239
+        "year": 1999,
+        "value": 0.4416689
+      },
+      {
+        "year": 2001,
+        "value": 0.6796638
+      },
+      {
+        "year": 2003,
+        "value": 0.3999257
+      },
+      {
+        "year": 2005,
+        "value": 0.536152
+      },
+      {
+        "year": 2007,
+        "value": 0.34945783
+      },
+      {
+        "year": 2009,
+        "value": 0.3222611
+      },
+      {
+        "year": 2011,
+        "value": 0.18036054
+      },
+      {
+        "year": 2013,
+        "value": 0.0825753
+      },
+      {
+        "year": 2015,
+        "value": 0.15233545
       },
       {
         "year": 2017,
-        "value": 14.572377
-      },
-      {
-        "year": 2018,
-        "value": 14.572405
+        "value": 0.010930004
       },
       {
         "year": 2019,
-        "value": 14.701448
-      },
-      {
-        "year": 2020,
-        "value": 14.75412
+        "value": 0.06396315
       },
       {
         "year": 2021,
-        "value": 15.272336
+        "value": 0.053947967
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:34-07:00"
+    "lastUpdated": "2025-08-17T21:14:07-07:00"
+  },
+  "protected-land": {
+    "id": "protected-land",
+    "title": "Protected Land",
+    "description": "The share of land under legal protection has grown from virtually zero to nearly 18%.",
+    "source": "manual",
+    "direction": "up",
+    "year": 2023,
+    "value": 17.9,
+    "valueColumn": "Protected (%)",
+    "dataPoints": [
+      {
+        "year": 1900,
+        "value": 0.03
+      },
+      {
+        "year": 1910,
+        "value": 0.05
+      },
+      {
+        "year": 1920,
+        "value": 0.07
+      },
+      {
+        "year": 1930,
+        "value": 0.1
+      },
+      {
+        "year": 1940,
+        "value": 0.15
+      },
+      {
+        "year": 1950,
+        "value": 0.35
+      },
+      {
+        "year": 1960,
+        "value": 0.8
+      },
+      {
+        "year": 1970,
+        "value": 2
+      },
+      {
+        "year": 1980,
+        "value": 4.5
+      },
+      {
+        "year": 1990,
+        "value": 8.9
+      },
+      {
+        "year": 2000,
+        "value": 12
+      },
+      {
+        "year": 2010,
+        "value": 15
+      },
+      {
+        "year": 2020,
+        "value": 17
+      },
+      {
+        "year": 2023,
+        "value": 17.9
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "renewable-energy": {
     "id": "renewable-energy",
@@ -2435,7 +2880,113 @@
         "value": 31.918001
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:32-07:00"
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
+  },
+  "sanitation-access": {
+    "id": "sanitation-access",
+    "title": "Improved Sanitation",
+    "description": "Two-thirds of humanity had safe sanitation in 2022, up from half in 2000.",
+    "source": "owid",
+    "slug": "share-using-safely-managed-sanitation",
+    "direction": "up",
+    "year": 2022,
+    "value": 56.60437,
+    "valueColumn": "Share of the population using safely managed sanitation services",
+    "dataPoints": [
+      {
+        "year": 2000,
+        "value": 32.34688
+      },
+      {
+        "year": 2001,
+        "value": 32.75709
+      },
+      {
+        "year": 2002,
+        "value": 33.29103
+      },
+      {
+        "year": 2003,
+        "value": 34.117634
+      },
+      {
+        "year": 2004,
+        "value": 35.21493
+      },
+      {
+        "year": 2005,
+        "value": 36.284763
+      },
+      {
+        "year": 2006,
+        "value": 37.392464
+      },
+      {
+        "year": 2007,
+        "value": 38.566936
+      },
+      {
+        "year": 2008,
+        "value": 39.76032
+      },
+      {
+        "year": 2009,
+        "value": 40.97792
+      },
+      {
+        "year": 2010,
+        "value": 42.2104
+      },
+      {
+        "year": 2011,
+        "value": 43.40638
+      },
+      {
+        "year": 2012,
+        "value": 44.679123
+      },
+      {
+        "year": 2013,
+        "value": 45.970356
+      },
+      {
+        "year": 2014,
+        "value": 47.293365
+      },
+      {
+        "year": 2015,
+        "value": 48.638775
+      },
+      {
+        "year": 2016,
+        "value": 49.992104
+      },
+      {
+        "year": 2017,
+        "value": 51.335617
+      },
+      {
+        "year": 2018,
+        "value": 52.659065
+      },
+      {
+        "year": 2019,
+        "value": 53.972904
+      },
+      {
+        "year": 2020,
+        "value": 54.825058
+      },
+      {
+        "year": 2021,
+        "value": 55.848248
+      },
+      {
+        "year": 2022,
+        "value": 56.60437
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:02-07:00"
   },
   "scientific-papers": {
     "id": "scientific-papers",
@@ -2549,7 +3100,7 @@
         "value": 2933010.8
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:30-07:00"
+    "lastUpdated": "2025-08-17T21:14:15-07:00"
   },
   "smallpox": {
     "id": "smallpox",
@@ -2561,7 +3112,53 @@
     "value": null,
     "valueColumn": "Manual Data Required",
     "dataPoints": [],
-    "lastUpdated": "2025-08-17T13:32:42-07:00"
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
+  },
+  "smoking-prevalence": {
+    "id": "smoking-prevalence",
+    "title": "Smoking",
+    "description": "Global smoking rates have fallen by roughly a quarter since 1990, saving millions of lives.",
+    "source": "owid",
+    "slug": "share-of-adults-who-smoke",
+    "direction": "down",
+    "year": 2022,
+    "value": 21.748646,
+    "valueColumn": "Share of adults who smoke or use tobacco (age-standardized)",
+    "dataPoints": [
+      {
+        "year": 2000,
+        "value": 34.32254
+      },
+      {
+        "year": 2005,
+        "value": 30.745785
+      },
+      {
+        "year": 2007,
+        "value": 29.422499
+      },
+      {
+        "year": 2010,
+        "value": 27.585884
+      },
+      {
+        "year": 2015,
+        "value": 24.878088
+      },
+      {
+        "year": 2020,
+        "value": 22.58197
+      },
+      {
+        "year": 2021,
+        "value": 22.133287
+      },
+      {
+        "year": 2022,
+        "value": 21.748646
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:15-07:00"
   },
   "so2-emissions": {
     "id": "so2-emissions",
@@ -2663,7 +3260,7 @@
         "value": 73466960
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:35-07:00"
+    "lastUpdated": "2025-08-17T21:14:04-07:00"
   },
   "solar-price": {
     "id": "solar-price",
@@ -2777,7 +3374,7 @@
         "value": 0.3056964
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:32-07:00"
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   },
   "water-access": {
     "id": "water-access",
@@ -2883,6 +3480,287 @@
         "value": 91.18254
       }
     ],
-    "lastUpdated": "2025-08-17T13:32:30-07:00"
+    "lastUpdated": "2025-08-17T21:14:12-07:00"
+  },
+  "womens-suffrage": {
+    "id": "womens-suffrage",
+    "title": "Women's Right to Vote",
+    "description": "The number of countries where women have the right to vote has grown from 1 in 1893 to 195 today.",
+    "source": "manual",
+    "direction": "up",
+    "year": 2023,
+    "value": 195,
+    "valueColumn": "Number of countries",
+    "dataPoints": [
+      {
+        "year": 1893,
+        "value": 1
+      },
+      {
+        "year": 1906,
+        "value": 2
+      },
+      {
+        "year": 1913,
+        "value": 3
+      },
+      {
+        "year": 1915,
+        "value": 5
+      },
+      {
+        "year": 1917,
+        "value": 11
+      },
+      {
+        "year": 1918,
+        "value": 17
+      },
+      {
+        "year": 1919,
+        "value": 22
+      },
+      {
+        "year": 1920,
+        "value": 26
+      },
+      {
+        "year": 1921,
+        "value": 27
+      },
+      {
+        "year": 1922,
+        "value": 29
+      },
+      {
+        "year": 1924,
+        "value": 33
+      },
+      {
+        "year": 1925,
+        "value": 34
+      },
+      {
+        "year": 1928,
+        "value": 35
+      },
+      {
+        "year": 1931,
+        "value": 37
+      },
+      {
+        "year": 1932,
+        "value": 40
+      },
+      {
+        "year": 1934,
+        "value": 42
+      },
+      {
+        "year": 1937,
+        "value": 43
+      },
+      {
+        "year": 1938,
+        "value": 44
+      },
+      {
+        "year": 1940,
+        "value": 45
+      },
+      {
+        "year": 1942,
+        "value": 46
+      },
+      {
+        "year": 1944,
+        "value": 48
+      },
+      {
+        "year": 1945,
+        "value": 60
+      },
+      {
+        "year": 1946,
+        "value": 68
+      },
+      {
+        "year": 1947,
+        "value": 75
+      },
+      {
+        "year": 1948,
+        "value": 81
+      },
+      {
+        "year": 1949,
+        "value": 84
+      },
+      {
+        "year": 1950,
+        "value": 86
+      },
+      {
+        "year": 1951,
+        "value": 94
+      },
+      {
+        "year": 1952,
+        "value": 97
+      },
+      {
+        "year": 1953,
+        "value": 100
+      },
+      {
+        "year": 1954,
+        "value": 103
+      },
+      {
+        "year": 1955,
+        "value": 109
+      },
+      {
+        "year": 1956,
+        "value": 116
+      },
+      {
+        "year": 1957,
+        "value": 119
+      },
+      {
+        "year": 1958,
+        "value": 124
+      },
+      {
+        "year": 1959,
+        "value": 128
+      },
+      {
+        "year": 1960,
+        "value": 132
+      },
+      {
+        "year": 1961,
+        "value": 139
+      },
+      {
+        "year": 1962,
+        "value": 144
+      },
+      {
+        "year": 1963,
+        "value": 151
+      },
+      {
+        "year": 1964,
+        "value": 154
+      },
+      {
+        "year": 1965,
+        "value": 157
+      },
+      {
+        "year": 1967,
+        "value": 161
+      },
+      {
+        "year": 1968,
+        "value": 163
+      },
+      {
+        "year": 1970,
+        "value": 166
+      },
+      {
+        "year": 1971,
+        "value": 167
+      },
+      {
+        "year": 1974,
+        "value": 169
+      },
+      {
+        "year": 1975,
+        "value": 174
+      },
+      {
+        "year": 1976,
+        "value": 176
+      },
+      {
+        "year": 1977,
+        "value": 177
+      },
+      {
+        "year": 1979,
+        "value": 180
+      },
+      {
+        "year": 1980,
+        "value": 181
+      },
+      {
+        "year": 1984,
+        "value": 182
+      },
+      {
+        "year": 1986,
+        "value": 183
+      },
+      {
+        "year": 1989,
+        "value": 184
+      },
+      {
+        "year": 1990,
+        "value": 185
+      },
+      {
+        "year": 1991,
+        "value": 186
+      },
+      {
+        "year": 1994,
+        "value": 187
+      },
+      {
+        "year": 1996,
+        "value": 188
+      },
+      {
+        "year": 1997,
+        "value": 189
+      },
+      {
+        "year": 2002,
+        "value": 190
+      },
+      {
+        "year": 2003,
+        "value": 191
+      },
+      {
+        "year": 2005,
+        "value": 192
+      },
+      {
+        "year": 2006,
+        "value": 193
+      },
+      {
+        "year": 2015,
+        "value": 194
+      },
+      {
+        "year": 2020,
+        "value": 194
+      },
+      {
+        "year": 2023,
+        "value": 195
+      }
+    ],
+    "lastUpdated": "2025-08-17T21:14:17-07:00"
   }
 }
