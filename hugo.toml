@@ -22,16 +22,16 @@ profilePicture = '/images/profile.jpg'
 # Intro on main page, content is markdown
 homeIntroTitle = 'Hi!'
 homeIntroContent = """
-I work on Systems at [Substack](https://substack.com). I am super excited about all things infra, AI and running things at scale.
+I work on Systems at [Substack](https://substack.com). I'm excited about all things infra, AI and running things at scale.
 
 
-I dropped out of school and moved to London to start working in startups at age 20, and then made my way to US via Berlin and Barcelona, where I've since settled in SF.
+I grew up in Austria, and lived in a few cities in Europe (London, Berlin, Barcelona) before finally settling in the US in 2019. I love it here!
 
 
-In my free time I enjoy meditation, jhanas, lifting and painting. I care deeply that what I do positively affects those around me. 
+In my free time I enjoy meditation, jhanas, lifting and painting.
 
 
-I'm usually at the Thursday sits at the [Berkeley Alembic](https://www.berkeleyalembic.org/).  If our paths cross in meaningful ways, don't hesitate to reach out!
+I'm usually at the Thursday sits at the [Berkeley Alembic](https://www.berkeleyalembic.org/).  If our paths cross, don't hesitate to reach out!
 
 
 """

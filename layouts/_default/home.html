@@ -42,9 +42,16 @@
 
 {{ if .Site.Params.homeCollection }}
 
-<div class="list-container">
+{{ $dateFormat := "2 Jan 2006" }}
+{{ with .Site.Params.listDateFormat }}
+  {{ $dateFormat = . }}
+{{ end }}
+
+<section class="writing-list writing-list--home">
     {{ with .Site.Params.homeCollectionTitle}}
-    <h1> {{ . }} </h1>
+    <header class="writing-list__header">
+        <h1>{{ . }}</h1>
+    </header>
     {{ end }}
 
     {{ $pages := where .Site.RegularPages "Section" .Site.Params.homeCollection
@@ -57,13 +64,15 @@
 
     {{ $paginator := .Paginate $pages $paginationSize }}
 
-    {{ range $index, $page := $paginator.Pages }}
-    {{ partial "post-entry.html" $page}}
-    {{ end }}
+    <div class="writing-list__grid">
+        {{ range $index, $page := $paginator.Pages }}
+        {{ partial "writing/card.html" (dict "page" $page "dateFormat" $dateFormat) }}
+        {{ end }}
+    </div>
 
     {{ partial "pagination-controls.html" $paginator}}
 
     {{ end }}
-</div>
+</section>
 
 {{ end }}

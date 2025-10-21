@@ -231,7 +231,7 @@ Population that can read and write, percent
 
 ### Democracy
 
-Countries that are electoral + liberal democracies (count)
+Countries that are electoral + liberal democracies
 
 {{< chart id="democracy" >}}
 

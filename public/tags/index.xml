@@ -2,59 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Dominik Dabrowski</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://doda.co/tags/</link>
     <description>Recent content in Tags on Dominik Dabrowski</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 17 Aug 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://doda.co/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Data</title>
-      <link>http://localhost:1313/tags/data/</link>
+      <link>https://doda.co/tags/data/</link>
       <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/data/</guid>
+      <guid>https://doda.co/tags/data/</guid>
       <description></description>
     </item>
     <item>
       <title>Optimism</title>
-      <link>http://localhost:1313/tags/optimism/</link>
+      <link>https://doda.co/tags/optimism/</link>
       <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/optimism/</guid>
+      <guid>https://doda.co/tags/optimism/</guid>
       <description></description>
     </item>
     <item>
       <title>Progress</title>
-      <link>http://localhost:1313/tags/progress/</link>
+      <link>https://doda.co/tags/progress/</link>
       <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/progress/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Engineering</title>
-      <link>http://localhost:1313/tags/engineering/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/engineering/</guid>
+      <guid>https://doda.co/tags/progress/</guid>
       <description></description>
     </item>
     <item>
       <title>Life</title>
-      <link>http://localhost:1313/tags/life/</link>
+      <link>https://doda.co/tags/life/</link>
       <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/life/</guid>
+      <guid>https://doda.co/tags/life/</guid>
       <description></description>
     </item>
     <item>
       <title>Philosophy</title>
-      <link>http://localhost:1313/tags/philosophy/</link>
+      <link>https://doda.co/tags/philosophy/</link>
       <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/philosophy/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Software</title>
-      <link>http://localhost:1313/tags/software/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/software/</guid>
+      <guid>https://doda.co/tags/philosophy/</guid>
       <description></description>
     </item>
   </channel>

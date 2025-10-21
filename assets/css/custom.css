@@ -110,3 +110,140 @@ body .wide-content {
   object-fit: cover;
   object-position: 30% 20%;
 }
+
+/* Writing list layout */
+.writing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-bottom: 4rem;
+}
+
+.writing-list__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 720px;
+}
+
+.writing-list--home {
+  margin-top: 3rem;
+}
+
+.writing-list--home .writing-list__header {
+  margin-bottom: 0;
+}
+
+.writing-list--home .writing-list__grid {
+  margin-top: 1rem;
+}
+
+.writing-list__intro {
+  color: var(--content-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.writing-list__intro p {
+  margin-bottom: 0;
+}
+
+.writing-list__grid {
+  display: grid;
+  gap: 1.75rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .writing-list__grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+.writing-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.75rem;
+  border: 1px solid var(--code-border);
+  border-radius: 18px;
+  background: var(--code-background);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.writing-card:hover,
+.writing-card:focus-within {
+  border-color: var(--content-secondary);
+}
+
+.writing-card__link {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.writing-card__link:focus-visible {
+  outline: 2px solid var(--content-secondary);
+  outline-offset: 6px;
+}
+
+.writing-card__link:hover .writing-card__title,
+.writing-card__link:focus-visible .writing-card__title {
+  text-decoration: underline;
+}
+
+.writing-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  color: var(--content-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.writing-card__date {
+  font-variant-numeric: tabular-nums;
+}
+
+.writing-card__read-time {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.writing-card__title {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+.writing-card__summary {
+  color: var(--content-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.writing-card__summary p {
+  margin: 0;
+}
+
+@media (max-width: 540px) {
+  .writing-card {
+    padding: 1.5rem;
+  }
+
+  .writing-card__title {
+    font-size: 1.25rem;
+  }
+
+  .writing-card__meta {
+    font-size: 0.75rem;
+  }
+}

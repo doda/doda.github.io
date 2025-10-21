@@ -2,24 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Philosophy on Dominik Dabrowski</title>
-    <link>http://localhost:1313/tags/philosophy/</link>
+    <link>https://doda.co/tags/philosophy/</link>
     <description>Recent content in Philosophy on Dominik Dabrowski</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/philosophy/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://doda.co/tags/philosophy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Principles</title>
-      <link>http://localhost:1313/writing/principles/</link>
+      <link>https://doda.co/writing/principles/</link>
       <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/writing/principles/</guid>
-      <description>A collection of personal principles.</description>
-    </item>
-    <item>
-      <title>Principles Draft</title>
-      <link>http://localhost:1313/writing/principles-draft/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/writing/principles-draft/</guid>
+      <guid>https://doda.co/writing/principles/</guid>
       <description>A collection of personal principles.</description>
     </item>
   </channel>
