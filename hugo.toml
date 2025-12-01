@@ -76,7 +76,10 @@ url = "/writing"
 # Syntax highlight on code blocks
 [markup]
 [markup.highlight]
-style = 'algol'
+noClasses = false      # Use CSS classes for styling
+guessSyntax = true
+lineNos = false
+style = 'autumn'
 [markup.goldmark]
 [markup.goldmark.renderer]
 unsafe = true

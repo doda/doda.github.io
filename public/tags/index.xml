@@ -2,45 +2,94 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Dominik Dabrowski</title>
-    <link>https://doda.co/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Dominik Dabrowski</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Aug 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://doda.co/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Criu</title>
+      <link>http://localhost:1313/tags/criu/</link>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/criu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Gpu</title>
+      <link>http://localhost:1313/tags/gpu/</link>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/gpu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Infrastructure</title>
+      <link>http://localhost:1313/tags/infrastructure/</link>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/infrastructure/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>http://localhost:1313/tags/kubernetes/</link>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Serverless</title>
+      <link>http://localhost:1313/tags/serverless/</link>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/serverless/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Data</title>
-      <link>https://doda.co/tags/data/</link>
+      <link>http://localhost:1313/tags/data/</link>
       <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://doda.co/tags/data/</guid>
+      <guid>http://localhost:1313/tags/data/</guid>
       <description></description>
     </item>
     <item>
       <title>Optimism</title>
-      <link>https://doda.co/tags/optimism/</link>
+      <link>http://localhost:1313/tags/optimism/</link>
       <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://doda.co/tags/optimism/</guid>
+      <guid>http://localhost:1313/tags/optimism/</guid>
       <description></description>
     </item>
     <item>
       <title>Progress</title>
-      <link>https://doda.co/tags/progress/</link>
+      <link>http://localhost:1313/tags/progress/</link>
       <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://doda.co/tags/progress/</guid>
+      <guid>http://localhost:1313/tags/progress/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Engineering</title>
+      <link>http://localhost:1313/tags/engineering/</link>
+      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/engineering/</guid>
       <description></description>
     </item>
     <item>
       <title>Life</title>
-      <link>https://doda.co/tags/life/</link>
+      <link>http://localhost:1313/tags/life/</link>
       <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>https://doda.co/tags/life/</guid>
+      <guid>http://localhost:1313/tags/life/</guid>
       <description></description>
     </item>
     <item>
       <title>Philosophy</title>
-      <link>https://doda.co/tags/philosophy/</link>
+      <link>http://localhost:1313/tags/philosophy/</link>
       <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>https://doda.co/tags/philosophy/</guid>
+      <guid>http://localhost:1313/tags/philosophy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Software</title>
+      <link>http://localhost:1313/tags/software/</link>
+      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/software/</guid>
       <description></description>
     </item>
   </channel>

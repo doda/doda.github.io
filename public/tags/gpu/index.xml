@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gpu on Dominik Dabrowski</title>
+    <link>http://localhost:1313/tags/gpu/</link>
+    <description>Recent content in Gpu on Dominik Dabrowski</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 30 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/gpu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Build a modal.com Clone in 24 Hours</title>
+      <link>http://localhost:1313/writing/building-modal-in-a-day/</link>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/writing/building-modal-in-a-day/</guid>
+      <description>Or: How I Learned to Stop Worrying and Love the CRIU Dump. Building a serverless GPU platform with sub-second cold starts in a day of focused work.</description>
+    </item>
+  </channel>
+</rss>

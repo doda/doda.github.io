@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<link rel="icon" type="image/ico" href="http:/localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http:/localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http:/localhost:1313/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="http:/localhost:1313/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http:/localhost:1313/apple-touch-icon.png">
+
+<meta name="description" content="A practical guide to building a modal.com clone in 24 hours, covering SDK design, Kubernetes controllers, GPU snapshots with CRIU, and lazy container loading with Nydus."/>
+
+
+
+<title>
+    
+    How to Build a modal.com Clone in 24 Hours | Dominik Dabrowski
+    
+</title>
+
+<link rel="canonical" href="http://localhost:1313/writing/building-modal-in-a-day/"/>
+
+<meta property="og:url" content="http://localhost:1313/writing/building-modal-in-a-day/">
+  <meta property="og:site_name" content="Dominik Dabrowski">
+  <meta property="og:title" content="How to Build a modal.com Clone in 24 Hours">
+  <meta property="og:description" content="A practical guide to building a modal.com clone in 24 hours, covering SDK design, Kubernetes controllers, GPU snapshots with CRIU, and lazy container loading with Nydus.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="writing">
+    <meta property="article:published_time" content="2025-11-30T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-11-30T00:00:00+00:00">
+    <meta property="article:tag" content="Kubernetes">
+    <meta property="article:tag" content="Gpu">
+    <meta property="article:tag" content="Serverless">
+    <meta property="article:tag" content="Infrastructure">
+    <meta property="article:tag" content="Criu">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.9fda7466c48afab1e02b169ff0ca9aba914a88a18bc3943300ea4fb54def08d3.css" media="all">
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="http://localhost:1313/">Dominik Dabrowski</a>
+    </h1>
+
+    <div class="header-menu">
+        
+
+        
+        
+
+        <p
+            class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/writing" >
+                /writing
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs"><a href="/">Home</a><span class="breadcrumbs-separator">/</span><a href="/writing/">Writings</a><span class="breadcrumbs-separator">/</span>
+        <a href="/writing/building-modal-in-a-day/">How to Build a modal.com Clone in 24 Hours</a></div>
+
+
+<div  class="autonumber" >
+  <article>
+    <header class="single-intro-container">
+        
+        <h1 class="single-title">How to Build a modal.com Clone in 24 Hours</h1>
+        <p class="single-summary">Or: How I Learned to Stop Worrying and Love the CRIU Dump. Building a serverless GPU platform with sub-second cold starts in a day of focused work.</p>
+    
+        <p class="single-readtime">
+          <time datetime="2025-11-30T00:00:00&#43;00:00">November 30, 2025</time>
+          &nbsp; · &nbsp;7 min read
+        </p>
+    </header>    
+        <div class="single-tags"><span>
+                  <a href="http://localhost:1313/tags/kubernetes/">#Kubernetes</a>
+                </span><span>
+                  <a href="http://localhost:1313/tags/gpu/">#Gpu</a>
+                </span><span>
+                  <a href="http://localhost:1313/tags/serverless/">#Serverless</a>
+                </span><span>
+                  <a href="http://localhost:1313/tags/infrastructure/">#Infrastructure</a>
+                </span><span>
+                  <a href="http://localhost:1313/tags/criu/">#Criu</a>
+                </span>
+        </div>
+    
+    <div class="single-content">
+      <p>Look, I&rsquo;ve been doing this long enough to know that &ldquo;build X in 24 hours&rdquo; titles are usually clickbait. Someone hacks together a todo app, slaps enterprise terminology on it, and calls it a day. But what if I told you that you <em>can</em> build something genuinely useful—a serverless GPU platform with sub-second cold starts—in about a day of focused work?</p>
+<p>Grab your energy drink of choice. Let&rsquo;s talk about building a modal.com clone.</p>
+<h2 class="heading" id="what-even-is-modal">
+  What Even Is Modal?
+  <a class="anchor" href="#what-even-is-modal">#</a>
+</h2>
+<p>If you haven&rsquo;t had the pleasure, <a href="https://modal.com">modal.com</a> is basically black magic for GPU computing. You write Python with decorators, and somehow your code runs on A100s in the cloud. No Dockerfiles. No Kubernetes manifests. No crying into your keyboard at 2 AM wondering why your pod is <code>ImagePullBackOff</code> again.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@app.function</span><span class="p">(</span><span class="n">gpu</span><span class="o">=</span><span class="s2">&#34;A100&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_image</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pipe</span> <span class="o">=</span> <span class="n">load_sdxl</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">pipe</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span></code></pre></div><p>That&rsquo;s it. That&rsquo;s the DX we&rsquo;re chasing.</p>
+<h2 class="heading" id="the-24-hour-breakdown">
+  The 24-Hour Breakdown
+  <a class="anchor" href="#the-24-hour-breakdown">#</a>
+</h2>
+<p>Here&rsquo;s the dirty secret: building a <em>working</em> version of this isn&rsquo;t actually that hard. Building a <em>production-ready</em> version would take months. But we&rsquo;re not here for production-ready—we&rsquo;re here for &ldquo;this actually works and I understand why.&rdquo;</p>
+<h3 class="heading" id="hour-0-4-the-sdk-layer-the-fun-part">
+  Hour 0-4: The SDK Layer (The Fun Part)
+  <a class="anchor" href="#hour-0-4-the-sdk-layer-the-fun-part">#</a>
+</h3>
+<p>Start with the developer experience, because if this sucks, nothing else matters.</p>
+<p>The SDK is deceptively simple: an <code>Image</code> class for building containers, an <code>App</code> class for grouping functions, and a decorator that captures function metadata. Python&rsquo;s introspection capabilities do the heavy lifting:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@dataclass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Image</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">builder_version</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">base</span><span class="p">:</span> <span class="n">BaseImage</span>
+</span></span><span class="line"><span class="cl">    <span class="n">steps</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">ImageStep</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@classmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">debian_slim</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">python_version</span><span class="o">=</span><span class="s2">&#34;3.11&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="n">BaseImage</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="sa">f</span><span class="s2">&#34;python:</span><span class="si">{</span><span class="n">python_version</span><span class="si">}</span><span class="s2">-slim&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">pip_install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">packages</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="o">=</span> <span class="n">ImageStep</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="s2">&#34;pip_install&#34;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;packages&#34;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">packages</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">+</span> <span class="p">(</span><span class="n">step</span><span class="p">,))</span>
+</span></span></code></pre></div><p>The chainable API (<code>Image.debian_slim().pip_install(&quot;torch&quot;).apt_install(&quot;git&quot;)</code>) is just immutable dataclasses returning new instances. No rocket science.</p>
+<p>For the function decorator, you&rsquo;re capturing the callable, GPU requirements, and timeout. Then you generate a Kubernetes Job manifest on the fly when <code>.remote()</code> is called. Inspect the function source with <code>inspect.getsource()</code>, serialize arguments with JSON, wrap it in a runner script, and ship it.</p>
+<p>Is this elegant? Not particularly. Does it work? Absolutely.</p>
+<h3 class="heading" id="hour-4-10-the-controller-the-kubernetes-part">
+  Hour 4-10: The Controller (The Kubernetes Part)
+  <a class="anchor" href="#hour-4-10-the-controller-the-kubernetes-part">#</a>
+</h3>
+<p>Here&rsquo;s where things get real. You need something watching your cluster, managing GPU pods, and routing requests. This is the controller.</p>
+<p>Three components:</p>
+<p><strong>1. Pool Manager</strong>: Tracks warm GPU pods. When a request comes in, it either finds a pod with the model already loaded, grabs an idle pod and loads the model, or evicts an LRU model from a busy pod. Classic cache management, but the cache entries are 80GB language models on $30/hour GPUs.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">acquire_pod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">snapshot_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Priority 1: Already loaded (instant)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">pod</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pods</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">pod</span><span class="o">.</span><span class="n">loaded_model</span> <span class="o">==</span> <span class="n">model_id</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">pod</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Priority 2: Idle pod (needs restore)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">pod</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pods</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">pod</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">PodState</span><span class="o">.</span><span class="n">IDLE</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_restore_model</span><span class="p">(</span><span class="n">pod</span><span class="p">,</span> <span class="n">model_id</span><span class="p">,</span> <span class="n">snapshot_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">pod</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Priority 3: Evict LRU</span>
+</span></span><span class="line"><span class="cl">    <span class="n">evictable</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pods</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">last_used_at</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span></code></pre></div><p><strong>2. Autoscaler</strong>: Watches queue depth and utilization, adds pods when you&rsquo;re overwhelmed, removes them when idle. Cooldowns prevent thrashing. The algorithm is laughably simple—basically &ldquo;if queue &gt; 0, add pod; if idle for 5 minutes, remove pod&rdquo;—but simple works.</p>
+<p><strong>3. Router</strong>: HTTP endpoint that accepts inference requests, acquires a pod from the pool, forwards the request, releases the pod. Streams responses for long-running inference.</p>
+<p>I used Custom Resource Definitions to make this Kubernetes-native:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gpufunctions.modal.dev/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">GpuPool</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;A100&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;my-inference-image:latest&#34;</span><span class="w">
+</span></span></span></code></pre></div><h3 class="heading" id="hour-10-16-gpu-snapshots-the-magic">
+  Hour 10-16: GPU Snapshots (The Magic)
+  <a class="anchor" href="#hour-10-16-gpu-snapshots-the-magic">#</a>
+</h3>
+<p>This is the secret sauce. Cold starts on GPU workloads are <em>brutal</em>—loading an SDXL model can take 30+ seconds. Users will not wait 30 seconds.</p>
+<p>Enter CRIU (Checkpoint/Restore In Userspace) with NVIDIA&rsquo;s cuda-checkpoint plugin. The concept:</p>
+<ol>
+<li>Start a pod, load your model into GPU memory</li>
+<li>Checkpoint the entire process state (CPU + GPU memory)</li>
+<li>Store the checkpoint somewhere fast</li>
+<li>When a new request comes in, restore from checkpoint instead of cold-starting</li>
+</ol>
+<p>The implementation is surprisingly straightforward:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">restore_process</span><span class="p">(</span><span class="n">checkpoint_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RestoreResult</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 1. CRIU restore (CPU state)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_exec</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;criu&#34;</span><span class="p">,</span> <span class="s2">&#34;restore&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;--images-dir&#34;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">checkpoint_dir</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;--restore-detached&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 2. CUDA restore (GPU memory)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cuda_proc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_exec</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;cuda-checkpoint&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;--action&#34;</span><span class="p">,</span> <span class="s2">&#34;restore&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;--pid&#34;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">restored_pid</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span></code></pre></div><p>The tricky bits:</p>
+<ul>
+<li>GPU snapshots are tied to specific hardware. An A100-40GB snapshot won&rsquo;t restore on an A100-80GB. You need affinity rules.</li>
+<li>Driver versions matter. NVIDIA 550 ≠ NVIDIA 545.</li>
+<li>The restored process picks up exactly where it left off, including open file handles and network sockets. Plan accordingly.</li>
+</ul>
+<p>In benchmarks, this dropped SDXL cold starts from 27 seconds to 12 seconds—a 2.3x improvement. Not bad for what&rsquo;s essentially &ldquo;just save and restore the process.&rdquo;</p>
+<h3 class="heading" id="hour-16-20-the-runner-the-pod-runtime">
+  Hour 16-20: The Runner (The Pod Runtime)
+  <a class="anchor" href="#hour-16-20-the-runner-the-pod-runtime">#</a>
+</h3>
+<p>Each GPU pod runs a FastAPI server that speaks a simple protocol:</p>
+<ul>
+<li><code>GET /health</code> - Am I alive?</li>
+<li><code>GET /status</code> - What model do I have loaded?</li>
+<li><code>POST /restore</code> - Load a model from snapshot</li>
+<li><code>POST /infer</code> - Run inference</li>
+<li><code>POST /evict</code> - Unload current model</li>
+</ul>
+<p>The runner is the bridge between Kubernetes and your actual ML code. It manages the restored inference process, proxies requests to it, and handles cleanup on eviction.</p>
+<p>One design decision that saved headaches: the restored ML process runs on a separate port (8001) from the runner (8000). The runner proxies requests and handles lifecycle. This isolation means a crashed inference process doesn&rsquo;t take down the pod—you can just restore again.</p>
+<h3 class="heading" id="hour-20-24-image-building-the-nydus-part">
+  Hour 20-24: Image Building (The Nydus Part)
+  <a class="anchor" href="#hour-20-24-image-building-the-nydus-part">#</a>
+</h3>
+<p>Traditional container images are slow. Pulling a 20GB PyTorch image takes forever, and you do it every time a pod starts.</p>
+<p>Nydus (from the Dragonfly project) is lazy-loading for container images. Instead of downloading the entire image upfront, it fetches blocks on-demand. The base Python layer downloads immediately; the torch weights stream in as needed during model loading.</p>
+<p>The image builder converts your chainable <code>Image</code> definition into actual layers:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">ImageSpec</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Generate Dockerfile from spec</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dockerfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_dockerfile</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Build with Docker</span>
+</span></span><span class="line"><span class="cl">    <span class="n">docker_build</span><span class="p">(</span><span class="n">dockerfile</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Convert to Nydus format</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nydusify_convert</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">nydus_tag</span><span class="p">)</span>
+</span></span></code></pre></div><p>Combined with GPU snapshots, you get cold starts that feel warm.</p>
+<h2 class="heading" id="the-numbers-that-matter">
+  The Numbers That Matter
+  <a class="anchor" href="#the-numbers-that-matter">#</a>
+</h2>
+<p>After all this work, what did we actually achieve? Here are the benchmarks from running SDXL on a V100:</p>
+
+<div class="table-outer">
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Traditional Cold Start</th>
+                <th>With GPU Snapshot</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Time to first inference</td>
+                <td>27 seconds</td>
+                <td>12 seconds</td>
+            </tr>
+            <tr>
+                <td><strong>Speedup</strong></td>
+                <td>baseline</td>
+                <td><strong>2.3x faster</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div><p>That&rsquo;s not theoretical—that&rsquo;s measured. The breakdown: about 3 seconds for Nydus image streaming, 4 seconds for CRIU process restore, 5 seconds for CUDA memory restore. Compare that to: pull image (8s), start container (2s), import torch (4s), load model weights (13s).</p>
+<p>The real win is on subsequent requests with the same model. Pod already warm? We&rsquo;re talking milliseconds, not seconds. That&rsquo;s the difference between &ldquo;usable&rdquo; and &ldquo;feels instant.&rdquo;</p>
+<h2 class="heading" id="whats-missing-aka-the-other-6-months">
+  What&rsquo;s Missing (aka The Other 6 Months)
+  <a class="anchor" href="#whats-missing-aka-the-other-6-months">#</a>
+</h2>
+<p>Let&rsquo;s be honest about what we skipped:</p>
+<ul>
+<li><strong>Authentication/multi-tenancy</strong>: Who can run what? Resource quotas? Billing?</li>
+<li><strong>Secrets management</strong>: How do models get HuggingFace tokens?</li>
+<li><strong>Persistent storage</strong>: Volumes, model caches, training checkpoints</li>
+<li><strong>Networking</strong>: Private endpoints, VPCs, ingress</li>
+<li><strong>Observability</strong>: Metrics, tracing, log aggregation</li>
+<li><strong>The literal entire frontend</strong>: Dashboard, deployment history, spend tracking</li>
+</ul>
+<p>Building infrastructure is an iceberg. The technical core—scheduler, snapshots, SDK—is the visible tip. Everything else is underwater, silently keeping users from capsizing.</p>
+<h2 class="heading" id="lessons-learned">
+  Lessons Learned
+  <a class="anchor" href="#lessons-learned">#</a>
+</h2>
+<p><strong>1. Start with DX, work backward.</strong> We wrote <code>@app.function(gpu=&quot;A100&quot;)</code> before we had a single line of Kubernetes code. Knowing what we wanted to type clarified what we needed to build.</p>
+<p><strong>2. CRIU is underrated.</strong> The checkpoint/restore ecosystem is mature and well-documented. GPU support is newer but works. Don&rsquo;t be afraid of process-level snapshotting.</p>
+<p><strong>3. Kubernetes is your friend (eventually).</strong> Yes, the learning curve is vertical. But CRDs + controllers + operators give you a framework for building platform infrastructure. Fight it less, leverage it more.</p>
+<p><strong>4. Simple scheduling beats clever scheduling.</strong> Our autoscaler is dumb. Add pods when busy, remove pods when idle. That&rsquo;s it. I&rsquo;ve seen teams spend months on &ldquo;optimal bin packing&rdquo; only to have simpler systems outperform them in practice.</p>
+<p><strong>5. The demo is the spec.</strong> Write example code before implementation code. <code>sdxl_inference.py</code> existed before most of the platform did. It kept us honest about what developers actually need.</p>
+<h2 class="heading" id="should-you-build-this">
+  Should You Build This?
+  <a class="anchor" href="#should-you-build-this">#</a>
+</h2>
+<p>Probably not? Modal, Replicate, and RunPod exist. They have teams, funding, and production battle-scars.</p>
+<p>But if you&rsquo;re trying to <em>understand</em> how these platforms work—if you want to peek behind the curtain—building a clone is incredibly educational. You&rsquo;ll learn more about containers, GPUs, scheduling, and process isolation in 24 hours than in months of reading documentation.</p>
+<p>And hey, maybe your clone turns into something real. Stranger things have happened.</p>
+<p>Now if you&rsquo;ll excuse me, I have some CUDA contexts to checkpoint.</p>
+<hr>
+<p><em>The full source code is available at [wherever you&rsquo;re reading this]. PRs welcome, especially if they involve fixing my questionable use of asyncio.</em></p>
+
+    </div>
+  </article>
+
+  
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flexnowrap">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/writing/32-optimistic-charts/">
+                        32 Optimistic Charts: The World is Getting Better
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  
+  
+
+
+
+
+
+    
+
+
+
+
+  <footer>
+    
+
+    
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    <p>Powered by
+        <a href="https://gohugo.io/">Hugo</a>
+        and
+        <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+    </p>
+    
+    
+    
+
+
+  </footer>
+
+  
+</body>
+
+<script src="/js/theme-switch.js"></script>
+<script defer src="/js/copy-code.js"></script>
+</html>
