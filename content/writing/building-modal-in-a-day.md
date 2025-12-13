@@ -16,6 +16,26 @@ Look, I've been doing this long enough to know that "build X in 24 hours" titles
 
 Grab your energy drink of choice. Let's talk about building a modal.com clone.
 
+## My Modal Journey (Or: Infrastructure as Code vs Code as Infrastructure)
+
+I first encountered Modal at Topstack, where I was tech lead for the systems team. We were all-in on AWS. Everything was Infrastructure as Code—Terraform modules, CloudFormation templates, the whole nine yards. We had standardization. We had guardrails. We had order.
+
+Then our head of data snuck Modal into the codebase.
+
+Within weeks, half our recommendation pipeline was running on it—training scripts, batch inference jobs, the works. And my first reaction? Horror. Pure, unfiltered infrastructure-engineer horror.
+
+There's no Infrastructure as Code with Modal. It's *Code as Infrastructure*. Resource names are implicit, derived from function and module names at runtime. You rename a function, you get a new deployment. No state file. No plan step. No import blocks. Just... Python decorators creating GPU clusters in the cloud.
+
+Coming from AWS, it felt like chaos. Where were the CloudWatch dashboards? The VPC configurations? The IAM policies? Modal was fast and developer-friendly, sure, but it was missing so many features we'd come to expect from a "real" cloud provider.
+
+So naturally, I did what any infrastructure engineer would do: I migrated our GPU inference workloads to Kubernetes. Proper deployments. Proper manifests. Proper infrastructure.
+
+And *then*—only after running our recommendation pipeline on a beautifully orchestrated K8s cluster—did I actually start to appreciate what Modal had built.
+
+Because here's the thing: to deliver that "never leave your code" developer experience, to make cold starts feel instant, they didn't just wrap Kubernetes in a nice API. They built a custom runtime filesystem. A custom scheduler. A custom everything. The seamlessness wasn't a thin veneer over existing tools—it was deep technical innovation at every layer.
+
+That realization is what led me here. I wanted to understand how you actually build something like that. Not use it, not critique it, but *build* it. Turns out, you can get surprisingly far in 24 hours.
+
 ## What Even Is Modal?
 
 If you haven't had the pleasure, [modal.com](https://modal.com) is basically black magic for GPU computing. You write Python with decorators, and somehow your code runs on A100s in the cloud. No Dockerfiles. No Kubernetes manifests. No crying into your keyboard at 2 AM wondering why your pod is `ImagePullBackOff` again.
@@ -102,7 +122,29 @@ spec:
   image: "my-inference-image:latest"
 ```
 
-### Hour 10-16: GPU Snapshots (The Magic)
+### Hour 10-14: Image Building (The Nydus Part)
+
+Traditional container images are slow. Pulling a 20GB PyTorch image takes forever, and you do it every time a pod starts.
+
+Nydus (from the Dragonfly project) is lazy-loading for container images. Instead of downloading the entire image upfront, it fetches blocks on-demand. The base Python layer downloads immediately; the torch weights stream in as needed during model loading.
+
+The image builder converts your chainable `Image` definition into actual layers:
+
+```python
+def build(self, spec: ImageSpec, tag: str):
+    # Generate Dockerfile from spec
+    dockerfile = self._generate_dockerfile(spec)
+
+    # Build with Docker
+    docker_build(dockerfile, tag)
+
+    # Convert to Nydus format
+    nydusify_convert(tag, nydus_tag)
+```
+
+This lazy-loading approach shaves precious seconds off cold starts. You don't wait for the full image—you start running as soon as you have the base layers.
+
+### Hour 14-18: GPU Snapshots (The Magic)
 
 This is the secret sauce. Cold starts on GPU workloads are *brutal*—loading an SDXL model can take 30+ seconds. Users will not wait 30 seconds.
 
@@ -140,7 +182,7 @@ The tricky bits:
 
 In benchmarks, this dropped SDXL cold starts from 27 seconds to 12 seconds—a 2.3x improvement. Not bad for what's essentially "just save and restore the process."
 
-### Hour 16-20: The Runner (The Pod Runtime)
+### Hour 18-24: The Runner (The Pod Runtime)
 
 Each GPU pod runs a FastAPI server that speaks a simple protocol:
 
@@ -154,27 +196,9 @@ The runner is the bridge between Kubernetes and your actual ML code. It manages 
 
 One design decision that saved headaches: the restored ML process runs on a separate port (8001) from the runner (8000). The runner proxies requests and handles lifecycle. This isolation means a crashed inference process doesn't take down the pod—you can just restore again.
 
-### Hour 20-24: Image Building (The Nydus Part)
+---
 
-Traditional container images are slow. Pulling a 20GB PyTorch image takes forever, and you do it every time a pod starts.
-
-Nydus (from the Dragonfly project) is lazy-loading for container images. Instead of downloading the entire image upfront, it fetches blocks on-demand. The base Python layer downloads immediately; the torch weights stream in as needed during model loading.
-
-The image builder converts your chainable `Image` definition into actual layers:
-
-```python
-def build(self, spec: ImageSpec, tag: str):
-    # Generate Dockerfile from spec
-    dockerfile = self._generate_dockerfile(spec)
-
-    # Build with Docker
-    docker_build(dockerfile, tag)
-
-    # Convert to Nydus format
-    nydusify_convert(tag, nydus_tag)
-```
-
-Combined with GPU snapshots, you get cold starts that feel warm.
+And that's the core system. Nydus gets your images loaded fast. CRIU restores your GPU state instantly. The runner coordinates everything. The controller orchestrates the chaos. Combined, you get cold starts that feel warm.
 
 ## The Numbers That Matter
 

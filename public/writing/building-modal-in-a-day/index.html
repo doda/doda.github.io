@@ -72,7 +72,7 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.9fda7466c48afab1e02b169ff0ca9aba914a88a18bc3943300ea4fb54def08d3.css" media="all">
+<link rel="stylesheet" href="/assets/combined.min.90137eb0b278935b1177c09c46e923f93647f3c8405f5c6e530384af6e364f00.css" media="all">
 
 
 
@@ -160,25 +160,38 @@
     
         <p class="single-readtime">
           <time datetime="2025-11-30T00:00:00&#43;00:00">November 30, 2025</time>
-          &nbsp; · &nbsp;7 min read
+          &nbsp; · &nbsp;9 min read
         </p>
-    </header>    
+    </header>
         <div class="single-tags"><span>
-                  <a href="http://localhost:1313/tags/kubernetes/">#Kubernetes</a>
+                  <a href="http://localhost:1313/tags/kubernetes/">Kubernetes</a>
                 </span><span>
-                  <a href="http://localhost:1313/tags/gpu/">#Gpu</a>
+                  <a href="http://localhost:1313/tags/gpu/">Gpu</a>
                 </span><span>
-                  <a href="http://localhost:1313/tags/serverless/">#Serverless</a>
+                  <a href="http://localhost:1313/tags/serverless/">Serverless</a>
                 </span><span>
-                  <a href="http://localhost:1313/tags/infrastructure/">#Infrastructure</a>
+                  <a href="http://localhost:1313/tags/infrastructure/">Infrastructure</a>
                 </span><span>
-                  <a href="http://localhost:1313/tags/criu/">#Criu</a>
+                  <a href="http://localhost:1313/tags/criu/">Criu</a>
                 </span>
         </div>
     
     <div class="single-content">
       <p>Look, I&rsquo;ve been doing this long enough to know that &ldquo;build X in 24 hours&rdquo; titles are usually clickbait. Someone hacks together a todo app, slaps enterprise terminology on it, and calls it a day. But what if I told you that you <em>can</em> build something genuinely useful—a serverless GPU platform with sub-second cold starts—in about a day of focused work?</p>
 <p>Grab your energy drink of choice. Let&rsquo;s talk about building a modal.com clone.</p>
+<h2 class="heading" id="my-modal-journey-or-infrastructure-as-code-vs-code-as-infrastructure">
+  My Modal Journey (Or: Infrastructure as Code vs Code as Infrastructure)
+  <a class="anchor" href="#my-modal-journey-or-infrastructure-as-code-vs-code-as-infrastructure">#</a>
+</h2>
+<p>I first encountered Modal at Topstack, where I was tech lead for the systems team. We were all-in on AWS. Everything was Infrastructure as Code—Terraform modules, CloudFormation templates, the whole nine yards. We had standardization. We had guardrails. We had order.</p>
+<p>Then our head of data snuck Modal into the codebase.</p>
+<p>Within weeks, half our recommendation pipeline was running on it—training scripts, batch inference jobs, the works. And my first reaction? Horror. Pure, unfiltered infrastructure-engineer horror.</p>
+<p>There&rsquo;s no Infrastructure as Code with Modal. It&rsquo;s <em>Code as Infrastructure</em>. Resource names are implicit, derived from function and module names at runtime. You rename a function, you get a new deployment. No state file. No plan step. No import blocks. Just&hellip; Python decorators creating GPU clusters in the cloud.</p>
+<p>Coming from AWS, it felt like chaos. Where were the CloudWatch dashboards? The VPC configurations? The IAM policies? Modal was fast and developer-friendly, sure, but it was missing so many features we&rsquo;d come to expect from a &ldquo;real&rdquo; cloud provider.</p>
+<p>So naturally, I did what any infrastructure engineer would do: I migrated our GPU inference workloads to Kubernetes. Proper deployments. Proper manifests. Proper infrastructure.</p>
+<p>And <em>then</em>—only after running our recommendation pipeline on a beautifully orchestrated K8s cluster—did I actually start to appreciate what Modal had built.</p>
+<p>Because here&rsquo;s the thing: to deliver that &ldquo;never leave your code&rdquo; developer experience, to make cold starts feel instant, they didn&rsquo;t just wrap Kubernetes in a nice API. They built a custom runtime filesystem. A custom scheduler. A custom everything. The seamlessness wasn&rsquo;t a thin veneer over existing tools—it was deep technical innovation at every layer.</p>
+<p>That realization is what led me here. I wanted to understand how you actually build something like that. Not use it, not critique it, but <em>build</em> it. Turns out, you can get surprisingly far in 24 hours.</p>
 <h2 class="heading" id="what-even-is-modal">
   What Even Is Modal?
   <a class="anchor" href="#what-even-is-modal">#</a>
@@ -247,9 +260,26 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;A100&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;my-inference-image:latest&#34;</span><span class="w">
-</span></span></span></code></pre></div><h3 class="heading" id="hour-10-16-gpu-snapshots-the-magic">
-  Hour 10-16: GPU Snapshots (The Magic)
-  <a class="anchor" href="#hour-10-16-gpu-snapshots-the-magic">#</a>
+</span></span></span></code></pre></div><h3 class="heading" id="hour-10-14-image-building-the-nydus-part">
+  Hour 10-14: Image Building (The Nydus Part)
+  <a class="anchor" href="#hour-10-14-image-building-the-nydus-part">#</a>
+</h3>
+<p>Traditional container images are slow. Pulling a 20GB PyTorch image takes forever, and you do it every time a pod starts.</p>
+<p>Nydus (from the Dragonfly project) is lazy-loading for container images. Instead of downloading the entire image upfront, it fetches blocks on-demand. The base Python layer downloads immediately; the torch weights stream in as needed during model loading.</p>
+<p>The image builder converts your chainable <code>Image</code> definition into actual layers:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">ImageSpec</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Generate Dockerfile from spec</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dockerfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_dockerfile</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Build with Docker</span>
+</span></span><span class="line"><span class="cl">    <span class="n">docker_build</span><span class="p">(</span><span class="n">dockerfile</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Convert to Nydus format</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nydusify_convert</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">nydus_tag</span><span class="p">)</span>
+</span></span></code></pre></div><p>This lazy-loading approach shaves precious seconds off cold starts. You don&rsquo;t wait for the full image—you start running as soon as you have the base layers.</p>
+<h3 class="heading" id="hour-14-18-gpu-snapshots-the-magic">
+  Hour 14-18: GPU Snapshots (The Magic)
+  <a class="anchor" href="#hour-14-18-gpu-snapshots-the-magic">#</a>
 </h3>
 <p>This is the secret sauce. Cold starts on GPU workloads are <em>brutal</em>—loading an SDXL model can take 30+ seconds. Users will not wait 30 seconds.</p>
 <p>Enter CRIU (Checkpoint/Restore In Userspace) with NVIDIA&rsquo;s cuda-checkpoint plugin. The concept:</p>
@@ -282,9 +312,9 @@
 <li>The restored process picks up exactly where it left off, including open file handles and network sockets. Plan accordingly.</li>
 </ul>
 <p>In benchmarks, this dropped SDXL cold starts from 27 seconds to 12 seconds—a 2.3x improvement. Not bad for what&rsquo;s essentially &ldquo;just save and restore the process.&rdquo;</p>
-<h3 class="heading" id="hour-16-20-the-runner-the-pod-runtime">
-  Hour 16-20: The Runner (The Pod Runtime)
-  <a class="anchor" href="#hour-16-20-the-runner-the-pod-runtime">#</a>
+<h3 class="heading" id="hour-18-24-the-runner-the-pod-runtime">
+  Hour 18-24: The Runner (The Pod Runtime)
+  <a class="anchor" href="#hour-18-24-the-runner-the-pod-runtime">#</a>
 </h3>
 <p>Each GPU pod runs a FastAPI server that speaks a simple protocol:</p>
 <ul>
@@ -296,23 +326,8 @@
 </ul>
 <p>The runner is the bridge between Kubernetes and your actual ML code. It manages the restored inference process, proxies requests to it, and handles cleanup on eviction.</p>
 <p>One design decision that saved headaches: the restored ML process runs on a separate port (8001) from the runner (8000). The runner proxies requests and handles lifecycle. This isolation means a crashed inference process doesn&rsquo;t take down the pod—you can just restore again.</p>
-<h3 class="heading" id="hour-20-24-image-building-the-nydus-part">
-  Hour 20-24: Image Building (The Nydus Part)
-  <a class="anchor" href="#hour-20-24-image-building-the-nydus-part">#</a>
-</h3>
-<p>Traditional container images are slow. Pulling a 20GB PyTorch image takes forever, and you do it every time a pod starts.</p>
-<p>Nydus (from the Dragonfly project) is lazy-loading for container images. Instead of downloading the entire image upfront, it fetches blocks on-demand. The base Python layer downloads immediately; the torch weights stream in as needed during model loading.</p>
-<p>The image builder converts your chainable <code>Image</code> definition into actual layers:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">ImageSpec</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># Generate Dockerfile from spec</span>
-</span></span><span class="line"><span class="cl">    <span class="n">dockerfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_dockerfile</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Build with Docker</span>
-</span></span><span class="line"><span class="cl">    <span class="n">docker_build</span><span class="p">(</span><span class="n">dockerfile</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Convert to Nydus format</span>
-</span></span><span class="line"><span class="cl">    <span class="n">nydusify_convert</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">nydus_tag</span><span class="p">)</span>
-</span></span></code></pre></div><p>Combined with GPU snapshots, you get cold starts that feel warm.</p>
+<hr>
+<p>And that&rsquo;s the core system. Nydus gets your images loaded fast. CRIU restores your GPU state instantly. The runner coordinates everything. The controller orchestrates the chaos. Combined, you get cold starts that feel warm.</p>
 <h2 class="heading" id="the-numbers-that-matter">
   The Numbers That Matter
   <a class="anchor" href="#the-numbers-that-matter">#</a>

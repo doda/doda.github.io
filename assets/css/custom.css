@@ -1,6 +1,106 @@
 /* Import charts styling */
 @import "charts.css";
 
+/* ========================================
+   Header Simplification & Typography
+   ======================================== */
+
+/* Hide breadcrumbs - they're redundant with the main nav */
+.breadcrumbs {
+  display: none;
+}
+
+/* Rebalance typography for calmer hierarchy */
+.single-title {
+  font-size: 2.3rem;
+  line-height: 1.15;
+  margin: 0.6rem 0 0.4rem;
+}
+
+.single-summary {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin-bottom: 0.9rem;
+  color: var(--content-secondary);
+}
+
+/* Tone down meta info - make it supporting, not prominent */
+.single-readtime {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 0.4rem 0;
+}
+
+/* Convert tags from underlined hashtags to soft pills */
+.single-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 1rem 0 1.6rem;
+}
+
+.single-tags span {
+  margin: 0;
+}
+
+.single-tags a {
+  text-decoration: none;
+  font-size: 0.8rem;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  background: #f3e1c5;
+  border: 1px solid #e7cfa8;
+  color: #6b4524;
+  transition: background 0.2s ease;
+}
+
+.single-tags a:hover {
+  background: #f0d6b5;
+}
+
+/* Remove the # from tags */
+.single-tags a::before {
+  content: '';
+}
+
+/* Tighter header grouping */
+.single-intro-container {
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Comfortable reading width for content */
+.single-content {
+  max-width: 65ch;
+  margin-bottom: 5rem;
+}
+
+/* Calmer link styling in body text */
+.single-content a {
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+/* Better paragraph spacing */
+.single-content p {
+  margin: 0 0 1.1rem;
+  line-height: 1.6;
+}
+
+/* Reduce h2 size for better hierarchy */
+.single-content h2 {
+  font-size: 1.4rem;
+  margin-top: 2.4rem;
+  margin-bottom: 0.6rem;
+}
+
+/* h3 even smaller */
+.single-content h3 {
+  font-size: 1.15rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
 /* Force consistent subtitle heights */
 .chart-section p {
   min-height: 3em !important;
