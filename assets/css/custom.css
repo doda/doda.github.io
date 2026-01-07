@@ -39,6 +39,11 @@ body.list:has(.profile) .footer {
   padding-top: 0;
 }
 
+/* Hide footer copyright text */
+.footer span {
+  display: none;
+}
+
 /* Move theme toggle to far right */
 .nav {
   position: relative;

@@ -1,0 +1,6 @@
+<!-- Custom CSS -->
+{{ $customCSS := resources.Get "css/custom.css" | fingerprint }}
+<link rel="stylesheet" href="{{ $customCSS.RelPermalink }}" media="all">
+
+{{ $customLayoutCSS := resources.Get "css/custom-layout.css" | fingerprint }}
+<link rel="stylesheet" href="{{ $customLayoutCSS.RelPermalink }}" media="all">

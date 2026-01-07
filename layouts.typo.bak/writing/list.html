@@ -1,0 +1,35 @@
+{{ define "main" }}
+
+{{ $dateFormat := "2 Jan 2006" }}
+{{ with .Site.Params.listDateFormat }}
+  {{ $dateFormat = . }}
+{{ end }}
+
+<section class="writing-list">
+  {{ partial "breadcrumbs.html" . }}
+
+  <header class="writing-list__header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}
+      <div class="writing-list__intro">
+        {{ . }}
+      </div>
+    {{ end }}
+  </header>
+
+  {{ $paginationSize := 9 }}
+  {{ if (gt .Site.Params.paginationSize 0) }}
+    {{ $paginationSize = .Site.Params.paginationSize }}
+  {{ end }}
+
+  {{ $paginator := .Paginate (.Pages) $paginationSize }}
+
+  <div class="writing-list__grid">
+    {{ range $paginator.Pages }}
+      {{ partial "writing/card.html" (dict "page" . "dateFormat" $dateFormat) }}
+    {{ end }}
+  </div>
+
+  {{ partial "pagination-controls.html" $paginator }}
+</section>
+{{ end }}

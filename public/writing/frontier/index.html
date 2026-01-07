@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>A Few Months at the Frontier | Dominik Dabrowski</title>
 <meta name="keywords" content="ai, infrastructure">
 <meta name="description" content="Lessons from building infrastructure projects with long-running coding agents.">
 <meta name="author" content="Dominik Dabrowski">
-<link rel="canonical" href="http://localhost:1313/writing/frontier/">
+<link rel="canonical" href="https://doda.co/writing/frontier/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.a5781257de4197b8e3d54346acdf1dd55a9ba4cb91dcace192fc1baf228c08b5.css" integrity="sha256-pXgSV95Bl7jj1UNGrN8d1VqbpMuR3KzhkvwbryKMCLU=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://doda.co/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://doda.co/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://doda.co/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://doda.co/apple-touch-icon.png">
+<link rel="mask-icon" href="https://doda.co/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/writing/frontier/">
+<link rel="alternate" hreflang="en" href="https://doda.co/writing/frontier/">
 <noscript>
     <style>
         #theme-toggle,
@@ -71,14 +71,96 @@
     }
 
 </script>
-<link rel="stylesheet" href="/css/custom.min.1fc5ad4b44cbb6e5929a8d56868a550cdfa5eda735f00aa042c4267333fd3cbc.css" integrity="sha256-H8WtS0TLtuWSmo1WhopVDN&#43;l7ac18AqgQsQmczP9PLw=">
+<link rel="stylesheet" href="/css/custom.min.368c2a8f29069f5d7769c2b7b91b1235ecdd69d8c9ba3cb3666e024791c2f921.css" integrity="sha256-NowqjykGn113acK3uRsSNezdadjJujyzZm4CR5HC&#43;SE=">
 
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-xxxxxxxxx"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-xxxxxxxxx');
+        }
+      </script><meta property="og:url" content="https://doda.co/writing/frontier/">
+  <meta property="og:site_name" content="Dominik Dabrowski">
+  <meta property="og:title" content="A Few Months at the Frontier">
+  <meta property="og:description" content="Lessons from building infrastructure projects with long-running coding agents.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="writing">
+    <meta property="article:published_time" content="2026-01-07T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-07T00:00:00+00:00">
+    <meta property="article:tag" content="Ai">
+    <meta property="article:tag" content="Infrastructure">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Few Months at the Frontier">
+<meta name="twitter:description" content="Lessons from building infrastructure projects with long-running coding agents.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Writings",
+      "item": "https://doda.co/writing/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "A Few Months at the Frontier",
+      "item": "https://doda.co/writing/frontier/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "A Few Months at the Frontier",
+  "name": "A Few Months at the Frontier",
+  "description": "Lessons from building infrastructure projects with long-running coding agents.",
+  "keywords": [
+    "ai", "infrastructure"
+  ],
+  "articleBody": "Over the past two months, partially inspired by this Anthropic blog post, I’ve been playing with a long-running coding agent harness. Affectionately called Looper.\nIt maintains state in .git via simple files such as task_list.json (outstanding tasks) and agent-progress.txt (what it did in the last session). Each session, it pops the best next task from the list and attempts to make progress on it. Everything runs in Modal Sandboxes.\nThe initial task_list.json is generated from an extensive SPEC.md , I used ChatGPT 5.2 Pro to generate these (with a few review cycles). Example for the dray SPEC.\nThe motivation behind this was to explore the current capabilities of frontier models to implement complex, well-defined infrastructure projects:\nDray - a leaderless, object-storage based Kafka broker implemented in Golang, that compacts records to Iceberg/Parquet (inspired by WarpStream/Ursa Engine) Vex - an object-storage based vector search engine (inspired by turbopuffer) Some of the things I learned during this period:\nOpus 4.5 is smart, incredibly versatile and great at instruction following, but sometimes struggles tackling complex problems, partly due to its shorter context window. It’s great for quickly interactively debugging issues. A few months ago, the stuff I was good at, I was strictly better at than the frontier models, playing with Opus 4.5 during release made me doubt that. Codex 5.2 is much slower, but especially on high and xhigh can tackle very tricky bugs, completely autonomously. It’s honestly beautiful to watch it debug a complex, bespoke data pipeline (such as for the Looper Demo), and bit-by-bit disprove hypotheses by reading source code, inserting logs, or writing helper scripts. Issues encountered: Context management: This is probably the #1 thing, the longer context gets, the worse performance is. But the more complex the codebase, the more context you need to make effective changes. While frontier models are very good at building, especially from scratch, this still meant that a single file or instruction missed can result in non-sensical output. What helped: Ensuring the model is aware of relevant docs such as “This task references part X of the SPEC.md ”, encouraging it to read agent-progress.txt as to not go in loops. Actively iterating on prompts.\nCheating / Shortcuts: From having read way too many think tokens/traces over the past months it is my supposition that the frontier labs inject “tokens remaining: XYZ / time spent: XYZ” messages into message context to keep model outputs economical. Unfortunately these injected reminders also make the model come up with some wild mental gymnastics amongst which I’ve seen:\nImplementing a new feature, writing tests, seeing them fail and then replacing usage of the new feature with a Mock to make tests pass. (Future Claude can deal with this) Marking a task that tries to establish API equivalency as passing, because both the reference implementation and candidate implementation are failing in the same way (500 status code). Very relatably promising to tackle issues not now but “in the next PR” (Narrator: “There was no next PR”) Mock implementations everywhere. What helped: Implementing a “code review” flow, where the same or (preferably) a different model reviews the implementation of the first model. Giving negative examples in prompt of what not to do.\nTools: One great trick to making models faster and more reliable is giving them great tools! As an example: For the single-VM deployment of the Looper Demo I started with overmind, but saw the agent struggling to use it (even after adding more instructions). Switching to systemd helped here just by virtue of how much training data there must be how to use it.\nPrompting: Still something that is slept on by probably 90% of developers. Whenever your agent makes a mistake, add instructions to AGENTS.md / CLAUDE.md to help guide it in that situation.\nMulti-Threading / Coordination: Agents have high latency (slow) but potentially infinite throughput (launch many), so lured by the premise of VIBE CODING ALL THE THINGS, I made looper multi-threaded. What ensued was a mess of coordination / thrashing, such as 2 agents fighting over Go versions and continuously attempting to change it (Agent A: Go 1.25 is wrong, the spec says 1.23, Agent B: We have 1.23 but we need 1.25 for this library version with this feature…). Not only that but following agent progress / tracking bugs and improving the harness became a lot more difficult, so I reverted to single-threaded execution.\nOverly Defensive: A pet peeve of mine, this became better with prompting, but the models still love to do purely additive coding, with “safe” defaults, extensive try/except chains and hate deleting code.\nSystem integration: Even with the most beautiful, extensive SPEC, coding agents still only output new code token-by-token, and reliable, performant systems are forged in the hells of prod , and so while the first “Looper completed” version of dray looked like a compelling 100k line of Go, including extensive unit and integration tests, there were still tons of bugs that had to be rooted out by building a demo that actually exercised the various parts of the system.\nThe Centaur Age Where does this leave human developers? We can look at chess, which went through three phases:\nHuman reign (until ~2006): Deep Blue beat Kasparov in 1997, but humans stayed competitive until about 2006, when Kramnik lost to Deep Fritz. Centaur reign (2006–2013): Human+engine teams outperformed either alone. Computer reign (2014–): Engines are strong enough that humans add more noise than signal. We are currently in the Centaur phase of coding. Coding is different than chess in that it is more open-ended, creative, costly, risky and tends to evolve with changing requirements, etc. So, depending on the domain, humans will likely always remain involved. For more constrained tasks such as competitive programming, we have likely already entered the “Computer reign”.\nConclusion Did I manage to build production-grade infrastructure projects, comparable to a WarpStream or turbopuffer? Decidedly, No! But that was never the goal. I would say, however, that I managed to, build robust alpha-stage software for both, in a fraction of the time it would have taken me otherwise. Given that I was partly working on these, in the evenings, while on vacation in Costa Rica, and in parallel, I’d say my output was 10x higher than otherwise.\nI’m confident that, given more time investment, the software would mature to a point where it is competitive with these products that have been built over years (the alpha release taking more than a year in each case).\nMy takeaways from a few months spent at the frontier of coding models (or at least what’s publicly accessible):\nI’ve been coding for 15 years and I’ve never seen my profession change so dramatically like it has this past year: Writing tests by hand: Out Writing code by hand: Mostly Out (where you can afford to) Writing docs: Out Bikeshedding: Out Line-by-Line Code review: Mostly Out (Agents are better and faster for the low-level, the focus is now on high-level design) Being attached to code: Out (Code has become ephemeral) Arguing about technical decisions in a vacuum: Out (Claude built prototypes of each approach over night) Reading code: Mostly Out Bespoke/arcane tooling: Mostly Out (Models perform best at tasks that are in-distribution) On the other hand: Greenfield projects: In (Agents thrive in smaller, modern, standardized codebases) Prompting: In (Being precise, terse and thoughtfully guiding the models) Designing verification: In (If it’s verifiable the agent will be able to do it sooner or later) Multi-tasking: Mostly In (The human brain still struggles with in unfortunately) Having experience / good intuition: In If the task is verifiable, the agent can do it. Agent tooling is still in its infancy, models are still very hobbled by a lot of the development tooling being built for humans, this will only get better. I can hardly get excited about writing code anymore, it feels like a thing of the past. The future is in learning how to recursively improve and leverage coding agents. It’s time to build. 💪 ",
+  "wordCount" : "1331",
+  "inLanguage": "en",
+  "datePublished": "2026-01-07T00:00:00Z",
+  "dateModified": "2026-01-07T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Dominik Dabrowski"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://doda.co/writing/frontier/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dominik Dabrowski",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://doda.co/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Dominik Dabrowski (Alt + H)">Dominik Dabrowski</a>
+            <a href="https://doda.co/" accesskey="h" title="Dominik Dabrowski (Alt + H)">Dominik Dabrowski</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -104,7 +186,7 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/writing/" title="Writing">
+                <a href="https://doda.co/writing/" title="Writing">
                     <span>Writing</span>
                 </a>
             </li>
@@ -115,7 +197,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/writing/">Writings</a></div>
+    <div class="breadcrumbs"><a href="https://doda.co/">Home</a>&nbsp;»&nbsp;<a href="https://doda.co/writing/">Writings</a></div>
     <h1 class="post-title entry-hint-parent">
       A Few Months at the Frontier
     </h1>
@@ -215,15 +297,15 @@ What helped: Ensuring the model is aware of relevant docs such as “This task r
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/ai/">Ai</a></li>
-      <li><a href="http://localhost:1313/tags/infrastructure/">Infrastructure</a></li>
+      <li><a href="https://doda.co/tags/ai/">Ai</a></li>
+      <li><a href="https://doda.co/tags/infrastructure/">Infrastructure</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="http://localhost:1313/">Dominik Dabrowski</a></span> · 
+        <span>&copy; 2026 <a href="https://doda.co/">Dominik Dabrowski</a></span> · 
 
     <span>
         Powered by

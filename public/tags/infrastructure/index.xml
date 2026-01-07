@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Infrastructure on Dominik Dabrowski</title>
-    <link>http://localhost:1313/tags/infrastructure/</link>
+    <link>https://doda.co/tags/infrastructure/</link>
     <description>Recent content in Infrastructure on Dominik Dabrowski</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 07 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/infrastructure/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://doda.co/tags/infrastructure/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Few Months at the Frontier</title>
-      <link>http://localhost:1313/writing/frontier/</link>
+      <link>https://doda.co/writing/frontier/</link>
       <pubDate>Wed, 07 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/writing/frontier/</guid>
+      <guid>https://doda.co/writing/frontier/</guid>
       <description>Lessons from building infrastructure projects with long-running coding agents.</description>
     </item>
   </channel>

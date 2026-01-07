@@ -1,0 +1,78 @@
+{{ define "main" }}
+
+{{ .Content }}
+
+{{/* Intro summary section with profile picture */}}
+
+{{ if or .Site.Params.homeIntroTitle .Site.Params.homeIntroContent }}
+<div class="intro-container">
+    <div class="intro">
+        {{ with .Site.Params.homeIntroTitle }}
+        <h1>{{ . }}</h1>
+        {{ end }}
+
+        {{ with .Site.Params.homeIntroContent }}
+        <p>{{ . | markdownify }}</p>
+        {{ end }}
+    </div>
+
+    {{ if .Site.Params.profilePicture }}
+    <div class="profile-picture">
+        <img src="{{ .Site.Params.profilePicture }}" alt="Profile Picture">
+    </div>
+    {{ end }}
+</div>
+{{ end }}
+
+{{/* Social Icons */}}
+
+{{ with site.Params.social }}
+<div class="social-icons">
+    {{- range . }}
+    <a href="{{ trim .url " " | safeURL }}" target="_blank"
+        rel="noopener noreferrer me"
+        title="{{ (.title | default .name) | title }}">
+        {{ partial "svg.html" . }}
+    </a>
+    {{- end }}
+</div>
+{{ end }}
+
+{{/* Collection Section */}}
+
+{{ if .Site.Params.homeCollection }}
+
+{{ $dateFormat := "2 Jan 2006" }}
+{{ with .Site.Params.listDateFormat }}
+  {{ $dateFormat = . }}
+{{ end }}
+
+<section class="writing-list writing-list--home">
+    {{ with .Site.Params.homeCollectionTitle}}
+    <header class="writing-list__header">
+        <h1>{{ . }}</h1>
+    </header>
+    {{ end }}
+
+    {{ $pages := where .Site.RegularPages "Section" .Site.Params.homeCollection
+    }}
+
+    {{ $paginationSize := 1}}
+    {{ if (gt .Site.Params.paginationSize 0) }}
+    {{ $paginationSize = .Site.Params.paginationSize }}
+    {{ end }}
+
+    {{ $paginator := .Paginate $pages $paginationSize }}
+
+    <div class="writing-list__grid">
+        {{ range $index, $page := $paginator.Pages }}
+        {{ partial "writing/card.html" (dict "page" $page "dateFormat" $dateFormat) }}
+        {{ end }}
+    </div>
+
+    {{ partial "pagination-controls.html" $paginator}}
+
+    {{ end }}
+</section>
+
+{{ end }}

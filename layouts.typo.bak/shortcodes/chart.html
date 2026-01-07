@@ -1,0 +1,388 @@
+{{- $chartId := .Get "id" | default (.Get 0) -}}
+{{- $chartData := "" -}}
+{{- if site.Data.optimistic_charts -}}
+  {{- $chartData = index site.Data.optimistic_charts $chartId -}}
+{{- end -}}
+
+{{- if $chartData -}}
+<div class="chart-container" id="chart-{{ $chartId }}">
+  
+  {{- if $chartData.dataPoints -}}
+  <div class="chart-visualization" id="chart-viz-{{ $chartId }}"></div>
+  <script>
+    (function() {
+      const data = [
+        {{- range $chartData.dataPoints -}}
+        {year: {{ .year }}, value: {{ if or (eq $chartId "oil-spills") (eq $chartId "disaster-deaths") (eq $chartId "nuclear-warheads") }}{{ div .value 1000 }}{{ else if or (eq $chartId "so2-emissions") (eq $chartId "scientific-papers") }}{{ div .value 1000000 }}{{ else }}{{ .value }}{{ end }}},
+        {{- end -}}
+      ];
+      
+      const direction = "{{ $chartData.direction }}";
+      
+      // Democracy now uses number of countries; no percentage conversion
+      
+      // Find significant points based on direction
+      let startPoint, currentPoint;
+      if (direction === "down") {
+        startPoint = data.reduce((max, p) => p.value > max.value ? p : max);
+      } else {
+        startPoint = data.reduce((min, p) => p.value < min.value ? p : min);
+      }
+      currentPoint = data[data.length - 1];
+      
+      const showArrow = Math.abs(startPoint.value - currentPoint.value) > 0.01 && 
+                       startPoint.year !== currentPoint.year;
+      
+      // Chart dimensions
+      const margin = {top: 45, right: 40, bottom: 40, left: 50};
+      const width = 500 - margin.left - margin.right;
+      const height = 120;
+      const svgHeight = 250; // Fixed SVG height to match container
+      
+      // Create SVG
+      const container = document.getElementById("chart-viz-{{ $chartId }}");
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("width", "100%");
+      svg.setAttribute("height", svgHeight);
+      svg.setAttribute("viewBox", `0 0 500 ${svgHeight}`);
+      svg.style.fontFamily = "Helvetica, Arial, sans-serif";
+      svg.style.fontSize = "10px";
+      
+      // Scales
+      const xExtent = [Math.min(...data.map(d => d.year)), Math.max(...data.map(d => d.year))];
+      const yExtent = [0, Math.max(...data.map(d => d.value))];
+      
+      const xScale = (year) => margin.left + ((year - xExtent[0]) / (xExtent[1] - xExtent[0])) * width;
+      const yScale = (value) => margin.top + ((yExtent[1] - value) / (yExtent[1] - yExtent[0])) * height;
+      
+      // Create area path
+      let areaPath = `M ${xScale(data[0].year)} ${yScale(0)}`;
+      data.forEach(d => {
+        areaPath += ` L ${xScale(d.year)} ${yScale(d.value)}`;
+      });
+      areaPath += ` L ${xScale(data[data.length - 1].year)} ${yScale(0)} Z`;
+      
+      // Add area fill
+      const area = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      area.setAttribute("d", areaPath);
+      area.setAttribute("fill", "#93432c");
+      area.setAttribute("fill-opacity", "0.1");
+      svg.appendChild(area);
+      
+      // Create line path
+      let linePath = `M ${xScale(data[0].year)} ${yScale(data[0].value)}`;
+      data.slice(1).forEach(d => {
+        linePath += ` L ${xScale(d.year)} ${yScale(d.value)}`;
+      });
+      
+      // Add main line
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      line.setAttribute("d", linePath);
+      line.setAttribute("stroke", "#6b3a24");
+      line.setAttribute("stroke-width", "1");
+      line.setAttribute("fill", "none");
+      svg.appendChild(line);
+      
+      // Add x-axis at y=0 position
+      const xAxisY = yScale(0);
+      
+      // Create x-axis ticks - show start, middle, and end years
+      const xTicks = [
+        xExtent[0], 
+        Math.round((xExtent[0] + xExtent[1]) / 2), 
+        xExtent[1]
+      ];
+      
+      xTicks.forEach(year => {
+        const x = xScale(year);
+        
+        // Add tick mark
+        const tick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        tick.setAttribute("x1", x);
+        tick.setAttribute("y1", xAxisY);
+        tick.setAttribute("x2", x);
+        tick.setAttribute("y2", xAxisY + 3);
+        tick.setAttribute("stroke", "#93432c");
+        tick.setAttribute("stroke-width", "1");
+        svg.appendChild(tick);
+        
+        // Add year label
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", x);
+        label.setAttribute("y", xAxisY + 15);
+        label.setAttribute("text-anchor", "middle");
+        label.setAttribute("font-size", "10");
+        label.setAttribute("font-family", "Helvetica, Arial, sans-serif");
+        label.setAttribute("fill", "#93432c");
+        label.textContent = year;
+        svg.appendChild(label);
+      });
+      
+      // Add x-axis line
+      const xAxisLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      xAxisLine.setAttribute("x1", margin.left);
+      xAxisLine.setAttribute("y1", xAxisY);
+      xAxisLine.setAttribute("x2", margin.left + width);
+      xAxisLine.setAttribute("y2", xAxisY);
+      xAxisLine.setAttribute("stroke", "#93432c");
+      xAxisLine.setAttribute("stroke-width", "1");
+      svg.appendChild(xAxisLine);
+
+      // Data points removed for cleaner look
+      
+      // Add arrow line if showing progress
+      if (showArrow) {
+        const progressData = data.filter(d => d.year >= startPoint.year && d.year <= currentPoint.year);
+        let progressPath = `M ${xScale(progressData[0].year)} ${yScale(progressData[0].value)}`;
+        progressData.slice(1).forEach(d => {
+          progressPath += ` L ${xScale(d.year)} ${yScale(d.value)}`;
+        });
+        
+        const progressLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        progressLine.setAttribute("d", progressPath);
+        progressLine.setAttribute("stroke", "#6b3a24");
+        progressLine.setAttribute("stroke-width", "4");
+        progressLine.setAttribute("stroke-opacity", "0.8");
+        progressLine.setAttribute("fill", "none");
+        progressLine.setAttribute("marker-end", "url(#arrow)");
+        svg.appendChild(progressLine);
+        
+        // Add dot at start of progress line
+        const startDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        startDot.setAttribute("cx", xScale(startPoint.year));
+        startDot.setAttribute("cy", yScale(startPoint.value));
+        startDot.setAttribute("r", "3");
+        startDot.setAttribute("fill", "#6b3a24");
+        startDot.setAttribute("stroke", "#fff3dd");
+        startDot.setAttribute("stroke-width", "1");
+        svg.appendChild(startDot);
+        
+        // Add arrow marker definition
+        const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+        const marker = document.createElementNS("http://www.w3.org/2000/svg", "marker");
+        marker.setAttribute("id", "arrow");
+        marker.setAttribute("viewBox", "0 0 7 6");
+        marker.setAttribute("refX", "0");
+        marker.setAttribute("refY", "3");
+        marker.setAttribute("markerWidth", "4");
+        marker.setAttribute("markerHeight", "3");
+        marker.setAttribute("orient", "auto");
+        marker.setAttribute("markerUnits", "strokeWidth");
+        
+        const arrowPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        arrowPath.setAttribute("d", "M0,0 L0,6 L7,3 z");
+        arrowPath.setAttribute("fill", "#6b3a24");
+        arrowPath.setAttribute("fill-opacity", "0.8");
+        marker.appendChild(arrowPath);
+        defs.appendChild(marker);
+        svg.insertBefore(defs, svg.firstChild);
+        
+        // Data labels: default positions only, based on direction
+        const config = (direction === "down")
+          ? { start: "below", end: "above" }
+          : { start: "above", end: "below" };
+
+        // Optional per-chart overrides from data/label_overrides.json
+        const override = {{- if site.Data.label_overrides -}}{{- with (index site.Data.label_overrides $chartId) -}}{{ . | jsonify }}{{- else -}}{}{{- end -}}{{- else -}}{}{{- end -}};
+        // Parse the JSON string into an object if it's a string
+        const parsedOverride = typeof override === 'string' ? JSON.parse(override) : override;
+        if (parsedOverride.start) config.start = parsedOverride.start;
+        if (parsedOverride.end) config.end = parsedOverride.end;
+        // Expose override for quick debugging in DOM
+        try { container.dataset.override = JSON.stringify(parsedOverride); } catch (e) {}
+
+        // Base distances (px) — reduced defaults
+        let distanceAbove = 24;   // vertical
+        let distanceBelow = 12;   // vertical
+        let distanceHoriz = 10;   // horizontal for left/right
+        // Back-compat
+        if (parsedOverride.distance !== undefined) { distanceAbove = parsedOverride.distance; distanceBelow = parsedOverride.distance; distanceHoriz = parsedOverride.distance; }
+        if (parsedOverride.distanceAbove !== undefined) distanceAbove = parsedOverride.distanceAbove;
+        if (parsedOverride.distanceBelow !== undefined) distanceBelow = parsedOverride.distanceBelow;
+        if (parsedOverride.distanceHorizontal !== undefined) distanceHoriz = parsedOverride.distanceHorizontal;
+
+        // Start/End specific distances override all for that label
+        const mapSideToBase = (side) => (side === 'above' ? distanceAbove : side === 'below' ? distanceBelow : distanceHoriz);
+        let startDistance = (parsedOverride.distanceStart !== undefined) ? parsedOverride.distanceStart : mapSideToBase(config.start);
+        let endDistance = (parsedOverride.distanceEnd !== undefined) ? parsedOverride.distanceEnd : mapSideToBase(config.end);
+        // Ensure numeric distances
+        startDistance = Number(startDistance);
+        endDistance = Number(endDistance);
+
+        // Label vertical gap between value and year lines
+        const labelGap = 12;
+
+        // Normalize sides and guard unknown values
+        const allowedSides = ['above','below','left','right'];
+        const fallbackStart = (direction === 'down') ? 'below' : 'above';
+        const fallbackEnd = (direction === 'down') ? 'above' : 'below';
+        if (!allowedSides.includes(config.start)) {
+          console && console.warn && console.warn(`Unknown start side '${config.start}' for ${'{{ $chartId }}'}; falling back to ${fallbackStart}`);
+          config.start = fallbackStart;
+        }
+        if (!allowedSides.includes(config.end)) {
+          console && console.warn && console.warn(`Unknown end side '${config.end}' for ${'{{ $chartId }}'}; falling back to ${fallbackEnd}`);
+          config.end = fallbackEnd;
+        }
+
+        // Helpers
+        const percentageCharts = ['child-mortality', 'hunger', 'extreme-poverty', 'protected-areas', 'protected-land', 'literacy', 'girls-school', 'electricity', 'mobile-phones', 'water-access', 'internet', 'renewable-energy', 'comprehensive-vaccination', 'child-cancer-survival'];
+        const isPercentageChart = percentageCharts.includes('{{ $chartId }}');
+        
+        const formatValue = (value) => {
+          // For very small values, use more decimal places
+          let formatted;
+          if (value < 0.1 && value > 0) {
+            formatted = value.toFixed(2);
+          } else {
+            formatted = value.toFixed(1);
+          }
+          const cleanFormatted = formatted.endsWith('.0') ? formatted.slice(0, -2) : formatted;
+          return isPercentageChart ? cleanFormatted + '%' : cleanFormatted;
+        };
+        
+        const anchorForSide = (side) => (side === 'left' ? 'end' : side === 'right' ? 'start' : 'middle');
+        const createText = (x, y, text, opts = {}) => {
+          const el = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          el.setAttribute('x', x);
+          el.setAttribute('y', y);
+          if (opts.anchor) el.setAttribute('text-anchor', opts.anchor);
+          if (opts.size) el.setAttribute('font-size', String(opts.size));
+          if (opts.weight) el.setAttribute('font-weight', opts.weight);
+          el.setAttribute('font-family', 'Helvetica, Arial, sans-serif');
+          if (opts.fill) el.setAttribute('fill', opts.fill);
+          if (opts.class) el.setAttribute('class', opts.class);
+          el.textContent = text;
+          return el;
+        };
+
+        // No clamping to line: labels placed purely from config distances
+
+        // Helper function to get label position based on config
+        const getLabelPosition = (point, position, distance) => {
+          const actualPointY = yScale(point.value);
+          const pointX = xScale(point.year);
+          
+          // Only clamp when necessary for label positioning, not for the data point reference
+          let pointY = actualPointY;
+          if (position === "above" || position === "below") {
+            // For vertical positioning, use actual point position without upper clamping
+            pointY = Math.max(margin.top + 10, actualPointY);
+          } else {
+            // For horizontal positioning, keep original clamping
+            pointY = Math.max(margin.top + 10, Math.min(actualPointY, margin.top + height - 25));
+          }
+          
+          if (position === "above") {
+            return {
+              valueY: Math.max(5, pointY - distance),
+              yearY: Math.max(17, pointY - (distance - labelGap)),
+              x: pointX
+            };
+          } else if (position === "below") {
+            return {
+              valueY: Math.min(margin.top + height - 15, pointY + distance),
+              yearY: Math.min(margin.top + height - 3, pointY + distance + labelGap),
+              x: pointX
+            };
+          } else if (position === "left") {
+            return {
+              valueY: pointY - 6,
+              yearY: pointY + 6,
+              x: Math.max(margin.left + distance, pointX - distance)
+            };
+          } else if (position === "right") {
+            return {
+              valueY: pointY - 6,
+              yearY: pointY + 6,
+              x: Math.min(margin.left + width - distance, pointX + distance)
+            };
+          }
+        };
+        
+        // Start point labels
+        const startPos = getLabelPosition(startPoint, config.start, startDistance);
+        const startAnchor = anchorForSide(config.start);
+        const startValueLabel = createText(startPos.x, startPos.valueY, formatValue(startPoint.value), {
+          anchor: startAnchor, size: 18, weight: 'bold', fill: '#6b3a24', class: 'chart-label chart-label-value'
+        });
+        const startYearLabel = createText(startPos.x, startPos.yearY, String(startPoint.year), {
+          anchor: startAnchor, size: 14, fill: '#93432c', class: 'chart-label chart-label-year'
+        });
+        svg.appendChild(startValueLabel);
+        svg.appendChild(startYearLabel);
+
+        // End point labels
+        const endPos = getLabelPosition(currentPoint, config.end, endDistance);
+        const endAnchor = anchorForSide(config.end);
+        const endValueLabel = createText(endPos.x, endPos.valueY, formatValue(currentPoint.value), {
+          anchor: endAnchor, size: 18, weight: 'bold', fill: '#6b3a24', class: 'chart-label chart-label-value'
+        });
+        const endYearLabel = createText(endPos.x, endPos.yearY, String(currentPoint.year), {
+          anchor: endAnchor, size: 14, fill: '#93432c', class: 'chart-label chart-label-year'
+        });
+        svg.appendChild(endValueLabel);
+        svg.appendChild(endYearLabel);
+
+        // No clearance adjustment
+
+        // Reinforce horizontal placement X for left/right so it always applies
+        if (config.start === 'left' || config.start === 'right') {
+          const sx = (config.start === 'right')
+            ? Math.min(margin.left + width - startDistance, xScale(startPoint.year) + startDistance)
+            : Math.max(margin.left + startDistance, xScale(startPoint.year) - startDistance);
+          startValueLabel.setAttribute('x', sx);
+          startYearLabel.setAttribute('x', sx);
+        }
+        if (config.end === 'left' || config.end === 'right') {
+          const ex = (config.end === 'right')
+            ? Math.min(margin.left + width - endDistance, xScale(currentPoint.year) + endDistance)
+            : Math.max(margin.left + endDistance, xScale(currentPoint.year) - endDistance);
+          endValueLabel.setAttribute('x', ex);
+          endYearLabel.setAttribute('x', ex);
+        }
+
+        // ---- Debug instrumentation ----
+        try {
+          const chartId = "{{ $chartId }}";
+          const spx = xScale(startPoint.year);
+          const epx = xScale(currentPoint.year);
+          // Container-level debug data
+          container.parentElement?.setAttribute('data-chart-id', chartId);
+          container.parentElement?.setAttribute('data-start-side', String(config.start));
+          container.parentElement?.setAttribute('data-end-side', String(config.end));
+          container.parentElement?.setAttribute('data-start-distance', String(startDistance));
+          container.parentElement?.setAttribute('data-end-distance', String(endDistance));
+          container.parentElement?.setAttribute('data-start-point-x', String(spx));
+          container.parentElement?.setAttribute('data-end-point-x', String(epx));
+          container.parentElement?.setAttribute('data-start-label-x', String(startValueLabel.getAttribute('x')));
+          container.parentElement?.setAttribute('data-end-label-x', String(endValueLabel.getAttribute('x')));
+
+          // Per-label debug attributes
+          startValueLabel.setAttribute('data-role', 'start-value');
+          startYearLabel.setAttribute('data-role', 'start-year');
+          endValueLabel.setAttribute('data-role', 'end-value');
+          endYearLabel.setAttribute('data-role', 'end-year');
+          startValueLabel.setAttribute('data-x', String(startValueLabel.getAttribute('x')));
+          endValueLabel.setAttribute('data-x', String(endValueLabel.getAttribute('x')));
+
+          // Console debug
+          if (console && console.debug) {
+            console.debug(`[chart ${chartId}] start: side=${config.start}, dist=${startDistance}, pointX=${spx}, labelX=${startValueLabel.getAttribute('x')}`);
+            console.debug(`[chart ${chartId}]   end: side=${config.end}, dist=${endDistance}, pointX=${epx}, labelX=${endValueLabel.getAttribute('x')}`);
+          }
+        } catch (_) {}
+
+      }
+      
+      container.appendChild(svg);
+    })();
+  </script>
+  {{- end -}}
+  
+</div>
+{{- else -}}
+<div class="chart-error">
+  <p>Chart data not available for: {{ $chartId }}</p>
+</div>
+{{- end -}}

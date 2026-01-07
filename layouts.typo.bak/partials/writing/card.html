@@ -1,0 +1,32 @@
+{{- $page := .page -}}
+{{- $dateFormat := default "2 Jan 2006" .dateFormat -}}
+
+{{- $summary := "" -}}
+{{- if $page.Params.description -}}
+  {{- $summary = $page.Params.description | markdownify -}}
+{{- else if $page.Params.summary -}}
+  {{- $summary = $page.Params.summary | markdownify -}}
+{{- else if and ($page.Site.Params.listSummaries) ($page.Summary) -}}
+  {{- $summary = $page.Summary -}}
+{{- end -}}
+
+{{- $readingTime := $page.ReadingTime -}}
+
+<article class="writing-card">
+  <a class="writing-card__link" href="{{ $page.RelPermalink }}">
+    <div class="writing-card__meta">
+      <time class="writing-card__date" datetime="{{ $page.Date }}">{{ $page.Date | time.Format $dateFormat }}</time>
+      {{- if gt $readingTime 0 -}}
+        <span class="writing-card__read-time">~{{ $readingTime }} min read</span>
+      {{- end -}}
+    </div>
+
+    <h2 class="writing-card__title">{{ $page.Title }}</h2>
+
+    {{- if $summary -}}
+      <div class="writing-card__summary">
+        {{- $summary | safeHTML -}}
+      </div>
+    {{- end -}}
+  </a>
+</article>
