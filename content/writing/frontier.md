@@ -2,7 +2,6 @@
 title: "A Few Months at the Frontier"
 date: "2026-01-07"
 summary: "Lessons from building infrastructure projects with long-running coding agents."
-description: "What I learned building Dray and Vex with frontier coding models, from context management to the Centaur Age of software development."
 readTime: true
 autonumber: true
 math: false

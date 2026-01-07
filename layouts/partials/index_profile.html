@@ -1,0 +1,27 @@
+<div class="profile">
+    {{- with site.Params.profileMode }}
+    <div class="profile_inner">
+        <div class="profile_text">
+            <h1>{{ .title | default site.Title | markdownify }}</h1>
+            <span>{{ .subtitle | markdownify }}</span>
+            <p class="profile_cta"><a href="/writing/">Check out my writing →</a></p>
+            {{- partial "social_icons.html" -}}
+        </div>
+        {{- if .imageUrl -}}
+        <div class="profile_image">
+            {{- $img := "" }}
+            {{- if not (urls.Parse .imageUrl).IsAbs }}
+                {{- $img = resources.Get .imageUrl }}
+            {{- end }}
+            {{- if $img }}
+                <img draggable="false" src="{{ $img.Permalink }}" alt="{{ .imageTitle | default "profile image" }}"
+                    height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
+            {{- else }}
+                <img draggable="false" src="{{ .imageUrl | absURL }}" alt="{{ .imageTitle | default "profile image" }}"
+                    height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
+            {{- end }}
+        </div>
+        {{- end }}
+    </div>
+    {{- end}}
+</div>

@@ -65,7 +65,7 @@
       // Add area fill
       const area = document.createElementNS("http://www.w3.org/2000/svg", "path");
       area.setAttribute("d", areaPath);
-      area.setAttribute("fill", "#93432c");
+      area.setAttribute("fill", "#666");
       area.setAttribute("fill-opacity", "0.1");
       svg.appendChild(area);
       
@@ -78,7 +78,7 @@
       // Add main line
       const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
       line.setAttribute("d", linePath);
-      line.setAttribute("stroke", "#6b3a24");
+      line.setAttribute("stroke", "#888");
       line.setAttribute("stroke-width", "1");
       line.setAttribute("fill", "none");
       svg.appendChild(line);
@@ -102,7 +102,7 @@
         tick.setAttribute("y1", xAxisY);
         tick.setAttribute("x2", x);
         tick.setAttribute("y2", xAxisY + 3);
-        tick.setAttribute("stroke", "#93432c");
+        tick.setAttribute("stroke", "#888");
         tick.setAttribute("stroke-width", "1");
         svg.appendChild(tick);
         
@@ -113,7 +113,7 @@
         label.setAttribute("text-anchor", "middle");
         label.setAttribute("font-size", "10");
         label.setAttribute("font-family", "Helvetica, Arial, sans-serif");
-        label.setAttribute("fill", "#93432c");
+        label.setAttribute("fill", "#888");
         label.textContent = year;
         svg.appendChild(label);
       });
@@ -124,7 +124,7 @@
       xAxisLine.setAttribute("y1", xAxisY);
       xAxisLine.setAttribute("x2", margin.left + width);
       xAxisLine.setAttribute("y2", xAxisY);
-      xAxisLine.setAttribute("stroke", "#93432c");
+      xAxisLine.setAttribute("stroke", "#888");
       xAxisLine.setAttribute("stroke-width", "1");
       svg.appendChild(xAxisLine);
 
@@ -140,7 +140,7 @@
         
         const progressLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
         progressLine.setAttribute("d", progressPath);
-        progressLine.setAttribute("stroke", "#6b3a24");
+        progressLine.setAttribute("stroke", "#444");
         progressLine.setAttribute("stroke-width", "4");
         progressLine.setAttribute("stroke-opacity", "0.8");
         progressLine.setAttribute("fill", "none");
@@ -152,8 +152,8 @@
         startDot.setAttribute("cx", xScale(startPoint.year));
         startDot.setAttribute("cy", yScale(startPoint.value));
         startDot.setAttribute("r", "3");
-        startDot.setAttribute("fill", "#6b3a24");
-        startDot.setAttribute("stroke", "#fff3dd");
+        startDot.setAttribute("fill", "#444");
+        startDot.setAttribute("stroke", "#fff");
         startDot.setAttribute("stroke-width", "1");
         svg.appendChild(startDot);
         
@@ -171,7 +171,7 @@
         
         const arrowPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         arrowPath.setAttribute("d", "M0,0 L0,6 L7,3 z");
-        arrowPath.setAttribute("fill", "#6b3a24");
+        arrowPath.setAttribute("fill", "#444");
         arrowPath.setAttribute("fill-opacity", "0.8");
         marker.appendChild(arrowPath);
         defs.appendChild(marker);
@@ -304,10 +304,10 @@
         const startPos = getLabelPosition(startPoint, config.start, startDistance);
         const startAnchor = anchorForSide(config.start);
         const startValueLabel = createText(startPos.x, startPos.valueY, formatValue(startPoint.value), {
-          anchor: startAnchor, size: 18, weight: 'bold', fill: '#6b3a24', class: 'chart-label chart-label-value'
+          anchor: startAnchor, size: 18, weight: 'bold', fill: '#444', class: 'chart-label chart-label-value'
         });
         const startYearLabel = createText(startPos.x, startPos.yearY, String(startPoint.year), {
-          anchor: startAnchor, size: 14, fill: '#93432c', class: 'chart-label chart-label-year'
+          anchor: startAnchor, size: 14, fill: '#666', class: 'chart-label chart-label-year'
         });
         svg.appendChild(startValueLabel);
         svg.appendChild(startYearLabel);
@@ -316,10 +316,10 @@
         const endPos = getLabelPosition(currentPoint, config.end, endDistance);
         const endAnchor = anchorForSide(config.end);
         const endValueLabel = createText(endPos.x, endPos.valueY, formatValue(currentPoint.value), {
-          anchor: endAnchor, size: 18, weight: 'bold', fill: '#6b3a24', class: 'chart-label chart-label-value'
+          anchor: endAnchor, size: 18, weight: 'bold', fill: '#444', class: 'chart-label chart-label-value'
         });
         const endYearLabel = createText(endPos.x, endPos.yearY, String(currentPoint.year), {
-          anchor: endAnchor, size: 14, fill: '#93432c', class: 'chart-label chart-label-year'
+          anchor: endAnchor, size: 14, fill: '#666', class: 'chart-label chart-label-year'
         });
         svg.appendChild(endValueLabel);
         svg.appendChild(endYearLabel);

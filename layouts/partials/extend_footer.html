@@ -1,0 +1,5 @@
+<div class="wave-container wave-footer">
+    <canvas id="footer-canvas"></canvas>
+</div>
+{{- $js := resources.Get "js/waves.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>

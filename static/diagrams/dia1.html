@@ -13,35 +13,36 @@
         
         body {
             font-family: 'Literata', Georgia, Cambria, 'Noto Serif', serif;
-            background: #fff3dd;
+            background: #f5f5f5;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 10px;
             margin: 0;
+            overflow: hidden;
         }
-        
+
         .container {
-            background: #fff3dd;
-            border: 1px solid #93432c;
+            background: #f5f5f5;
+            border: 1px solid #888;
             border-radius: 10px;
             padding: 15px;
             max-width: 1000px;
             width: 100%;
         }
-        
+
         h1 {
             text-align: center;
-            color: #6b3a24;
+            color: #333;
             margin-bottom: 10px;
             font-size: 24px;
             font-weight: normal;
         }
-        
+
         .subtitle {
             text-align: center;
-            color: #93432c;
+            color: #666;
             margin-bottom: 15px;
             font-size: 14px;
         }
@@ -57,49 +58,49 @@
             stroke-width: 2;
             filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
         }
-        
+
         .frontend {
             fill: #50C878;
             stroke: #2E7A4B;
             stroke-width: 2;
             filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.25));
         }
-        
+
         .pubsub {
             fill: #FF6B6B;
             stroke: #CC4444;
             stroke-width: 2;
             filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.25));
         }
-        
+
         .connection {
-            stroke: #93432c;
+            stroke: #666;
             stroke-width: 2;
             fill: none;
             stroke-dasharray: 5, 3;
             opacity: 0.8;
         }
-        
+
         .arrow {
-            fill: #93432c;
+            fill: #666;
         }
-        
+
         .label {
             font-size: 14px;
-            fill: #6b3a24;
+            fill: #444;
             font-weight: normal;
         }
-        
+
         .component-label {
             font-size: 16px;
             fill: white;
             font-weight: bold;
             text-anchor: middle;
         }
-        
+
         .websocket-label {
             font-size: 12px;
-            fill: #93432c;
+            fill: #666;
             font-style: italic;
         }
         
@@ -109,39 +110,39 @@
         }
         
         .data-flow {
-            stroke: #4A90E2;
+            stroke: #555;
             stroke-width: 3;
             fill: none;
             opacity: 0;
             animation: pulse 2s infinite;
         }
-        
+
         .issues {
             margin-top: 30px;
             padding: 20px;
-            background: #FFF3CD;
-            border-left: 4px solid #FFC107;
+            background: #eee;
+            border-left: 4px solid #888;
             border-radius: 8px;
         }
-        
+
         .issues h3 {
-            color: #856404;
+            color: #444;
             margin-bottom: 10px;
             font-size: 18px;
         }
-        
+
         .issues ul {
             list-style: none;
             padding-left: 0;
         }
-        
+
         .issues li {
-            color: #856404;
+            color: #444;
             margin-bottom: 8px;
             padding-left: 20px;
             position: relative;
         }
-        
+
         .issues li:before {
             content: "⚠";
             position: absolute;
@@ -161,7 +162,7 @@
                     <polygon points="0 0, 10 3, 0 6" class="arrow" />
                 </marker>
                 <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <polygon points="0 0, 10 3, 0 6" fill="#4A90E2" />
+                    <polygon points="0 0, 10 3, 0 6" fill="#555" />
                 </marker>
             </defs>
             

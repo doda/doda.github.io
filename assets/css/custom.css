@@ -1,506 +1,121 @@
-/* Import charts styling */
-@import "charts.css";
+/* Wave animation containers */
+.wave-container {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
 
-/* ========================================
-   Header Simplification & Typography
-   ======================================== */
+.wave-container canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 
-/* Hide breadcrumbs - they're redundant with the main nav */
-.breadcrumbs {
+.wave-footer {
+  margin-top: 0;
+}
+
+/* Compress layout - footer at bottom with wave visible (homepage only) */
+body.list:has(.profile) {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.list:has(.profile) .main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: auto !important;
+}
+
+body.list:has(.profile) .profile {
+  min-height: auto !important;
+}
+
+body.list:has(.profile) .footer {
+  flex-shrink: 0;
+  padding-top: 0;
+}
+
+/* Move theme toggle to far right */
+.nav {
+  position: relative;
+}
+
+.logo-switches {
+  position: absolute;
+  right: var(--gap);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#menu {
+  margin-right: 80px;
+}
+
+/* Hide tags on posts */
+.post-tags {
   display: none;
 }
 
-/* Rebalance typography for calmer hierarchy */
-.single-title {
-  font-size: 2.3rem;
-  line-height: 1.15;
-  margin: 0.6rem 0 0.4rem;
-}
 
-.single-summary {
-  font-size: 1.05rem;
-  line-height: 1.5;
-  margin-bottom: 0.9rem;
-  color: var(--content-secondary);
-}
-
-/* Tone down meta info - make it supporting, not prominent */
-.single-readtime {
-  font-size: 0.85rem;
-  color: rgba(0, 0, 0, 0.55);
-  margin: 0.4rem 0;
-}
-
-/* Convert tags from underlined hashtags to soft pills */
-.single-tags {
+/* Side-by-side profile layout */
+.profile .profile_inner {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin: 1rem 0 1.6rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  text-align: left;
 }
 
-.single-tags span {
-  margin: 0;
+.profile .profile_text {
+  flex: 1;
 }
 
-.single-tags a {
-  text-decoration: none;
-  font-size: 0.8rem;
-  padding: 0.12rem 0.55rem;
-  border-radius: 999px;
-  background: #f3e1c5;
-  border: 1px solid #e7cfa8;
-  color: #6b4524;
-  transition: background 0.2s ease;
+.profile .profile_image img {
+  flex-shrink: 0;
+  border-radius: 8px;
+  width: 160px;
+  height: 210px;
+  object-fit: cover;
 }
 
-.single-tags a:hover {
-  background: #f0d6b5;
-}
-
-/* Remove the # from tags */
-.single-tags a::before {
-  content: '';
-}
-
-/* Tighter header grouping */
-.single-intro-container {
-  margin-top: 1rem;
-  margin-bottom: 2.5rem;
-}
-
-/* Comfortable reading width for content */
-.single-content {
-  max-width: 65ch;
-  margin-bottom: 5rem;
-}
-
-/* Calmer link styling in body text */
-.single-content a {
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.18em;
-}
-
-/* Better paragraph spacing */
-.single-content p {
-  margin: 0 0 1.1rem;
-  line-height: 1.6;
-}
-
-/* Reduce h2 size for better hierarchy */
-.single-content h2 {
-  font-size: 1.4rem;
-  margin-top: 2.4rem;
-  margin-bottom: 0.6rem;
-}
-
-/* h3 even smaller */
-.single-content h3 {
-  font-size: 1.15rem;
-  margin-top: 2rem;
+.profile .profile_inner h1 {
+  margin-top: 0;
   margin-bottom: 0.5rem;
 }
 
-/* Force consistent subtitle heights */
-.chart-section p {
-  min-height: 3em !important;
-  display: block !important;
-}
-
-/* Wide Layout for Charts - Override theme width constraints */
-:root:has(.wide-layout) {
-  --main-width: 1600px !important;
-  --main-padding: 0 !important;
-}
-
-.wide-layout {
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 auto;
-}
-
-/* Fallback for browsers without :has() support */
-html[data-wide-layout] {
-  --main-width: 1600px !important;
-  --main-padding: 0 !important;
-}
-
-/* Force override body constraints */
-body {
-  max-width: var(--main-width) !important;
-}
-
-.wide-layout .single-content,
-.wide-content {
-  max-width: 1600px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  padding: 0 !important;
-}
-
-/* Force override any theme restrictions */
-body .wide-layout,
-body .wide-layout .single-content,
-body .wide-content {
-  max-width: 1600px !important;
-  width: 100% !important;
-}
-
-/* Ensure charts grid uses full available width */
-.wide-layout .charts-grid {
-  width: 100% !important;
-  max-width: none !important;
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 3rem !important;
-}
-
-/* Responsive adjustments for wide layout */
-@media (max-width: 1700px) {
-  .wide-layout .single-content,
-  .wide-content {
-    max-width: 95% !important;
-    padding: 0 !important;
-  }
-  
-  .wide-layout .charts-grid {
-    gap: 2.5rem !important;
-  }
-}
-
-@media (max-width: 1280px) {
-  .wide-layout .single-content,
-  .wide-content {
-    max-width: 90% !important;
-    padding: 0 !important;
-  }
-  
-  .wide-layout .charts-grid {
-    gap: 2rem !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .wide-layout .single-content,
-  .wide-content {
-    max-width: 100% !important;
-    padding: 0 !important;
-  }
-  
-  .wide-layout .charts-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-  }
-}
-
-/* Basic profile picture styling */
-.profile-picture {
-  flex-shrink: 0;
-  margin-top: 6.5rem;
-  width: 220px;
-  height: 260px;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-.profile-picture img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 30% 20%;
-}
-
-/* Writing list layout */
-.writing-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  padding-bottom: 4rem;
-}
-
-.writing-list__header {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  max-width: 720px;
-}
-
-.writing-list--home {
-  margin-top: 3rem;
-}
-
-.writing-list--home .writing-list__header {
-  margin-bottom: 0;
-}
-
-.writing-list--home .writing-list__grid {
-  margin-top: 1rem;
-}
-
-.writing-list__intro {
-  color: var(--content-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.writing-list__intro p {
-  margin-bottom: 0;
-}
-
-.writing-list__grid {
-  display: grid;
-  gap: 1.75rem;
-  margin-top: 0.5rem;
-}
-
-@media (min-width: 768px) {
-  .writing-list__grid {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  }
-}
-
-.writing-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.75rem;
-  border: 1px solid var(--code-border);
-  border-radius: 18px;
-  background: var(--code-background);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.writing-card:hover,
-.writing-card:focus-within {
-  border-color: var(--content-secondary);
-}
-
-.writing-card__link {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  height: 100%;
-  color: inherit;
-  text-decoration: none;
-}
-
-.writing-card__link:focus-visible {
-  outline: 2px solid var(--content-secondary);
-  outline-offset: 6px;
-}
-
-.writing-card__link:hover .writing-card__title,
-.writing-card__link:focus-visible .writing-card__title {
-  text-decoration: underline;
-}
-
-.writing-card__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.85rem;
-  font-family: var(--font-mono);
-  color: var(--content-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.writing-card__date {
-  font-variant-numeric: tabular-nums;
-}
-
-.writing-card__read-time {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.writing-card__title {
-  margin: 0;
-  font-size: 1.4rem;
-  line-height: 1.3;
-}
-
-.writing-card__summary {
-  color: var(--content-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.writing-card__summary p {
-  margin: 0;
-}
-
-@media (max-width: 540px) {
-  .writing-card {
-    padding: 1.5rem;
-  }
-
-  .writing-card__title {
-    font-size: 1.25rem;
-  }
-
-  .writing-card__meta {
-    font-size: 0.75rem;
-  }
-}
-
-/* ========================================
-   Code Block and Inline Code Styling
-   ======================================== */
-
-/* Inline code styling - subtle pill background */
-.single-content code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-               "Liberation Mono", "Courier New", monospace;
-  font-size: 0.9em;
-  background: rgba(0, 0, 0, 0.04);
-  padding: 0.1em 0.35em;
-  border-radius: 0.3em;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  white-space: pre-wrap;
-}
-
-/* Remove pill styling for code inside pre blocks */
-.single-content pre code {
-  background: none;
-  padding: 0;
-  border: 0;
-  font-size: inherit;
-}
-
-/* Code block container styling */
-.single-content pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-               "Liberation Mono", "Courier New", monospace;
-  background: #fff7eb;
-  border-radius: 10px;
-  border: 1px solid #f0d9b4;
-  padding: 1.1rem 1.3rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  overflow-x: auto;
-  margin: 1.4rem 0;
-}
-
-/* Ensure code inside pre inherits line-height */
-.single-content pre code {
+.profile .profile_inner span {
   display: block;
-  line-height: inherit;
+  text-align: left;
 }
 
-/* Make long lines wrap on mobile instead of horizontal scroll */
-@media (max-width: 700px) {
-  .single-content pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
+.profile .profile_cta {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile .profile_cta a {
+  font-weight: 500;
+}
+
+.profile .social-icons {
+  justify-content: flex-start;
+}
+
+@media (max-width: 600px) {
+  .profile .profile_inner {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .profile .profile_inner span {
+    text-align: center;
+  }
+
+  .profile .social-icons {
+    justify-content: center;
   }
 }
-
-/* Chroma syntax highlighting - autumn style adapted for warm palette */
-.chroma { color: #3b2a1a; background-color: transparent; }
-.chroma .x {  }
-.chroma .err { color:#f00; background-color:#faa }
-.chroma .cl {  }
-.chroma .lnlinks { outline:none; text-decoration:none; color:inherit }
-.chroma .lntd { vertical-align:top; padding:0; margin:0; border:0; }
-.chroma .lntable { border-spacing:0; padding:0; margin:0; border:0; }
-.chroma .hl { background-color:#f5e6d3 }
-.chroma .lnt { white-space:pre; -webkit-user-select:none; user-select:none; margin-right:0.4em; padding:0 0.4em 0 0.4em; color:#9b8a6a }
-.chroma .ln { white-space:pre; -webkit-user-select:none; user-select:none; margin-right:0.4em; padding:0 0.4em 0 0.4em; color:#9b8a6a }
-.chroma .line { display:flex; }
-
-/* Keywords - warm brown */
-.chroma .k { color:#b35a00; }
-.chroma .kc { color:#b35a00; }
-.chroma .kd { color:#b35a00; }
-.chroma .kn { color:#b35a00; }
-.chroma .kp { color:#b35a00; }
-.chroma .kr { color:#b35a00; }
-.chroma .kt { color:#008080; }  /* type keywords slightly different */
-
-/* Names and identifiers */
-.chroma .n {  }
-.chroma .na { color:#1e90ff; }  /* attributes */
-.chroma .nc { color:#0a7a00; text-decoration:underline; }  /* class names - green */
-.chroma .no { color:#a03030; }  /* constants - red */
-.chroma .nd { color:#999; }  /* decorators - gray */
-.chroma .ni { color:#800; font-weight:bold; }
-.chroma .ne {  }
-.chroma .nl {  }
-.chroma .nn { color:#008080; text-decoration:underline; }  /* namespaces */
-.chroma .nx {  }
-.chroma .py {  }
-.chroma .nt { color:#1e90ff; font-weight:bold; }
-.chroma .nb { color:#008080; }  /* builtins */
-.chroma .bp { color:#008080; }
-.chroma .nv { color:#a03030; }  /* variables */
-.chroma .vc { color:#a03030; }
-.chroma .vg { color:#a03030; }
-.chroma .vi { color:#a03030; }
-.chroma .vm { color:#a03030; }
-.chroma .nf { color:#0a7a00; }  /* function names - green */
-.chroma .fm { color:#0a7a00; }
-
-/* Literals */
-.chroma .l {  }
-.chroma .ld {  }
-
-/* Strings - warm orange/brown */
-.chroma .s { color:#a05000; }
-.chroma .sa { color:#a05000; }
-.chroma .sb { color:#a05000; }
-.chroma .sc { color:#a05000; }
-.chroma .dl { color:#a05000; }
-.chroma .sd { color:#a05000; }
-.chroma .s2 { color:#a05000; }
-.chroma .se { color:#a05000; }
-.chroma .sh { color:#a05000; }
-.chroma .si { color:#a05000; }
-.chroma .sx { color:#a05000; }
-.chroma .sr { color:#009999; }  /* regex - teal */
-.chroma .s1 { color:#a05000; }
-.chroma .ss { color:#b35a00; }  /* string symbols */
-
-/* Numbers - teal */
-.chroma .m { color:#009999; }
-.chroma .mb { color:#009999; }
-.chroma .mf { color:#009999; }
-.chroma .mh { color:#009999; }
-.chroma .mi { color:#009999; }
-.chroma .il { color:#009999; }
-.chroma .mo { color:#009999; }
-
-/* Operators */
-.chroma .o {  }
-.chroma .ow { color:#b35a00; }
-
-/* Punctuation */
-.chroma .p {  }
-
-/* Comments - warm gray */
-.chroma .c { color:#aaa; font-style:italic; }
-.chroma .ch { color:#aaa; font-style:italic; }
-.chroma .cm { color:#aaa; font-style:italic; }
-.chroma .c1 { color:#aaa; font-style:italic; }
-.chroma .cs { color:#b35a00; font-style:italic; }  /* special comments */
-.chroma .cp { color:#4c8317; }  /* preprocessor */
-.chroma .cpf { color:#4c8317; }
-
-/* Generic */
-.chroma .g {  }
-.chroma .gd { color:#a03030; }  /* deleted */
-.chroma .ge { font-style:italic; }
-.chroma .gr { color:#a03030; }  /* error */
-.chroma .gh { color:#000080; font-weight:bold; }
-.chroma .gi { color:#0a7a00; }  /* inserted */
-.chroma .go { color:#888; }
-.chroma .gp { color:#555; }
-.chroma .gs { font-weight:bold; }
-.chroma .gu { color:#800080; font-weight:bold; }
-.chroma .gt { color:#a03030; }
-.chroma .gl { text-decoration:underline; }
-.chroma .w { color:#bbb; }
