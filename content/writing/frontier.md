@@ -40,7 +40,7 @@ Some of the things I learned during this period:
     - **Prompting:** Still something that is slept on by probably 90% of developers. Whenever your agent makes a mistake, add instructions to `AGENTS.md` / `CLAUDE.md`  to help guide it in that situation.
     - **Multi-Threading / Coordination:** Agents have high latency (slow) but potentially infinite throughput (launch many), so lured by the premise of VIBE CODING ALL THE THINGS, I made `looper` multi-threaded. What ensued was a mess of coordination / thrashing, such as 2 agents fighting over Go versions and continuously attempting to change it (Agent A: Go 1.25 is wrong, the spec says 1.23, Agent B: We have 1.23 but we need 1.25 for this library version with this feature…). Not only that but following agent progress / tracking bugs and improving the harness became a lot more difficult, so I reverted to single-threaded execution.
     - **Overly Defensive:** A pet peeve of mine, this became better with prompting, but the models still love to do purely additive coding, with “safe” defaults, extensive try/except chains and hate deleting code.
-    - **System integration:** Even with the most beautiful, extensive SPEC, coding agents still only output new code token-by-token, and reliable, performant systems are forged in the hells of `prod` , and so while the first “Looper completed” version of `dray` looked like a compelling 100k line of Go, including extensive unit and integration tests, there were still tons of bugs that had to be rooted out by building a demo that actually exercised the various parts of the system.
+    - **System integration:** Even with the most beautiful, extensive SPEC, coding agents still only output new code token-by-token, and reliable, performant systems are forged in the hells of `prod`. After Looper marked all tasks complete, I still made 33 manual commits to dray and 15 to vex. They fell into predictable categories: CI/CD setup, real external system integration (Oxia, Iceberg+DuckDB compatibility), performance optimization, edge case bugs (offset=0 fetch, S3 cancellation), and operational tooling (rebuild scripts, GC workers). The SPECs described *what* to build but not *how it would be operated* or *what other tools would consume it*.
 
 ## The Centaur Age
 
@@ -79,4 +79,5 @@ My takeaways from a few months spent at the frontier of coding models (or at lea
 3. If the task is verifiable, the agent can do it. 
 4. Agent tooling is still in its infancy, models are still very hobbled by a lot of the development tooling being built for humans, this will only get better.
 5. I can hardly get excited about writing code anymore, it feels like a thing of the past. The future is in learning how to recursively improve and leverage coding agents.
-6. It’s time to build. 💪
+6. The "last mile" is predictable: ~30% of real-world work falls outside what SPECs capture—CI/CD, external system integration, performance tuning, edge cases, operational tooling. Future SPECs need an "Operations" section.
+7. It's time to build. 💪
