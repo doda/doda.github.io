@@ -54,7 +54,7 @@ We are currently in the Centaur phase of coding. Coding is different than chess 
 
 ## Conclusion
 
-Did I manage to build production-grade infrastructure projects, comparable to a [WarpStream](https://www.warpstream.com/) or [turbopuffer](https://turbopuffer.com/)? Decidedly, **No**! But that was never the goal. I would say, however, that I managed to, build robust alpha-stage software for both, in a fraction of the time it would have taken me otherwise. Given that I was partly working on these, in the evenings, while on vacation in Costa Rica, and in parallel, I’d say my output was 10x higher than otherwise.
+Did I manage to build production-grade infrastructure projects, comparable to a [WarpStream](https://www.warpstream.com/) or [turbopuffer](https://turbopuffer.com/)? Decidedly, **No**! But that was never the goal. I managed to build robust alpha-stage software for both in a fraction of the time it would have taken otherwise—roughly a 10x productivity multiplier, even accounting for time spent on harness iteration and prompt engineering.
 
 I’m confident that, given more time investment, the software would mature to a point where it is competitive with these products that have been built over years (the alpha release taking more than a year in each case).
 
