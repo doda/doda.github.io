@@ -10,7 +10,7 @@ hideBackToTop: false
 tags: ["ai", "infrastructure"]
 ---
 
-Over the past two months, partially inspired by this [Anthropic blog post](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents), I've been playing with a long-running coding agent harness. Affectionately called [Looper](https://github.com/doda/looper). 
+Over the past two months, partially inspired by this [Anthropic blog post](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents), I've been playing with a long-running coding agent harness. Affectionately called [Looper](https://github.com/doda/looper). [See it in action](https://demo.doda.co/). 
 
 It maintains state in `.git` via simple files such as `task_list.json` (outstanding tasks) and `agent-progress.txt` (what it did in the last session). Each session, it pops the best next task from the list and attempts to make progress on it. Everything runs in [Modal Sandboxes](https://modal.com/docs/guide/sandboxes).
 
@@ -20,6 +20,7 @@ The motivation behind this was to explore the current capabilities of frontier m
 
 - [Dray](https://github.com/doda/dray) - a leaderless, object-storage based Kafka broker implemented in Golang, that compacts records to Iceberg/Parquet (inspired by WarpStream/Ursa Engine)
 - [Vex](https://github.com/doda/vex) - an object-storage based vector search engine (inspired by turbopuffer)
+- [microBPF](https://github.com/doda/microbpf) - eBPF for embedded systems: a sandboxed programmability runtime for constrained kernels (RTOS, microkernels) using JavaScript bytecode
 
 Some of the things I learned during this period:
 
